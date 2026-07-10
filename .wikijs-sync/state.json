@@ -1,0 +1,515 @@
+{
+  "version": 1,
+  "source": "https://redteam-wiki.org",
+  "converter_version": 4,
+  "snapshot_hash": "2292b31ee115b93bf8350bd6e27a891f17c8f9680a832815263604cdb7d406ed",
+  "generated_at": "2026-07-10T08:30:09.770645+00:00",
+  "pages": {
+    "en/IM-vuln": {
+      "route": "/en/IM-vuln",
+      "doc_path": "en/IM-vuln.md",
+      "upstream_hash": "507c6b7205829f14d58c1303ddf22499a98e1b8c7feeca864f2dc19b70613d28",
+      "raw_hash": "2d7bdbb4590d254848e3c12dbdc129bc0b24ee86670d9f93465aab243e71c3ca",
+      "generated_hash": "0338f9a4aaabd7b62f8443faa0ba78a85b64d0bc76616035d0da30c37bd294a2",
+      "updated_at": "2025-11-27T18:24:53.996Z"
+    },
+    "en/anti-vm-cn-specific": {
+      "route": "/en/anti-vm-cn-specific",
+      "doc_path": "en/anti-vm-cn-specific.md",
+      "upstream_hash": "dc84ca3eba8b6f98196de5cbfa225be996a767b0f5a6ee1a5c4b16c424390958",
+      "raw_hash": "2d158414f3c84a8473a2f80b8181aed34fb57d069b36123963d6aedf4caf6b10",
+      "generated_hash": "0effabfeb5f81e49f54cf587fd1d0a2fc44b6e51769e8d9c8c881ab6632bb16b",
+      "updated_at": "2025-12-03T16:13:58.274Z"
+    },
+    "en/ask-question": {
+      "route": "/en/ask-question",
+      "doc_path": "en/ask-question.md",
+      "upstream_hash": "c939cc5eff5c5fdc0ab09e01316217e065e7a07920c906a86b5e307a2dab37c6",
+      "raw_hash": "de9fe1824e155ee7af9a22db0cf6c631620a4088abe32115a126f3fc383d2597",
+      "generated_hash": "38a6cd32fc891cc36fd7fde3e400fefeabdef728a062e8e036708738c0dd6000",
+      "updated_at": "2025-11-19T19:01:46.339Z"
+    },
+    "en/basic-0day": {
+      "route": "/en/basic-0day",
+      "doc_path": "en/basic-0day.md",
+      "upstream_hash": "9b66b01c37de591de32eec5e9817eb025ea26883c1566bf4b27a3a24e62e28d7",
+      "raw_hash": "643f50edda232c26113c16aefd0357a670fed79cbc48f5a1807f192d6fbe762e",
+      "generated_hash": "d2033639707cde107aa03f7585ebd6243952a3a0ce33d48a04b7769e6af39a7a",
+      "updated_at": "2025-12-27T16:16:21.471Z"
+    },
+    "en/basic-nday": {
+      "route": "/en/basic-nday",
+      "doc_path": "en/basic-nday.md",
+      "upstream_hash": "491277d4817fe26cb6537454dec15fe6e98367adf5f0e4227ee623dd3675b6cf",
+      "raw_hash": "92df6e985c2c4609c7a59893131e666ca43c1b30843d7ce6ee982d67efd44865",
+      "generated_hash": "90b49c05e15d83b1c47eacb1feec035370ff5542cdfdfdfd56dfa2c6ae221768",
+      "updated_at": "2025-12-27T15:05:20.994Z"
+    },
+    "en/basic-web-vuln": {
+      "route": "/en/basic-web-vuln",
+      "doc_path": "en/basic-web-vuln.md",
+      "upstream_hash": "02ab02e5543ec01c8468c11e36d4ae787c6b7104cb914cf8272d988633010dc8",
+      "raw_hash": "ed867552b91f5ff5ade6c60d80efa0b7fc7b2b2943927665f569f94e284636ed",
+      "generated_hash": "31a96531b015c4ded458beca45e24f0d4cb3b107e3a83debdac84df7b32108a4",
+      "updated_at": "2025-12-21T08:53:56.767Z"
+    },
+    "en/blinding-edr": {
+      "route": "/en/blinding-edr",
+      "doc_path": "en/blinding-edr.md",
+      "upstream_hash": "1baa833d83a5e05601278d64d50f8370e930f9cd4650c7fc650ddf9686c047b7",
+      "raw_hash": "97873c63e9b3cf324627320ee3891aecdd9aaddace679583295bc8ec65c079f2",
+      "generated_hash": "4e376064bff9537574d0a5571aa79f807bbe831827a325b6192ae1b2cb5310b6",
+      "updated_at": "2025-11-19T20:22:19.689Z"
+    },
+    "en/break-chain": {
+      "route": "/en/break-chain",
+      "doc_path": "en/break-chain.md",
+      "upstream_hash": "f2690f053b27a529bf7bb23271b22619ac55f91545295808a84cce1ddb861de1",
+      "raw_hash": "ff2f85270a979d768ef4a5ddf23874833f95863be97753a002b9a8d5148cd079",
+      "generated_hash": "966c43f541c435e20344dab1b6d27ec9f9bc15c4acf773eaceebd603e381c663",
+      "updated_at": "2026-03-10T18:43:22.748Z"
+    },
+    "en/c2-infrastructure-stealth": {
+      "route": "/en/c2-infrastructure-stealth",
+      "doc_path": "en/c2-infrastructure-stealth.md",
+      "upstream_hash": "701a29f9dd3d79dc62dd1f7d5194b7202a25fd69d001e3bd065c2c1c7fd5c3a3",
+      "raw_hash": "4a1a0085bfa6559b67914c4c0422824becdd1fd6e705b8ee1d049f0b0368a6f3",
+      "generated_hash": "ac8963d2c7177ef0641a510f19c2a2bc920412944ddd38c81a59fa9ec977014d",
+      "updated_at": "2025-12-04T08:47:52.195Z"
+    },
+    "en/c2-payload-and-stealth-comms": {
+      "route": "/en/c2-payload-and-stealth-comms",
+      "doc_path": "en/c2-payload-and-stealth-comms.md",
+      "upstream_hash": "5738464aa518a6c00d2b8159109998d3c48ef7694897f443219d7f933d4cb8a2",
+      "raw_hash": "dd5c1583d3aa064c9eb59cd1a9f9089b0ee45028bad8480b95c9871276272999",
+      "generated_hash": "67fbc976cb7fc89e2f8b72bccad0b866641098e39d747aebe331907a1e4fde92",
+      "updated_at": "2025-12-04T08:48:16.715Z"
+    },
+    "en/choose-file": {
+      "route": "/en/choose-file",
+      "doc_path": "en/choose-file.md",
+      "upstream_hash": "936fb5088b5b1bceaf162180d2b0d8ffd3e3255f309b5029ed42a08d58455d50",
+      "raw_hash": "7d016abbd96e97494c0f4fc3ec97a61d08fb5065fec6a1472a7e7fbc2afa0c26",
+      "generated_hash": "dbb63af3c9d0630799d9c757b7df4b11d94e5c39eedfb335600b741b56b29fff",
+      "updated_at": "2025-11-27T17:27:32.508Z"
+    },
+    "en/credential-harvesting-the-keys-in-your-hand": {
+      "route": "/en/credential-harvesting-the-keys-in-your-hand",
+      "doc_path": "en/credential-harvesting-the-keys-in-your-hand.md",
+      "upstream_hash": "227078fbd428cb4564c33a17a59655525cc1ca2137ba76676499dab14eb46dea",
+      "raw_hash": "d4b5ffaa5e2431cbb42c0d84d963bf6e3169c770474f4b3e5e6505df13e5c6fa",
+      "generated_hash": "f84900eb7a74a71b352a7c3b427d633a7cbb7e650d7a342e232305061136721e",
+      "updated_at": "2025-11-27T16:11:09.837Z"
+    },
+    "en/cs-101": {
+      "route": "/en/cs-101",
+      "doc_path": "en/cs-101.md",
+      "upstream_hash": "73ccd024257e9532abda67dda120aac069abddf224b8ac91316c8be959173690",
+      "raw_hash": "aeeddd8784f4623cb6f23659007f65eab77b29ee91319f08ffd162bef7035c9e",
+      "generated_hash": "9c01edcd7475ca9f5076e54d9c3e5d5f35b04c77e61e7c2415a4d5dd0cf79ab5",
+      "updated_at": "2025-11-19T18:08:12.628Z"
+    },
+    "en/deserialize-basic": {
+      "route": "/en/deserialize-basic",
+      "doc_path": "en/deserialize-basic.md",
+      "upstream_hash": "2673f761faf4d87c95c2487e89c6c47d420ee9c006b1af104570f96720e70787",
+      "raw_hash": "1ceaa8dbcf77756a000e4279530de6482296da8d5257629a4e325aeaf1d90170",
+      "generated_hash": "8614974d00d75d3ec7f4a0cbf5abe1b0bda8dded2025e80f5fe50e39d61ebb44",
+      "updated_at": "2025-12-21T16:00:32.911Z"
+    },
+    "en/dictionary": {
+      "route": "/en/dictionary",
+      "doc_path": "en/dictionary.md",
+      "upstream_hash": "e3b0e59d0a205a3f7659b2df4749cdbaafd02572b8b06e90db70580b94149c4b",
+      "raw_hash": "1d29a7a096bc71cf61b4b95c7831c7701a35cf01f44b7434ecb52136a5aa740e",
+      "generated_hash": "0f2595191b7c3306a62b305faaafabf236a41979e8847842f21f1b8a32df1aca",
+      "updated_at": "2025-11-20T05:00:36.505Z"
+    },
+    "en/dynamic-competition": {
+      "route": "/en/dynamic-competition",
+      "doc_path": "en/dynamic-competition.md",
+      "upstream_hash": "ce7886091f0e5b2160713a754e3d8fb3a0c9faf7bf36826591044fc707636ab7",
+      "raw_hash": "a4a26c620876af9cfdb516266ec46b1f76e8acc196d5adeb47aaa55b32e0712b",
+      "generated_hash": "875355ce0e361862d673bd70eeb733cbcfdd3e6708a521d5e2863286344cc498",
+      "updated_at": "2025-11-19T20:22:03.119Z"
+    },
+    "en/finding-assets": {
+      "route": "/en/finding-assets",
+      "doc_path": "en/finding-assets.md",
+      "upstream_hash": "e1f6f593cdcd337248dda7037630228c1e996f29d09f91bd4ced02481644f0e9",
+      "raw_hash": "6aae573cc84e9e2977a8b7d68458fd86d09e3cee9d23d48ccf5746fa7cb0d4e5",
+      "generated_hash": "2618948d3f906ae2d278cd98bb3ca45e80c2284bd39e05738e19ab623d2533ca",
+      "updated_at": "2025-11-19T20:39:15.373Z"
+    },
+    "en/home": {
+      "route": "/",
+      "doc_path": "index.md",
+      "upstream_hash": "b95cd570954a9d0a7731f374b16ec9a45c5bcd5ee595bfc7b26dd84039f1a16f",
+      "raw_hash": "7880c09d788f0c5c4863d5f45a99af5d78c27ca107b7f6761d5f2d4026ec5d42",
+      "generated_hash": "967703e734639b1d6f1411678e03f54b31560df391018769097301841d40baf5",
+      "updated_at": "2026-03-27T12:00:21.668Z"
+    },
+    "en/im-account-warming-strategy": {
+      "route": "/en/im-account-warming-strategy",
+      "doc_path": "en/im-account-warming-strategy.md",
+      "upstream_hash": "a1b4d421d785e5071ba60e25d5571fac60eb125b88b9c9b46cd4ce25ee2f534c",
+      "raw_hash": "b14b037d95560814517ae1bf83ff194dfbeb5776b0d70c45c86a6ece8e40a14a",
+      "generated_hash": "f3a9dfdfce110375a75cff2ac8e9516891060520e12a8a5b71ae59235bd165c2",
+      "updated_at": "2025-11-27T18:35:59.607Z"
+    },
+    "en/info-collect": {
+      "route": "/en/info-collect",
+      "doc_path": "en/info-collect.md",
+      "upstream_hash": "f0ee096076f011aa9af1ba85f92baec5ac235bc77feae391af2e8449f6dbff48",
+      "raw_hash": "f0bc61d06ac5e20ef255afd29674122327e75d54aba2c01b60ab8328fb78df85",
+      "generated_hash": "76bf2262cf832bb9e85ea999523181f5ccddf1138184cafca0412277dac2d4e1",
+      "updated_at": "2025-11-19T20:44:14.638Z"
+    },
+    "en/lateral-movement": {
+      "route": "/en/lateral-movement",
+      "doc_path": "en/lateral-movement.md",
+      "upstream_hash": "ce041fc126c6d6b3ef6e63e7e9e61e04f47557205b17a6e06c1027336fae1c5f",
+      "raw_hash": "1113e57fc8bb177245fe3fbbda13fa35ccb94220bffc4e838603342c46ae6682",
+      "generated_hash": "d41edeb423aa13e9c3a5e8c19fb1e3de1e95edfdf8b468d45fc8cdde248cfa45",
+      "updated_at": "2026-03-10T17:47:43.029Z"
+    },
+    "en/log-clearing": {
+      "route": "/en/log-clearing",
+      "doc_path": "en/log-clearing.md",
+      "upstream_hash": "dd291965fb40aaceed8f5b0e155646c597a3c8bfc916574409379d25f4608e30",
+      "raw_hash": "e35fab3ec6541040cf8d8d835912c5020c12c6b5612295918715f0a25a444209",
+      "generated_hash": "bfe3a9a929da44c2659c83651657d668e72c2439295194a764d5a9396e2f37eb",
+      "updated_at": "2025-11-27T16:37:45.135Z"
+    },
+    "en/lpe-example": {
+      "route": "/en/lpe-example",
+      "doc_path": "en/lpe-example.md",
+      "upstream_hash": "a6e493c6d84a1816b4dddc7758837c0c4275151798aa1357ac13077e172d2b07",
+      "raw_hash": "4b2d4894ed7d9d5d5978f3edd5e6d708f5b38fcfa6fc218ca9db81334e75d830",
+      "generated_hash": "637b6e6bc8c097559f758bf4a6459971f862069f38ea90c5013a0044db1a632f",
+      "updated_at": "2026-03-27T12:03:18.078Z"
+    },
+    "en/notify": {
+      "route": "/en/notify",
+      "doc_path": "en/notify.md",
+      "upstream_hash": "7e7e73828ec6c6d22045307fabe065eb6b67628e4b9f56e008694019ff8f761b",
+      "raw_hash": "d8b812fd097572cc5140e89cd2279cdd46c868ff012395fbd2acfca52a6eb6b7",
+      "generated_hash": "ed1f663e7e11cca241d682e9ce27685b8d44ecdc52bc5bf857e6d653332ca39e",
+      "updated_at": "2025-11-19T18:27:36.521Z"
+    },
+    "en/people-collect": {
+      "route": "/en/people-collect",
+      "doc_path": "en/people-collect.md",
+      "upstream_hash": "45b650b8e25eb8303e7a83e735c72b449f6c2d0c5affd053e8a05596374860f2",
+      "raw_hash": "9f1e62e579570d9cb7c9b1037cb2e939a1ad149cbeea4f92a49158f51b782b9f",
+      "generated_hash": "db90bc289ccb917962c20b49eed8a894f1030780865075e3ebb48015f3ee7f06",
+      "updated_at": "2025-11-19T20:54:12.752Z"
+    },
+    "en/persistence": {
+      "route": "/en/persistence",
+      "doc_path": "en/persistence.md",
+      "upstream_hash": "b2f45a9b1dbd52c2f4017a8f0cf92555a3cbab36a556d6b365156657885ad9cc",
+      "raw_hash": "1b69d612f7926854967c374f3b76e3123cc77328c118bd774c585607471ba9d8",
+      "generated_hash": "ac1e455ea853a9645b69aa558f88733461d118b7da6ae1fc88c217ded7970840",
+      "updated_at": "2025-11-27T15:21:35.112Z"
+    },
+    "en/persistence-and-credential-harvesting": {
+      "route": "/en/persistence-and-credential-harvesting",
+      "doc_path": "en/persistence-and-credential-harvesting.md",
+      "upstream_hash": "f9799e86c4a78d1f73b46dab75f22dfe78928d2eaaf6a9a244dae1860d6972ec",
+      "raw_hash": "90c1d7c7356d573116d7b6f747cc0b01004d51768429453e34e7beabde49992c",
+      "generated_hash": "b9ce0f9d37cbfe1be23e8747c564924345a43b501a249695404634fef15f9aca",
+      "updated_at": "2025-11-27T17:05:05.956Z"
+    },
+    "en/phishing-starter": {
+      "route": "/en/phishing-starter",
+      "doc_path": "en/phishing-starter.md",
+      "upstream_hash": "a2d03c5568470dcd946e218e2db6e29adfeecd79776e91176e0e47c4ef8708ac",
+      "raw_hash": "721ebb58c86507a6aef41c37333ad766b86626fdb8d784b9de48339d82b56bbc",
+      "generated_hash": "4ca2395ca1cd5e99f34e7458989713385daee81ffbfb18bf90d4f21c2c8aba3b",
+      "updated_at": "2025-11-27T17:57:47.750Z"
+    },
+    "en/phishing-tutorial": {
+      "route": "/en/phishing-tutorial",
+      "doc_path": "en/phishing-tutorial.md",
+      "upstream_hash": "aafbe3735949f48ca5e2b055b2a5ff1c7226b910512700d42e1620bd9b5eff41",
+      "raw_hash": "b84342a067ca086a7157845b4eed6128e65ec3c6d6c36ea4dc5c1fa1cbe7201e",
+      "generated_hash": "1a0d59a22a65ec815f691277daa6fa05d6301ce6e230b7f6984300c3366a1810",
+      "updated_at": "2025-11-27T17:21:18.760Z"
+    },
+    "en/physical-memory-rw-mmpfn": {
+      "route": "/en/physical-memory-rw-mmpfn",
+      "doc_path": "en/physical-memory-rw-mmpfn.md",
+      "upstream_hash": "8c9b08792e87b8e22d6e75eefc758cc523585034b3601e5af61d83fe808260a9",
+      "raw_hash": "874025f96dcf59712cb9631aeeb39ce98193ee5cbc58081a89778e896527c3d2",
+      "generated_hash": "74bd54b8985dad617d86b60df40ad05dcb907c48d84c4ddf034dce2644ed8514",
+      "updated_at": "2026-03-27T12:12:03.942Z"
+    },
+    "en/privilege-escalation": {
+      "route": "/en/privilege-escalation",
+      "doc_path": "en/privilege-escalation.md",
+      "upstream_hash": "cb6c89fec54e0050dd1011b008f7cfcfd70c7ce97e7fe3790c5bdc156b9cad2c",
+      "raw_hash": "a37c8e3cc93d901a29a06aa5afe5be5efef672f06c83fdaed140ee17e7364f2c",
+      "generated_hash": "f39e12e3ad1a3eeccd2a02dc1702c354c59d6762d283b54802327a029c6315f9",
+      "updated_at": "2025-11-27T16:09:24.145Z"
+    },
+    "en/quickstart": {
+      "route": "/en/quickstart",
+      "doc_path": "en/quickstart.md",
+      "upstream_hash": "fa97392a49c8b6a27c29518b1d3f1f62593701d03486d6d3740cf1c457b9255b",
+      "raw_hash": "49c8c988e7fbfbad2b977c71a5288433ef657bce815ade7d229562dfc0a04694",
+      "generated_hash": "6f1662e39d1d30414d9d57b263adfd19f3eec08a38891f6af83677711a460fa1",
+      "updated_at": "2025-11-19T19:42:41.552Z"
+    },
+    "en/scanning": {
+      "route": "/en/scanning",
+      "doc_path": "en/scanning.md",
+      "upstream_hash": "783f177496afc63f9a883ac59834bb81cf1048823e702613732b6e4cfeef5609",
+      "raw_hash": "892e50c1621e94fd02ed0731547249263592ff09074be38e37431deb166a6ef3",
+      "generated_hash": "4fcfb5e41aad65bf2dac8521f05104977f532dbc30bd9c057fea35d5773f3c55",
+      "updated_at": "2026-03-10T18:01:01.162Z"
+    },
+    "en/shellcode-starter": {
+      "route": "/en/shellcode-starter",
+      "doc_path": "en/shellcode-starter.md",
+      "upstream_hash": "e61a96fef2377e19c7300ba08067d1c4ddb1bb0996d36e2936dc70049d2dc4cf",
+      "raw_hash": "5a84ccdc434499ab6eee4dafd7562a2dc535e081517c5ae4c23e81574a9fd717",
+      "generated_hash": "35597792735ded521ac5f67e28453f60ad748ec6a5cd1e0ad3a69b8a0f398c6d",
+      "updated_at": "2025-11-20T05:07:15.191Z"
+    },
+    "en/static-analyze": {
+      "route": "/en/static-analyze",
+      "doc_path": "en/static-analyze.md",
+      "upstream_hash": "701f79a6a97a7c71063a4b6cac170e6e73420238b0034006d78c511c325c949f",
+      "raw_hash": "f285b30d5a65e50720c1775a21bc3382de6d7f09bfdbbf827ec1123b8d6121e0",
+      "generated_hash": "e34e52a0b34969c5d9c7adafcca8d34a9a6e0a73d99cfa04f55eba039adcd2ad",
+      "updated_at": "2025-11-19T19:52:11.155Z"
+    },
+    "en/supply-chain-attack-basic": {
+      "route": "/en/supply-chain-attack-basic",
+      "doc_path": "en/supply-chain-attack-basic.md",
+      "upstream_hash": "1fbbf4837d3e25f3c267cc2228b302aefb1fff47bf68b003df4570ba347a706b",
+      "raw_hash": "3f5b95695362e7a977f9de1e1278057a24c98505bfce7972cae4ed9542645804",
+      "generated_hash": "1660c3705918369cdfd31f99e3ceff4531166cf9759461eff29412595ab3f3e2",
+      "updated_at": "2026-01-21T10:14:41.461Z"
+    },
+    "en/tools-list": {
+      "route": "/en/tools-list",
+      "doc_path": "en/tools-list.md",
+      "upstream_hash": "c6c085f99962996b8b27b9a25ae5f1c2bf68aef7110ee970287e2b3ceb2a44c2",
+      "raw_hash": "c9dcac49d0d4d400d84d8113bf2cac97c6f0f74577ee7d9757151933a3e92d88",
+      "generated_hash": "fa672702399954d147986b82d00fa0eb51bb2f612815a330d814a4c77846ff80",
+      "updated_at": "2025-11-19T18:18:55.660Z"
+    },
+    "en/trojan-starter": {
+      "route": "/en/trojan-starter",
+      "doc_path": "en/trojan-starter.md",
+      "upstream_hash": "04f6d0146f6980cc596ae7cc0f3c3a6e142d720b6d50e43ba4a1f16b4cd9d7ec",
+      "raw_hash": "6ea1e7af49fec2f98972d62acc01a1248df32ec163e7b877a1de206263c11439",
+      "generated_hash": "11cd9b4de4a4313ea689495eff6b21efb3b6e61328009aa117a98394785fb270",
+      "updated_at": "2025-11-19T19:42:23.858Z"
+    },
+    "en/uac-bypass": {
+      "route": "/en/uac-bypass",
+      "doc_path": "en/uac-bypass.md",
+      "upstream_hash": "6692067e5219c1e8f76281a81a2a73c4aa449a5c1b23130e15d0e8a89c24a40e",
+      "raw_hash": "ae896d3830af8718b0cb7e7c022c08a056e21894d616a09ec8cd575d8c8b9110",
+      "generated_hash": "3dd76c4d119907d8821a35e02932c109c6a47bb37811f90424dbe65851d69f46",
+      "updated_at": "2025-11-27T14:08:05.733Z"
+    },
+    "en/web-starter": {
+      "route": "/en/web-starter",
+      "doc_path": "en/web-starter.md",
+      "upstream_hash": "4c409e3b2be5d1003027c74c5f747e451b1362b91d4abde21ae0293249b840b6",
+      "raw_hash": "0ecfb7c4c75e7380b3230382fb1faf96c67535ef6f7f0ea27195279c0d4934fa",
+      "generated_hash": "00c8436121ddafdaad4bd3c229dceccf8980167fc6d409ddcd1ee4f62a61318b",
+      "updated_at": "2025-12-21T06:47:56.679Z"
+    },
+    "en/windows-ad-security": {
+      "route": "/en/windows-ad-security",
+      "doc_path": "en/windows-ad-security.md",
+      "upstream_hash": "93a178ec57ef77180eead0d85efc19875c4bbd24ad0d27aa6c1a68a391086989",
+      "raw_hash": "9c93daaa97ffd6f220a0fa975c7dc6c9b3cc2dec7de0538c2ddc141c79e85758",
+      "generated_hash": "cd3c40d278c0f728dbfd490354da2da01442da731f4e0166f59378832caf1efd",
+      "updated_at": "2026-03-10T18:28:33.221Z"
+    },
+    "en/windows-kernel-vuln": {
+      "route": "/en/windows-kernel-vuln",
+      "doc_path": "en/windows-kernel-vuln.md",
+      "upstream_hash": "83f4fc665dbfc0d215365527f671a7fadbfebf8da7d8f4f2168599c94baf0a36",
+      "raw_hash": "7d462cfb7e242b44fa24615519046f172dde5879066b23a28a43c4684519f102",
+      "generated_hash": "5e0f5bc2117594265e86d9f0159cf8049ee778f3de5abfb727929846c8de2985",
+      "updated_at": "2026-03-30T18:14:27.022Z"
+    }
+  },
+  "assets": {
+    "/%E8%99%9A%E6%8B%9F%E5%8C%96.jpg": {
+      "doc_path": "assets/media/虚拟化.jpg",
+      "upstream_hash": "39533810afa030d62c4c7bc7f0d1e4d1635da50516b4cf9aec42b81c5c813a6e",
+      "generated_hash": "39533810afa030d62c4c7bc7f0d1e4d1635da50516b4cf9aec42b81c5c813a6e",
+      "file_size": 1476402,
+      "mime": "image/jpeg",
+      "updated_at": "2025-12-03T15:45:55.658Z"
+    },
+    "/bh2.png": {
+      "doc_path": "assets/media/bh2.png",
+      "upstream_hash": "ffcb084e0d09e763f35b8507135748e64a4cf169bb0bfc4da5061a7b8d63e180",
+      "generated_hash": "ffcb084e0d09e763f35b8507135748e64a4cf169bb0bfc4da5061a7b8d63e180",
+      "file_size": 1724111,
+      "mime": "image/png",
+      "updated_at": "2026-03-30T17:38:51.231Z"
+    },
+    "/blf-process.png": {
+      "doc_path": "assets/media/blf-process.png",
+      "upstream_hash": "e2e5e64378674074204f99bef0d742ae5db24ef25604e9082acb71037b1e29b5",
+      "generated_hash": "e2e5e64378674074204f99bef0d742ae5db24ef25604e9082acb71037b1e29b5",
+      "file_size": 4207331,
+      "mime": "image/png",
+      "updated_at": "2026-03-30T17:34:46.199Z"
+    },
+    "/clfsencodeblock.png": {
+      "doc_path": "assets/media/clfsencodeblock.png",
+      "upstream_hash": "7e7049c0fd6fec4b051cf15578a69f9ef0993fbd7ea8db273407e54ce014a74f",
+      "generated_hash": "7e7049c0fd6fec4b051cf15578a69f9ef0993fbd7ea8db273407e54ce014a74f",
+      "file_size": 3419808,
+      "mime": "image/png",
+      "updated_at": "2026-03-30T18:14:13.767Z"
+    },
+    "/explorer.png": {
+      "doc_path": "assets/media/explorer.png",
+      "upstream_hash": "e77eaaf13db8f7112806eae17675b7504e0057dfc260cb71e50d78507211b9b8",
+      "generated_hash": "e77eaaf13db8f7112806eae17675b7504e0057dfc260cb71e50d78507211b9b8",
+      "file_size": 63467,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T16:39:46.160Z"
+    },
+    "/ker.png": {
+      "doc_path": "assets/media/ker.png",
+      "upstream_hash": "90928347ac63c4609507a896811dc0ba074309ceb0de003fa53cdd8568816fb7",
+      "generated_hash": "90928347ac63c4609507a896811dc0ba074309ceb0de003fa53cdd8568816fb7",
+      "file_size": 162403,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:20:24.023Z"
+    },
+    "/monkey.png": {
+      "doc_path": "assets/media/monkey.png",
+      "upstream_hash": "27153c1026deaca8264f3e988c631ef7aeae3d69502cfeb398943e0a5446632b",
+      "generated_hash": "27153c1026deaca8264f3e988c631ef7aeae3d69502cfeb398943e0a5446632b",
+      "file_size": 3544280,
+      "mime": "image/png",
+      "updated_at": "2026-03-30T17:36:55.757Z"
+    },
+    "/msg.png": {
+      "doc_path": "assets/media/msg.png",
+      "upstream_hash": "d599be238a039243a10e66fb11e77ae35559c9fc298ab8dff9a12d23b7f0ec22",
+      "generated_hash": "d599be238a039243a10e66fb11e77ae35559c9fc298ab8dff9a12d23b7f0ec22",
+      "file_size": 9112,
+      "mime": "image/png",
+      "updated_at": "2025-11-20T05:07:03.739Z"
+    },
+    "/ntlmchallenge.png": {
+      "doc_path": "assets/media/ntlmchallenge.png",
+      "upstream_hash": "2926fca41499d7c03951d2096bf79b8f8b99f6f3a50c6cc9737eba9d3aa4fe12",
+      "generated_hash": "2926fca41499d7c03951d2096bf79b8f8b99f6f3a50c6cc9737eba9d3aa4fe12",
+      "file_size": 831557,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:19:00.068Z"
+    },
+    "/pml4.jpg": {
+      "doc_path": "assets/media/pml4.jpg",
+      "upstream_hash": "d69e1cb37ea35701143b4caafdee77098435e42847455a173c9eb5dfd4316476",
+      "generated_hash": "d69e1cb37ea35701143b4caafdee77098435e42847455a173c9eb5dfd4316476",
+      "file_size": 1913232,
+      "mime": "image/jpeg",
+      "updated_at": "2025-12-03T16:50:24.466Z"
+    },
+    "/ptt.png": {
+      "doc_path": "assets/media/ptt.png",
+      "upstream_hash": "144e05f10f2e5a86a929212f6fbe27348af0066b713ed1cf8ca4c84f30aef59c",
+      "generated_hash": "144e05f10f2e5a86a929212f6fbe27348af0066b713ed1cf8ca4c84f30aef59c",
+      "file_size": 70111,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:21:59.564Z"
+    },
+    "/qrcode_1763392188197.jpg": {
+      "doc_path": "assets/media/qrcode_1763392188197.jpg",
+      "upstream_hash": "c0423649da8c20a0e5ca913a9f521492909ea19acecf44a477d0d56a5794fbf1",
+      "generated_hash": "c0423649da8c20a0e5ca913a9f521492909ea19acecf44a477d0d56a5794fbf1",
+      "file_size": 470463,
+      "mime": "image/jpeg",
+      "updated_at": "2025-11-17T15:10:15.564Z"
+    },
+    "/reflect.jpg": {
+      "doc_path": "assets/media/reflect.jpg",
+      "upstream_hash": "30588d6deec398385b1df1dc1fa16e96fea293e5bbe2410fef3a6426c8ca795d",
+      "generated_hash": "30588d6deec398385b1df1dc1fa16e96fea293e5bbe2410fef3a6426c8ca795d",
+      "file_size": 14064,
+      "mime": "image/jpeg",
+      "updated_at": "2026-03-27T11:35:03.606Z"
+    },
+    "/reg1.png": {
+      "doc_path": "assets/media/reg1.png",
+      "upstream_hash": "c88fb81ad873df30465749723345006c19cfdff4cd977fb6b8450334e83ce0a4",
+      "generated_hash": "c88fb81ad873df30465749723345006c19cfdff4cd977fb6b8450334e83ce0a4",
+      "file_size": 461394,
+      "mime": "image/png",
+      "updated_at": "2026-03-27T11:45:45.349Z"
+    },
+    "/regpwn.png": {
+      "doc_path": "assets/media/regpwn.png",
+      "upstream_hash": "0fd4a0fec12d4dae4f76ff16049ad1476a4ada41b1e382fb38380fd6e5bcd6c2",
+      "generated_hash": "0fd4a0fec12d4dae4f76ff16049ad1476a4ada41b1e382fb38380fd6e5bcd6c2",
+      "file_size": 522168,
+      "mime": "image/png",
+      "updated_at": "2026-03-27T11:48:01.475Z"
+    },
+    "/resourcebase.png": {
+      "doc_path": "assets/media/resourcebase.png",
+      "upstream_hash": "ebe30008d1f402ee9e839691898e4ed1c479c2c6d943b517bcf1b8351b3abf8e",
+      "generated_hash": "ebe30008d1f402ee9e839691898e4ed1c479c2c6d943b517bcf1b8351b3abf8e",
+      "file_size": 221416,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:25:13.989Z"
+    },
+    "/s4u2.png": {
+      "doc_path": "assets/media/s4u2.png",
+      "upstream_hash": "ee78cee1c67b818566667d9640310ece1c5be87d007d859bc77842f8197f6962",
+      "generated_hash": "ee78cee1c67b818566667d9640310ece1c5be87d007d859bc77842f8197f6962",
+      "file_size": 293613,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:24:32.361Z"
+    },
+    "/shatter.png": {
+      "doc_path": "assets/media/shatter.png",
+      "upstream_hash": "0959885ea5161d2174217309a09b03f7504850bcc8190b36cc71726145d25872",
+      "generated_hash": "0959885ea5161d2174217309a09b03f7504850bcc8190b36cc71726145d25872",
+      "file_size": 1454761,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T16:37:19.944Z"
+    },
+    "/undele.png": {
+      "doc_path": "assets/media/undele.png",
+      "upstream_hash": "d2ffd4a1d50522fd3e5caf6903caf73b2260bb612eb9679fe8c331a93931ebc0",
+      "generated_hash": "d2ffd4a1d50522fd3e5caf6903caf73b2260bb612eb9679fe8c331a93931ebc0",
+      "file_size": 263298,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:23:00.065Z"
+    },
+    "/winafl.png": {
+      "doc_path": "assets/media/winafl.png",
+      "upstream_hash": "89839c7ab49d7039dbf0c8a8db82a18531c22c64e157f5b4bcde9d4e6d9cb001",
+      "generated_hash": "89839c7ab49d7039dbf0c8a8db82a18531c22c64e157f5b4bcde9d4e6d9cb001",
+      "file_size": 71510,
+      "mime": "image/png",
+      "updated_at": "2026-03-30T17:43:17.126Z"
+    },
+    "/winlogon.png": {
+      "doc_path": "assets/media/winlogon.png",
+      "upstream_hash": "9291a8efc89c0661685ab1accd5901b5c21a0042a723f5a60af6767652d9ad4b",
+      "generated_hash": "9291a8efc89c0661685ab1accd5901b5c21a0042a723f5a60af6767652d9ad4b",
+      "file_size": 631425,
+      "mime": "image/png",
+      "updated_at": "2026-03-10T18:26:46.528Z"
+    }
+  }
+}

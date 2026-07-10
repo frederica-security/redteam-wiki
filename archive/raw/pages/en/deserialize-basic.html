@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>反序列化 - 现代进攻技术 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="反序列化 - 现代进攻技术"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/deserialize-basic"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="deserialize-basic" title="反序列化 - 现代进攻技术" description="" :tags="[]" created-at="2025-12-21T14:46:18.899Z" updated-at="2025-12-21T16:00:32.911Z" author-name="bunny" :author-id="3" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLlroPmmK/lpoLkvZXor57nlJ/nmoQiLCJhbmNob3IiOiIj5a6D5piv5aaC5L2V6K+e55Sf55qEIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5a6D5piv5aaC5L2V5oiQ5Li65qKm6a2H55qEIiwiYW5jaG9yIjoiI+Wug+aYr+WmguS9leaIkOS4uuaipumth+eahCIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuiHtOWRveeahOm9v+i9ru+8muWIqeeUqOmTvu+8iEdhZGdldCBDaGFpbu+8iSIsImFuY2hvciI6IiPoh7Tlkb3nmoTpvb/ova7liKnnlKjpk75nYWRnZXQtY2hhaW4iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJXaHkgc28gc2VyaWFsPyIsImFuY2hvciI6IiN3aHktc28tc2VyaWFsIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5Y+N5bqP5YiX5YyW5ryP5rSe5Zyo57qi6Zif6KGM5Yqo5Lit55qE5oSP5LmJ5piv5LuA5LmI77yfIiwiYW5jaG9yIjoiI+WPjeW6j+WIl+WMlua8j+a0nuWcqOe6oumYn+ihjOWKqOS4reeahOaEj+S5ieaYr+S7gOS5iCIsImNoaWxkcmVuIjpbXX1dfV0=" :page-id="38" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="deserialize-basic.md"><template slot="contents"><div><h2 id="它是如何诞生的" class="toc-header"><a class="toc-anchor" href="#它是如何诞生的">¶</a> 它是如何诞生的</h2>
+<p>反序列化（unserialize/deserialize），是序列化（serialize）的逆操作。序列化和反序列化本身只是正常的程序功能，但是一旦设计不慎，缺乏访问控制的反序列化能够导致攻击者改变程序的正常执行流程，这种情况下我们称之为存在反序列化漏洞。<br>
+反序列化漏洞以极其难以理解与掌握而闻名。不过今天这里可以用较为简单的方法来学习它。</p>
+<hr>
+<p>序列化，是指把某个对象“降维”。</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">&lt;?php
+class User {
+    public $username;
+    public $role;
+
+    public function __construct($username, $role) {
+        $this-&gt;username = $username;
+        $this-&gt;role = $role;
+    }
+
+    public function welcome() {
+        return "欢迎回来, " . $this-&gt;username . " (身份: " . $this-&gt;role . ")";
+    }
+}
+
+// --- 第一部分：序列化 (保存) ---
+$user = new User("user01", "Editor");
+$serializedData = serialize($user);
+
+echo "序列化后的字符串: \n" . $serializedData . "\n\n";
+// 输出结果类似于: O:4:"User":2:{s:8:"username";s:6:"user01";s:4:"role";s:6:"Editor";}
+
+// --- 第二部分：反序列化 (还原) ---
+$newObject = unserialize($serializedData);
+
+echo "还原后的对象行为: \n";
+echo $newObject-&gt;welcome(); 
+?&gt;
+</code></pre>
+<p>到这里其实就可以理解为什么需要有序列化和反序列化了。我们有时候需要持久存储或者在网络上传输一个对象，但是这很难直接做到，所以我们按照某种规范，把对象内的数据提取出来，将其组合成字符串，便于存储或者传输，等要使用这个对象的时候，根据字符串找出对应数据，即可将对象还原。</p>
+<p>因此，反序列化实际上是试图还原对象的过程。这就意味着如果反序列化的对象是外部可控的，那么攻击者能够构造一个恶意对象，执行想要的功能。<br>
+最关键的一点是，根据前面的描述，我们很容易意识到一点，反序列化的安全问题来自于对外部输入的信任，而非特定的编程语言特性——这就意味着这种漏洞并不会局限于某一两种编程语言，而是具有广泛的影响。<code>Java，PHP，Python，.NET</code>，以及诸如此类……现在全部笼罩在这种漏洞的风险之中。</p>
+<h2 id="它是如何成为梦魇的" class="toc-header"><a class="toc-anchor" href="#它是如何成为梦魇的">¶</a> 它是如何成为梦魇的</h2>
+<p>2015年，一篇文章出现在了互联网上。作者展示了一种在当时是全新的攻击方式，并且实现了这样的效果：<br>
+<strong>黑掉WebLogic、WebSphere、JBoss、Jenkins 和 OpenNMS。</strong></p>
+<p>参考链接：<br>
+<a href="https://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/" class="is-external-link">https://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/</a></p>
+<p>以一种简单粗暴的方式（几乎横扫整个Java世界），把Java反序列化漏洞带入了世人的视野。</p>
+<hr>
+<p>实际上，由于反序列化是出于还原对象的考虑，因此大部分语言中，反序列化只能还原出系统上本来就存在的类（至少Java是如此）。但是为什么还是发生了这么严重的安全问题？要知道，一个反序列化时会立刻执行恶意命令的类几乎是不可能存在的（因为那基本上属于后门）。<br>
+答案是<strong>利用链</strong>。<br>
+以这篇文章为例，作者实际上是挖掘了Apache Commons Collections这个组件（也就是所谓的CC库）中存在的利用链。而前文所述的各种被黑掉的中间件，正是在有反序列化漏洞的基础上，集成了这一非常普通的常用组件。</p>
+<p>Apache Commons Collections 是 Java 中极其流行的第三方库，专门用于扩展 Java 原生的集合框架（如 List, Map）。它提供了一种叫 Transformer 的接口，允许开发者在操作集合时，对其中的对象进行自动化的转换。</p>
+<h3 id="致命的齿轮利用链gadget-chain" class="toc-header"><a class="toc-anchor" href="#致命的齿轮利用链gadget-chain">¶</a> 致命的齿轮：利用链（Gadget Chain）</h3>
+<p>要把一个简单的“反序列化”操作变成“执行任意命令（RCE）”，需要像搭积木一样把几个类串联起来。</p>
+<p>第一步：核心动力——InvokerTransformer<br>
+这是链条的末端。这个类有一个特性：它可以通过 Java 的反射机制调用任意方法。</p>
+<p>只要黑客能控制它的输入，就可以让它去调用 Runtime.getRuntime().exec("calc.exe")。</p>
+<p>第二步：链式调用——ChainedTransformer<br>
+一个 InvokerTransformer 只能执行一步动作，但 ChainedTransformer 像一个传送带，可以把多个 Transformer 串在一起。</p>
+<p>黑客把多个精心构造的 Transformer 放进去，形成一个： 获取 Runtime 类 -&gt; 获取 getRuntime 方法 -&gt; 执行命令 的完整闭环。</p>
+<p>第三步：自动触发——TransformedMap 或 LazyMap<br>
+这是链条的开关。当 Map 中的数据被修改或访问时，它会自动触发内部的 Transformer。</p>
+<p>第四步：入口点（反序列化）——AnnotationInvocationHandler<br>
+这是最天才的一步。研究人员发现这个 JDK 自带的内部类在反序列化（readObject）时，会去操作一个 Map 成员。</p>
+<p>链条闭合：黑客伪造一个 AnnotationInvocationHandler 的序列化对象，里面塞入恶意构造的 Map。</p>
+<p>触发：当服务器调用 unserialize() 时，会自动触发 AnnotationInvocationHandler 的逻辑，进而触发 Map 转换，最后由 InvokerTransformer 执行系统命令。</p>
+<p>乍一听很复杂（实际上确实有点复杂）。但是底层逻辑是简单的，即某个类的readObject（会在反序列化时被执行，目的是将对象还原）其中会操作其他对象，而其他对象也可以操作另一个对象，最终到达了危险功能。这个过程在复杂的利用链中会比较长，但也有很短的利用链，例如urldns链。</p>
+<p>URLDNS 链的精妙之处在于它利用了 HashMap 的一个“特性”：</p>
+<p>入口点 (Entry Point)：java.util.HashMap</p>
+<p>HashMap 在反序列化（readObject）时，为了重建哈希表，必须重新计算存储的所有键（Key）的哈希值（hash 方法）。</p>
+<p>触发点 (Trigger)：java.net.URL</p>
+<p>当 URL 对象作为 HashMap 的键时，计算其哈希值（调用 URL.hashCode()）会触发一个有趣的动作。</p>
+<p>终点 (Sink)：URLStreamHandler.getHostAddress()</p>
+<p>为了计算 URL 的哈希值，Java 认为必须知道该域名对应的 IP 地址。于是，它会自动调用网络协议栈去发起一次 DNS 解析。</p>
+<p>因此，该链条的目标不是为了执行系统命令（RCE），而是为了让服务器发起一次 DNS 请求。</p>
+<p>当黑客在自己的服务器上监控 DNS 日志时，如果收到了来自目标服务器的解析请求，就证明目标服务器成功触发了反序列化逻辑。<br>
+最重要的一点是：它完全不依赖任何第三方库（只使用 JDK 自带的类），因此在任何安装了 Java 的环境下都能运行。<br>
+在安全测试中，它常被用来当作“探测针”，用来确认一个点是否存在反序列化漏洞。</p>
+<p>所以，反序列化漏洞的底层逻辑其实很纯粹：入口点通常是类的 readObject 方法（在还原对象时被自动触发），它在执行时会链式地调用或修改其他关联对象。通过精心构造这些对象的层级关系，攻击者可以引导程序逻辑最终走向某个危险函数（Sink）。这个过程即所谓的“利用链”，它既可以是像 CC 链那样曲折复杂的长链，也可以是像 URLDNS 链 那样短小精悍、不依赖第三方库的探测短链。</p>
+<hr>
+<p>诚然，在今天，直接通过 Web 接口接收原始二进制流并反序列化的行为已大大减少。然而，对开发效率的极致追求，使得现代应用依然需要跨端传输复杂的对象结构——只是载体从二进制流演变成了 XML 和 JSON。 &gt; 这种转变并未从根本上消除风险。当 JSON 解析器（如 Fastjson 或 Jackson）为了方便开发者，试图根据字符串内容自动“还原”出对应的 Java 对象时，“自动化实例化”的过程再次给了攻击者可乘之机。这本质上是将原本针对 readObject 的攻击，转移到了针对类的 setter、getter 或构造函数的攻击。</p>
+<p>这就是反序列化漏洞的前世今生了，从早期通过网络传输二进制流，到今天的各种json库实现反序列化……我想现在读者已经能建立起一个对这种漏洞的整体认知，并且能大致理解今天的各种反序列化漏洞的成因了。不过如果想要进一步探索这种漏洞，还是需要去逐个分析现有的利用链和历史漏洞。</p>
+<h3 id="why-so-serial" class="toc-header"><a class="toc-anchor" href="#why-so-serial">¶</a> Why so serial?</h3>
+<p><a href="https://github.com/frohoff/ysoserial" class="is-external-link">https://github.com/frohoff/ysoserial</a><br>
+ysoserial工具，最初是用来演示反序列化漏洞的，因此它相当于一个反序列化Payload构造器，等同于SQL注入中的SQLmap的地位。<br>
+基本上，无论是前期对利用链本身的研究，还是后期对工具进行二开从而创作属于自己的利用链，ysoserial都是无法绕开的一款经典工具。<br>
+同样的，后续在<code>.NET</code>领域中，也诞生了对应的另一款工具：<code>ysoserial.net</code><br>
+不过，在一个页面中展示所有语言的反序列化漏洞未免有些激进，更何况还有Python等语言的反序列化没有提及，因此这里碍于篇幅而无法展开，留给各位读者自行探索。</p>
+<h3 id="反序列化漏洞在红队行动中的意义是什么" class="toc-header"><a class="toc-anchor" href="#反序列化漏洞在红队行动中的意义是什么">¶</a> 反序列化漏洞在红队行动中的意义是什么？</h3>
+<p>在之前的页面中，我们提到上传脚本文件作为Webshell，可以使得我们获取服务器权限。但是现代Web应用中，能够通过文件上传漏洞获取权限的情况越来越少了。因此有时候不得不挖掘反序列化漏洞，直接在内存层面上完成攻击，不需要上传或者写入文件，而是直接实现远程代码执行。同时，为了克服现代环境的限制，反序列化漏洞往往能够与<strong>内存马</strong>技术配合，从而在不接触硬盘的情况下实现远程控制。</p>
+<p>内存马，在Java领域最为广泛，是一种不接触磁盘，在内存中直接运行的Webshell，例如通过动态注册一个恶意Filter，使得以某种形式传入的隐蔽参数可以被执行。在过去，内存马需要先上传Webshell，然后执行Webshell来植入内存马（当然，这样就失去大部分意义了……），但是反序列化等现代攻击手段使得整个攻击过程完全在内存中进行，直接远程执行代码打入内存马，然后访问内存马实现远程控制，全程无需写入任何文件。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

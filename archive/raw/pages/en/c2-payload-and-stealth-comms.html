@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>C2载荷与通信技术 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="C2载荷与通信技术"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/c2-payload-and-stealth-comms"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="c2-payload-and-stealth-comms" title="C2载荷与通信技术" description="" :tags="[]" created-at="2025-12-04T08:48:13.601Z" updated-at="2025-12-04T08:48:16.715Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiIxLiBCT0bvvJrovbvph4/nuqfnmoTlhoXlrZjliLrlrqIiLCJhbmNob3IiOiIjaC0xLWJvZui9u+mHj+e6p+eahOWGheWtmOWIuuWuoiIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuS7gOS5iOaYryBCT0YgKEJlYWNvbiBPYmplY3QgRmlsZSnvvJ8iLCJhbmNob3IiOiIj5LuA5LmI5pivLWJvZi1iZWFjb24tb2JqZWN0LWZpbGUiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiJCT0Yg55qE5pys6LSoIiwiYW5jaG9yIjoiI2JvZi3nmoTmnKzotKgiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn5qoIOaWsOaJi+WunuaImO+8muS4uuS7gOS5iOS9oOmcgOimgSBCT0bvvJ8iLCJhbmNob3IiOiIj5paw5omL5a6e5oiY5Li65LuA5LmI5L2g6ZyA6KaBLWJvZiIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoiMi4gLk5FVCDmiafooYzvvJrlhoXlrZjkuK3nmoTlub3ngbUiLCJhbmNob3IiOiIjaC0yLW5ldC3miafooYzlhoXlrZjkuK3nmoTlub3ngbUiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLkuLrku4DkuYjmmK8gQyPvvJ8iLCJhbmNob3IiOiIj5Li65LuA5LmI5pivLWMiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLlroPmmK/lpoLkvZXlt6XkvZznmoTvvJ8iLCJhbmNob3IiOiIj5a6D5piv5aaC5L2V5bel5L2c55qEIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiIzLiDpmpDolL3pgJrkv6HvvJpDRE4g5LiO5LqR5Ye95pWwIChGYWFTKSIsImFuY2hvciI6IiNoLTMt6ZqQ6JS96YCa5L+hY2RuLeS4juS6keWHveaVsC1mYWFzIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+boe+4jyDmlrnmoYjkuIDvvJpDRE4g5Z+f5YmN572uIChEb21haW4gRnJvbnRpbmcpIC8g5Z+f5YCf55SoIiwiYW5jaG9yIjoiI++4jy3mlrnmoYjkuIBjZG4t5Z+f5YmN572uLWRvbWFpbi1mcm9udGluZy3ln5/lgJ/nlKgiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLimIHvuI8g5pa55qGI5LqM77ya5LqR5Ye95pWwIChTZXJ2ZXJsZXNzL0ZhYVMpIOKAlOKAlCDnu4jmnoHku6PnkIYiLCJhbmNob3IiOiIj77iPLeaWueahiOS6jOS6keWHveaVsC1zZXJ2ZXJsZXNzZmFhcy3nu4jmnoHku6PnkIYiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IvCfmoAg5oC757uT77ya5p6E5bu65L2g55qE6ZqQ5b2i572R57ucIiwiYW5jaG9yIjoiI+aAu+e7k+aehOW7uuS9oOeahOmakOW9oue9kee7nCIsImNoaWxkcmVuIjpbXX1d" :page-id="34" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="c2-payload-and-stealth-comms.md"><template slot="contents"><div><p>在引言中，我们提到要建立一个稳固的“后勤基地”。现在，我们要深入到通信的最前线：<br>
+<strong>我们的“间谍”（C2 Agent）如何在敌后执行复杂的任务？它又是如何把情报偷偷传回来的？</strong></p>
+<p>这一章我们将解锁一些有用的技能：</p>
+<ol>
+<li><strong>BOF技术：</strong> 如何不落地文件就能调用 Windows 底层 API？</li>
+<li><strong>NET 执行：</strong> 为什么 C# 是红队最爱的语言？</li>
+<li><strong>隐蔽通信：</strong> 如何利用 CDN 和云函数把流量伪装得天衣无缝？</li>
+</ol>
+<hr>
+<h2 id="h-1-bof轻量级的内存刺客" class="toc-header"><a class="toc-anchor" href="#h-1-bof轻量级的内存刺客">¶</a> 1. BOF：轻量级的内存刺客</h2>
+<h3 id="什么是-bof-beacon-object-file" class="toc-header"><a class="toc-anchor" href="#什么是-bof-beacon-object-file">¶</a> 什么是 BOF (Beacon Object File)？</h3>
+<p>想象一下，你控制了一台电脑，想运行一个简单的功能（比如查看一下当前的域控制器是谁）。</p>
+<ul>
+<li><strong>传统做法：</strong> 写一个 <code>GetDC.exe</code>，上传到目标电脑，运行，然后删除。
+<ul>
+<li><strong>缺点：</strong> 文件落地，容易被杀软抓；频繁创建进程，动静太大。</li>
+</ul>
+</li>
+<li><strong>BOF 做法：</strong> 你写一段 C 代码，编译成一个微小的中间文件（<code>.o</code> 文件）。Cobalt Strike 会把这个小文件直接发送到 Beacon 的内存中，由 Beacon 像加载插件一样直接执行它。
+<ul>
+<li><strong>优点：</strong> <strong>无文件落地</strong>、<strong>无进程创建</strong>、体积极小（几KB）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="bof-的本质" class="toc-header"><a class="toc-anchor" href="#bof-的本质">¶</a> BOF 的本质</h3>
+<p>BOF 本质上是一段<strong>位置无关代码 (PIC)</strong>。它就像是一个没有包装盒的 DLL，不仅没有 EXE 的头文件，甚至连 API 的地址都不知道。<br>
+当 Beacon 接收到 BOF 时，它充当了“链接器”的角色，告诉 BOF：“你要找的 <code>printf</code> 在这里，<code>VirtualAlloc</code> 在那里”，然后直接在当前进程的内存中运行它。</p>
+<h3 id="新手实战为什么你需要-bof" class="toc-header"><a class="toc-anchor" href="#新手实战为什么你需要-bof">¶</a> 🚨 新手实战：为什么你需要 BOF？</h3>
+<p>因为官方的 Beacon 功能有限。社区里有海量的开源 BOF 库（如 <code>CS-Situational-Awareness-BOF</code>），能让你在不上传任何 EXE 的情况下，完成端口扫描、进程枚举、提权检测等高级操作。</p>
+<blockquote>
+<p><strong>💡 简单总结：</strong> BOF 是给你的 C2 植入物安装的“临时技能包”，用完即走，不留痕迹。</p>
+</blockquote>
+<hr>
+<h2 id="h-2-net-执行内存中的幽灵" class="toc-header"><a class="toc-anchor" href="#h-2-net-执行内存中的幽灵">¶</a> 2. .NET 执行：内存中的幽灵</h2>
+<p>除了 C/C++ 写的 BOF，红队最爱的另一个武器是 <strong>C# (.NET)</strong>。</p>
+<h3 id="为什么是-c" class="toc-header"><a class="toc-anchor" href="#为什么是-c">¶</a> 为什么是 C#？</h3>
+<p>Windows 系统自带 .NET 框架。这意味着你可以直接在内存中运行 C# 编译的程序（Assembly），而<strong>不需要把 EXE 文件写到硬盘上</strong>。</p>
+<p>这就是著名的 <strong><code>execute-assembly</code></strong> 技术。</p>
+<h3 id="它是如何工作的" class="toc-header"><a class="toc-anchor" href="#它是如何工作的">¶</a> 它是如何工作的？</h3>
+<ol>
+<li><strong>本地编译：</strong> 你在自己的电脑上把 C# 源码编译成一个 <code>Tool.exe</code>。</li>
+<li><strong>传输：</strong> C2 服务器把这个 <code>Tool.exe</code> 的字节码（不是文件）发送给目标机器上的 Beacon。</li>
+<li><strong>加载：</strong> Beacon 在内存中启动一个临时的 .NET 运行时环境（CLR）。</li>
+<li><strong>执行：</strong> Beacon 把接收到的字节码喂给 CLR，直接运行 <code>Tool.exe</code> 的 <code>Main</code> 函数。</li>
+<li><strong>结束：</strong> 运行结束，内存释放，硬盘上从未出现过 <code>Tool.exe</code>。</li>
+</ol>
+<p><strong>实战价值：</strong> 几乎所有的现代红队工具（如 GhostPack 系列的 <code>Seatbelt</code>、<code>Rubeus</code>）都是 C# 写的。配合 <code>execute-assembly</code>，你可以在内存中肆意使用这些大杀器。</p>
+<hr>
+<h2 id="h-3-隐蔽通信cdn-与云函数-faas" class="toc-header"><a class="toc-anchor" href="#h-3-隐蔽通信cdn-与云函数-faas">¶</a> 3. 隐蔽通信：CDN 与云函数 (FaaS)</h2>
+<p>解决了“怎么执行代码”，我们还要解决“怎么传数据”。如果你的木马直接连接 <code>1.1.1.1</code>（你的 VPS IP），蓝队一眼就能看到。</p>
+<p>我们需要找个掩护。</p>
+<h3 id="️-方案一cdn-域前置-domain-fronting-域借用" class="toc-header"><a class="toc-anchor" href="#️-方案一cdn-域前置-domain-fronting-域借用">¶</a> 🛡️ 方案一：CDN 域前置 (Domain Fronting) / 域借用</h3>
+<p><strong>原理：</strong><br>
+CDN（内容分发网络）就像是一个巨大的快递中转站。当你访问使用了 CDN 的网站时，你其实是在连接 CDN 的边缘节点 IP。</p>
+<ul>
+<li><strong>攻击者：</strong> 注册一个域名 <code>evil.com</code>，并挂在 Cloudflare 等 CDN 上。</li>
+<li><strong>受害者视角：</strong> 木马配置的连接地址是 CDN 的 IP。蓝队看到流量是发往 Cloudflare 的（这是一个高信誉的 IP，上面有成千上万个合法网站），通常不敢直接封禁。</li>
+<li><strong>CDN 视角：</strong> CDN 根据数据包里的 <code>Host</code> 头（<code>Host: evil.com</code>），把流量转发给你的真实 C2 服务器。</li>
+</ul>
+<blockquote>
+<p><strong>进阶技巧：</strong> 配合 <strong>Malleable C2 Profile</strong>，你可以把你的流量伪装成访问 <code>jquery.js</code> 或 <code>amazon.com</code> 的数据包，混在正常的 Web 流量中。</p>
+</blockquote>
+<h3 id="️-方案二云函数-serverlessfaas-终极代理" class="toc-header"><a class="toc-anchor" href="#️-方案二云函数-serverlessfaas-终极代理">¶</a> ☁️ 方案二：云函数 (Serverless/FaaS) —— 终极代理</h3>
+<p>如果你觉得 CDN 还不够安全，或者担心域名被标记，那么 <strong>云函数</strong> 是目前的终极方案。</p>
+<p><strong>什么是云函数？</strong><br>
+云函数（如 AWS Lambda, 阿里云 FC, 腾讯云 SCF）是云厂商提供的一种“跑完即走”的计算服务。你上传代码，它给你一个 API 网关地址（通常是云厂商的高信誉域名，如 <code>azurewebsites.net</code>）。</p>
+<p><strong>攻击架构：</strong><br>
+<code>[木马]</code> -&gt; <code>[云函数 API]</code> -&gt; <code>[你的 C2 服务器]</code></p>
+<p><strong>为什么它难以被封锁？</strong></p>
+<ol>
+<li><strong>域名高信誉：</strong> 通信地址是云厂商的官方域名，且自带 HTTPS 证书，蓝队很难封锁（封了可能误伤正常业务）。</li>
+<li><strong>IP 多变：</strong> 云函数的出口 IP 是动态的，且数量巨大。</li>
+<li><strong>隐身性：</strong> 即使蓝队溯源，也只能查到云函数的地址，查不到你背后真实的 C2 服务器 IP。云函数就像一个完美的“跳板”。</li>
+</ol>
+<blockquote>
+<p><strong>⚠️ 成本警告：</strong> 虽然云函数有免费额度，但如果你的木马疯狂回连（Beacons），可能会产生大量请求费用，甚至被云厂商风控。</p>
+</blockquote>
+<hr>
+<h2 id="总结构建你的隐形网络" class="toc-header"><a class="toc-anchor" href="#总结构建你的隐形网络">¶</a> 🚀 总结：构建你的隐形网络</h2>
+<p>这章我们学习了三个层面的技术：</p>
+<ol>
+<li><strong>执行层（微操）：</strong> 用 <strong>BOF</strong> 在内存中执行 C 代码，轻量且隐蔽。</li>
+<li><strong>执行层（重火）：</strong> 用 <strong>.NET 执行</strong> 在内存中运行复杂的 C# 工具。</li>
+<li><strong>通信层：</strong> 用 <strong>CDN 和云函数</strong> 隐藏真实的 C2 服务器，让流量“大隐隐于市”。</li>
+</ol>
+<p>现在的你，已经不再是那个只会发EXE的脚本小子了。你拥有了一定在内存中挥舞兵器，在云端隐藏踪迹的能力。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

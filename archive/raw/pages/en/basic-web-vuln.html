@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>传统漏洞 - 古老但有效 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="传统漏洞 - 古老但有效"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/basic-web-vuln"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="basic-web-vuln" title="传统漏洞 - 古老但有效" description="" :tags="[]" created-at="2025-12-21T07:52:46.897Z" updated-at="2025-12-21T08:53:56.767Z" author-name="bunny" :author-id="3" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLkvKDnu59XZWLmvI/mtJ4iLCJhbmNob3IiOiIj5Lyg57ufd2Vi5ryP5rSeIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoiU1FM5rOo5YWlIiwiYW5jaG9yIjoiI3NxbOazqOWFpSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuWug+WmguS9leivnueUnyIsImFuY2hvciI6IiPlroPlpoLkvZXor57nlJ8iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLljbHlrrPvvJrku47mlbDmja7ms4TpnLLliLDov5znqIvlkb3ku6TmiafooYwiLCJhbmNob3IiOiIj5Y2x5a6z5LuO5pWw5o2u5rOE6Zyy5Yiw6L+c56iL5ZG95Luk5omn6KGMIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLku7vmhI/mlofku7bkuIrkvKAiLCJhbmNob3IiOiIj5Lu75oSP5paH5Lu25LiK5LygIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5LuOYXNw5YiwU3ByaW5nYm9vdCIsImFuY2hvciI6IiPku45hc3DliLBzcHJpbmdib290IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi546w5Luj5paH5Lu25LiK5Lyg5pS75Ye7IiwiYW5jaG9yIjoiI+eOsOS7o+aWh+S7tuS4iuS8oOaUu+WHuyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuS4gOWKs+awuOmAuCIsImFuY2hvciI6IiPkuIDlirPmsLjpgLgiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuaMluaOmO+8gSIsImFuY2hvciI6IiPmjJbmjpgiLCJjaGlsZHJlbiI6W119XX1d" :page-id="37" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="basic-web-vuln.md"><template slot="contents"><div><h2 id="传统web漏洞" class="toc-header"><a class="toc-anchor" href="#传统web漏洞">¶</a> 传统Web漏洞</h2>
+<p>Web漏洞的类型浩如烟海（SQLInjection，XSS，SSRF，CSRF，LFI，IDOR……），但是其中有些漏洞特别有利于<strong>获取权限</strong>。这一切就像是，一栋房屋可能存在许多问题，但是如果你想要<strong>潜入</strong>它，那么就不能执着于研究它是否存在水管泄露或者墙纸脱落这样的问题（<em>虽然它们的确是问题</em>），而是应该研究它是否有<strong>门窗没有上锁</strong>。</p>
+<h3 id="sql注入" class="toc-header"><a class="toc-anchor" href="#sql注入">¶</a> SQL注入</h3>
+<h4 id="它如何诞生" class="toc-header"><a class="toc-anchor" href="#它如何诞生">¶</a> 它如何诞生</h4>
+<p><em><strong>古老但有效</strong></em> 的一个经典例子。在现代Web应用中，数据库基本上是不可或缺的。你每天打开手机，访问各种APP的时候，它们的后端会去自己的数据库里查找许多信息，例如你是否拥有账号，账号是否有VIP，是否被封号……然后你访问APP中的页面或者视频，那么后端会去搜索数据库中你查询的内容，并且返回到你手机里的APP上，这样你就能看到自己想看到的内容了。</p>
+<p>Web后端是如何与数据库交互的？答案是通过SQL。<br>
+目前市面上有许多数据库，有商业的也有开源免费的。最常见的是mysql和mssql和oracle等。但是它们都能够使用SQL进行操作，其区别只是添加了各自的额外特性，因此SQL是一种通用查询语言。</p>
+<p>来看一个例子：<br>
+<code>select * from users where id = 1;</code><br>
+在数据库中执行，数据库会去users数据表中寻找id为1的用户。<br>
+数据表顾名思义类似于一张表格，例如一张表可能有id，username，password三个字段，然后其中有几十行信息，表示有几十个用户。<br>
+例如，下面就是一张简单的users数据表：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">id</th>
+<th style="text-align:center">username</th>
+<th style="text-align:right">password</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">admin</td>
+<td style="text-align:right">123456</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center">xiaoming</td>
+<td style="text-align:right">114514</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:center">guest</td>
+<td style="text-align:right">114514</td>
+</tr>
+</tbody>
+</table></div>
+<p>那么安全问题从何而来？问题在于，为了业务需求，很显然需要根据用户输入来改变SQL语句，例如我作为用户试图访问<code>http://某个网站/news.php?id=1</code>的时候，后端执行了：<br>
+<code>select content from news where id = 1;</code><br>
+这样就可以返回编号为1的文章内容。<br>
+而id=2的时候：<br>
+<code>select content from news where id = 2;</code><br>
+就会返回另一篇文章。<br>
+但是如果有<em><strong>坏家伙</strong></em>访问了<code>http://某个网站/news.php?id=1 union select 1,2,(select password from users where id=1)</code></p>
+<p>那么本来应该查询news数据库的Web后端，将有可能会去users表查询id为1的用户的密码，并显示在页面上。<br>
+此时的后端代码大致是这样的（有漏洞，大家不要学）：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">// 【风险点】：直接从 URL 参数获取 id，没有进行任何过滤或类型转换
+$id = $_GET['id'];
+
+// 【核心漏洞】：SQL 语句通过字符串拼接构造
+// 正常的预期是：SELECT content FROM news WHERE id = 1
+// 攻击者输入：1 UNION SELECT password FROM users WHERE id = 1
+$sql = "SELECT title, content FROM news WHERE id = " . $id;
+
+$result = $conn-&gt;query($sql);
+</code></pre>
+<p>于是造成了安全隐患。最关键的是，真实的攻击不仅可以查询数据库，由于能够执行任意SQL语句，攻击者有可能利用数据库特性尝试获取服务器权限！</p>
+<hr>
+<p>但是，这是非常古老的场景。现代Web开发普遍采用持久层框架，例如Mybatis等，而不是通过jdbc之类的方式去手动操作数据库。<br>
+<strong>那么，就安全了……吗？</strong></p>
+<p>来看这样一段mybatis xml：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">&lt;select id="searchNews" resultType="News"&gt;
+    SELECT id, title, content 
+    FROM news 
+    WHERE title LIKE '%${keyword}%'
+&lt;/select&gt;
+</code></pre>
+<p>这是一段典型的模糊查询功能的实现，keyword由用户输入，最终被拼接到SQL语句中。许多程序员初步了解可以使用mybatis的#{参数}去避免SQL注入，但是由于实现模糊查询的时候需要提供灵活性，因此还是使用了${参数}的形式，并最终导致SQL注入。</p>
+<hr>
+<h4 id="危害从数据泄露到远程命令执行" class="toc-header"><a class="toc-anchor" href="#危害从数据泄露到远程命令执行">¶</a> 危害：从数据泄露到远程命令执行</h4>
+<p>SQL语句不仅可以执行数据查询，根据数据库的不同，它能够实现<strong>远程命令执行</strong>。<br>
+在Linux系统中，一般使用Mysql数据库，mysql数据库可以通过SQL语句写入文件，攻击者将恶意代码写入Web目录中，从而实现远程控制。即使无法写入Web目录，还可以通过UDF提权等高级手法直接获取服务器权限。<br>
+在Windows中，常见MS SQLServer数据库。这种数据库拥有非常多存在安全隐患的特性。例如众所周知的xp_cmdshell存储过程，攻击者可以执行SQL语句启用该功能，然后直接在服务器上执行系统命令。即使有些管理员出于安全考虑而直接卸载了该功能，攻击者仍然可以利用<code>.NET CLR</code>从内存层面加载C#代码来执行恶意命令，这个攻击过程甚至是<strong>无文件攻击</strong>（不需要接触硬盘，不创建文件）……<br>
+其他数据库也存在许多敏感特性，因此最重要的是从源头解决SQL注入问题，即从代码层面做好防御。</p>
+<h3 id="任意文件上传" class="toc-header"><a class="toc-anchor" href="#任意文件上传">¶</a> 任意文件上传</h3>
+<h4 id="从asp到springboot" class="toc-header"><a class="toc-anchor" href="#从asp到springboot">¶</a> 从asp到Springboot</h4>
+<p>经典的安全问题。早期许多网站是php或者jsp之类的脚本语言编写的（也有asp，但是那个也太古老了），如果在文件上传功能上不加防御，那么攻击者可以上传自己的代码，从而执行想要的功能。<br>
+例如一个php编写页面的网站，我传了自己的php格式文件上去，那么访问对应页面就能执行代码。</p>
+<p>猜猜现代Web应用是怎么解决这个问题的～<br>
+答案是没有解决……而是直接把脚本语言整个丢掉了。<br>
+现在的Web应用往往是直接预先编译再执行的（例如Springboot单文件项目，以及<code>.NET Core</code>，或者Golang之类的），即使上传了脚本也没法解析执行，脚本文件到了服务器上相当于普通的文本文件……</p>
+<p>那么就安全了……吗？<br>
+答案是～并没有。<br>
+在特定情况下，如果文件上传的位置是可控的，那么攻击者可能会尝试把文件传到系统目录里，例如定时任务或者SSH公钥，一样能接管服务器。</p>
+<p>于是代码层面必须考虑文件名是否存在路径穿越（比如说<code>../../../1.txt</code>）。</p>
+<h4 id="现代文件上传攻击" class="toc-header"><a class="toc-anchor" href="#现代文件上传攻击">¶</a> 现代文件上传攻击</h4>
+<p>现在安全了吗？<br>
+也没有。</p>
+<p>想象一下，网站上有个功能允许用户上传压缩包，网站会自动解压并读取其中内容。<br>
+有坏家伙在压缩包里面写了<code>../../../1.txt</code>，但压缩包本身的名字是普通无害的1.zip<br>
+于是解压的那一刻，这个文件被释放到了网站外面。。。。<br>
+这种攻击叫做<em><strong>zip-slip</strong></em>。<br>
+悲剧的是，目前许多语言（例如java）并没有提供很好的zip实现，许多人在凭感觉来编写文件解压功能，于是这种攻击在近些年成为了一种先进的突破手段。</p>
+<h4 id="一劳永逸" class="toc-header"><a class="toc-anchor" href="#一劳永逸">¶</a> 一劳永逸</h4>
+<p>这个词其实不适合出现在安全领域，因为很少有真正一劳永逸的方案。不过至少面对这种漏洞，已有的最佳方案是把文件上传功能交给云服务厂商——其实就是把文件上传到云端存储桶上。这样，即使代码存在问题，也很难影响到Web服务器自身，毕竟文件根本没传到Web服务器上。<br>
+但是这带来了新的，关于云的安全问题……此处就不展开了，想必各位可以有自己的一些思考。</p>
+<h3 id="挖掘" class="toc-header"><a class="toc-anchor" href="#挖掘">¶</a> 挖掘！</h3>
+<p>如何发现Web漏洞？听起来是一个很宽泛的问题。最好的办法是先学习其他人的经验，看看其他人是如何挖掘的。<br>
+hackerone等平台的历史漏洞报告，它们几乎是金库。<br>
+portswigger（就是制作了burp的那个）官网也提供了学习与演练的平台。<br>
+……（有待补充）</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

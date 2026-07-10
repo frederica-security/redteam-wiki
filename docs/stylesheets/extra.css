@@ -1,0 +1,55 @@
+:root {
+  --md-primary-fg-color: #273c75;
+  --md-primary-fg-color--light: #487eb0;
+  --md-primary-fg-color--dark: #192a56;
+}
+
+.md-grid {
+  max-width: 90rem;
+}
+
+.md-typeset {
+  font-size: 0.76rem;
+  line-height: 1.75;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset img {
+  border-radius: 0.35rem;
+  box-shadow: 0 0.1rem 0.35rem rgb(0 0 0 / 12%);
+  height: auto;
+  max-width: 100%;
+}
+
+.md-typeset figure {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  font-size: 0.68rem;
+  width: 100%;
+}
+
+.md-typeset pre > code {
+  white-space: pre;
+}
+
+.md-typeset blockquote {
+  border-left-color: var(--md-primary-fg-color--light);
+}
+
+.license-note {
+  color: var(--md-default-fg-color--light);
+  font-size: 0.7rem;
+  margin-top: 3rem;
+}
+

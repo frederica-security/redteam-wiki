@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>持久化 - 稳固你的战利品 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="持久化 - 稳固你的战利品"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/persistence"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="persistence" title="持久化 - 稳固你的战利品" description="" :tags="[]" created-at="2025-11-27T15:18:03.528Z" updated-at="2025-11-27T15:21:35.112Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W10=" :page-id="23" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="persistence.md"><template slot="contents"><div><p>在上一章，通过 LPE（提权），我们已经拿到了金库的最高管理权（SYSTEM 权限）。现在，我们面临一个新的挑战：</p>
+<blockquote>
+<p><strong>所有的攻击都是暂时的。</strong></p>
+</blockquote>
+<p>如果管理员重启了服务器，或者随手关掉了我们的程序，之前的努力就全部白费了。我们必须重头再来——这在实战中是不可接受的。</p>
+<p><strong>“持久化 (Persistence)”</strong>，就像是在游戏里“存档”。我们的目标是：<strong>无论系统重启多少次，无论管理员做什么，我们的后门都能自动、隐蔽地复活。</strong></p>
+<p>我们将通过四个等级，教你如何把你的“恶意代码”植入 Windows 的每一个角落。</p>
+<hr>
+<h3 id="第一层-把名字写在开机清单上" class="toc-header"><a class="toc-anchor" href="#第一层-把名字写在开机清单上">¶</a> 第一层： “把名字写在开机清单上”</h3>
+<p><em>原理简单，但也最容易被杀毒软件发现。</em></p>
+<p>Windows 系统启动时，会按照一张“清单”逐个运行程序（比如你的微信、QQ自动启动）。黑客最直观的做法，就是把自己的马（Backdoor）加到这张清单里。</p>
+<h4 id="h-1-注册表自启动-registry-run-keys" class="toc-header"><a class="toc-anchor" href="#h-1-注册表自启动-registry-run-keys">¶</a> 1. 📝 注册表自启动 (Registry Run Keys)</h4>
+<p>这是最经典的手段。Windows 注册表里有几个特定的位置（键值），专门用来存放开机启动项。</p>
+<ul>
+<li><strong>位置：</strong> <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></li>
+<li><strong>操作：</strong> 只要在这里添加一行，写上我们木马的路径（例如 <code>C:\temp\backdoor.exe</code>），下次开机它就会自动运行。</li>
+<li><strong>缺点：</strong> 太招摇了。几乎所有的杀毒软件（AV）和运维工具（如 360、火绒）都会死死盯着这里。</li>
+</ul>
+<h4 id="h-2-启动文件夹" class="toc-header"><a class="toc-anchor" href="#h-2-启动文件夹">¶</a> 2. 📂 启动文件夹</h4>
+<p>这就更简单了，直接把木马的快捷方式扔进 <code>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</code> 文件夹里。效果一样，也很容易被发现。（不过，某个常见的杀毒软件竟然不检测特定的后缀名！！）</p>
+<p>当然还有用户自己的启动目录，它甚至不要管理员权限就可以写入 <code>C:\Users\username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+<hr>
+<h3 id="第二层伪装成系统的勤杂工" class="toc-header"><a class="toc-anchor" href="#第二层伪装成系统的勤杂工">¶</a> 第二层：“伪装成系统的勤杂工”</h3>
+<p><em>利用系统自带的合法功能，混淆视听。</em></p>
+<h4 id="h-1-计划任务-scheduled-tasks" class="toc-header"><a class="toc-anchor" href="#h-1-计划任务-scheduled-tasks">¶</a> 1. ⏰ 计划任务 (Scheduled Tasks)</h4>
+<p>Windows 有一个“闹钟”功能，叫<strong>任务计划程序 (Task Scheduler)</strong>。它原本是用来定时更新系统或清理垃圾的。</p>
+<ul>
+<li><strong>简单的思路：</strong> 我们可以创建一个任务，设定为<strong>每当用户登录时</strong>或<strong>每隔30分钟</strong>，就偷偷运行我们的脚本。</li>
+<li><strong>隐蔽性：</strong> 我们可以把任务起名为 <code>GoogleUpdate</code> 或 <code>WindowsSystemCheck</code>，看起来人畜无害，很难引起管理员的怀疑。</li>
+</ul>
+<h4 id="h-2-️-系统服务-services" class="toc-header"><a class="toc-anchor" href="#h-2-️-系统服务-services">¶</a> 2. ⚙️ 系统服务 (Services)</h4>
+<p>服务是 Windows 的核心组件，它们在后台默默运行，甚至不需要用户登录。</p>
+<ul>
+<li><strong>简单的思路：</strong>
+<ul>
+<li><strong>新建服务：</strong> 创建一个叫 <code>Windows Health Monitor</code> 的假服务，实际上运行的是后门。</li>
+<li><strong>服务劫持：</strong> 找到一个合法的服务，修改它的配置，让它启动时顺便加载我们的恶意 DLL。</li>
+</ul>
+</li>
+<li><strong>优势：</strong> 权限极高（通常是 SYSTEM 权限），且很难被手动关闭。</li>
+</ul>
+<hr>
+<h3 id="第三层劫持系统的守门人" class="toc-header"><a class="toc-anchor" href="#第三层劫持系统的守门人">¶</a> 第三层：“劫持系统的守门人”</h3>
+<p><em>修改系统核心流程，让系统主动帮我们运行。</em></p>
+<h4 id="h-1-winlogon-登录劫持" class="toc-header"><a class="toc-anchor" href="#h-1-winlogon-登录劫持">¶</a> 1. Winlogon 登录劫持</h4>
+<p><code>Winlogon.exe</code> 是负责管理用户登录过程的关键进程。当你在输入密码时，它就在工作。</p>
+<ul>
+<li><strong>原理：</strong> 注册表中有一个 <code>Userinit</code> 键值，它规定了用户登录后要运行什么程序（通常是 <code>userinit.exe</code>）。</li>
+<li><strong>手法：</strong> 我们在后面加个“尾巴”。把键值改为 <code>userinit.exe, C:\hacker\backdoor.exe</code>。</li>
+<li><strong>效果：</strong> 每次用户输入密码进入桌面之前，系统都会先贴心地帮我们把后门打开。</li>
+</ul>
+<h4 id="h-2-dll-劫持-dll-hijacking" class="toc-header"><a class="toc-anchor" href="#h-2-dll-劫持-dll-hijacking">¶</a> 2. DLL 劫持 (DLL Hijacking)</h4>
+<p>这是利用了 Windows 的“懒惰”。当一个程序（比如 <code>notepad.exe</code>）需要用一个功能库（DLL）时，它会按照顺序去几个目录里找。</p>
+<ul>
+<li><strong>手法：</strong> 假设程序需要 <code>version.dll</code>。我们自己写一个恶意的 <code>version.dll</code>，放在程序运行的目录下。程序一启动，发现旁边就有个 <code>version.dll</code>，看都不看就直接加载了——<strong>Bingo，代码执行。</strong></li>
+<li><strong>应用：</strong> 这种方法非常隐蔽，属于“借尸还魂”，不过需要转发dll的函数，防止程序的正常功能受到影响。</li>
+</ul>
+<h4 id="h-3-com-劫持" class="toc-header"><a class="toc-anchor" href="#h-3-com-劫持">¶</a> 3. COM 劫持</h4>
+<p>Windows 里的很多软件组件（COM对象）是通过注册表里的 ID (CLSID) 来索引的。</p>
+<ul>
+<li><strong>手法：</strong> 我们修改注册表，把某个常用组件（比如打开文件时会用到的组件）的路径，替换成我们的恶意文件路径。当用户只是简单地浏览文件夹时，后门就触发了。</li>
+</ul>
+<hr>
+<h3 id="第四层无文件攻击与隐形陷阱" class="toc-header"><a class="toc-anchor" href="#第四层无文件攻击与隐形陷阱">¶</a> 第四层：“无文件攻击与隐形陷阱”</h3>
+<p><em>不在硬盘上留下痕迹，或者深埋于系统底层。</em></p>
+<h4 id="h-1-wmi-windows-management-instrumentation" class="toc-header"><a class="toc-anchor" href="#h-1-wmi-windows-management-instrumentation">¶</a> 1. 👻 WMI (Windows Management Instrumentation)</h4>
+<p>这是目前红队最喜欢的<strong>无文件攻击</strong>手段之一。WMI 是 Windows 强大的管理框架。</p>
+<ul>
+<li><strong>原理：</strong> WMI 允许我们设置<strong>事件订阅 (Event Subscription)</strong>。这就像埋设地雷：我们可以设定“当系统启动 2 分钟后”或者“当某个文件被创建时”，触发一段 PowerShell 代码。</li>
+<li><strong>优势：</strong> <strong>没有文件落地！</strong> 恶意代码直接存储在 WMI 数据库里，硬盘上找不到 <code>.exe</code> 文件，传统的杀毒软件很难查杀。</li>
+</ul>
+<h4 id="h-2-️-bootkit-mbr-后门" class="toc-header"><a class="toc-anchor" href="#h-2-️-bootkit-mbr-后门">¶</a> 2. ☠️ Bootkit (MBR 后门)</h4>
+<p>这是终极的大招，但现在很难见到了。不过，最近又出现了一些巧妙的APT野外利用，值得学习 <a href="https://www.kaspersky.com.cn/about/press-releases/more-elusive-and-more-persistent" class="is-external-link">https://www.kaspersky.com.cn/about/press-releases/more-elusive-and-more-persistent</a></p>
+<ul>
+<li><strong>原理：</strong> 修改硬盘的<strong>主引导记录 (MBR)</strong>。</li>
+<li><strong>效果：</strong> 你的病毒运行得<strong>比操作系统还要早</strong>。当 Windows 还在加载 Logo 的时候，病毒已经控制了电脑。不过，随着 UEFI 安全启动的普及，这种古老的魔法正在失效。</li>
+</ul>
+<hr>
+<h3 id="️-防御者视角如何把这些客人赶走" class="toc-header"><a class="toc-anchor" href="#️-防御者视角如何把这些客人赶走">¶</a> 🛡️ 防御者视角：如何把这些客人赶走？</h3>
+<p>作为防御者，他们如何检测我们的行动？</p>
+<ol>
+<li><strong>使用神器 Autoruns：</strong> 微软官方工具 Sysinternals Suite 中的 <code>Autoruns</code> 是检测持久化的神器。它可以扫描上述提到的<strong>几乎所有</strong>启动位置（注册表、服务、计划任务、DLL劫持点等）。</li>
+<li><strong>监控进程父子关系：</strong> 正常的 <code>svchost.exe</code> 是由 <code>services.exe</code> 启动的。如果你发现一个 <code>powershell.exe</code> 突然启动了一个不明程序，那通常有问题。</li>
+<li><strong>定期排查计划任务和 WMI：</strong> 不要只看启动文件夹，那里通常是空的。定期的深度扫描才是关键。</li>
+</ol>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

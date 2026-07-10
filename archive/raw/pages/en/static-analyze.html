@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>静态对抗 - 从特征码到聚类特征 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="静态对抗 - 从特征码到聚类特征"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/static-analyze"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="static-analyze" title="静态对抗 - 从特征码到聚类特征" description="" :tags="[]" created-at="2025-11-19T18:07:32.929Z" updated-at="2025-11-19T19:52:11.155Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLwn46vIOmSiOWvueeOsOS7o+mdmeaAgeWIhuaekOeahOe7lei/h+aAnei3ryIsImFuY2hvciI6IiPpkojlr7nnjrDku6PpnZnmgIHliIbmnpDnmoTnu5Xov4fmgJ3ot68iLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLwn5uh77iPIOaAnei3r+S4gO+8muWAn+WwuOi/mOmtgu+8iOeZveWKoOm7kSAvIERMTCDliqvmjIHvvIkiLCJhbmNob3IiOiIj77iPLeaAnei3r+S4gOWAn+WwuOi/mOmtgueZveWKoOm7kS1kbGwt5Yqr5oyBIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+boe+4jyDmgJ3ot6/kuozvvJrlgbflpKnmjaLml6XvvIjml6Dmlofku7bliKnnlKggLyDop6Pph4rlmajvvIkiLCJhbmNob3IiOiIj77iPLeaAnei3r+S6jOWBt+WkqeaNouaXpeaXoOaWh+S7tuWIqeeUqC3op6Pph4rlmagiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn5uh77iPIOaAnei3r+S4ie+8mum4oOWNoOm5iuW3ou+8iFBFIOWHveaVsOS/ruihpeS4juS7o+eggeautSBQYXRjaGluZ++8iSIsImFuY2hvciI6IiPvuI8t5oCd6Lev5LiJ6big5Y2g6bmK5beicGUt5Ye95pWw5L+u6KGl5LiO5Luj56CB5q61LXBhdGNoaW5nIiwiY2hpbGRyZW4iOltdfV19XQ==" :page-id="12" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="static-analyze.md"><template slot="contents"><div><p>本章节建议搭配芙蕾德莉卡的安全学习科普视频观看 <a href="https://www.bilibili.com/video/BV1QXC1BdE2S" class="is-external-link">https://www.bilibili.com/video/BV1QXC1BdE2S</a></p>
+<p>在上一章，我们成功编写了一个 Loader 并加载了 Cobalt Strike 的 Shellcode。但在实战中，你可能会发现，你的 EXE 文件还没来得及双击，刚复制到桌面就被杀毒软件（AV）无情地秒杀了。</p>
+<p><strong>发生了什么？</strong></p>
+<p>这就像你试图带着一把枪通过机场安检。安检员不需要等你开枪（动态行为）才知道你是危险的，他们只需要看 X 光机（静态扫描），发现你包里有个金属形状像把枪，就立刻把你拦下了。</p>
+<p>本章我们将深入蓝队的视角，剖析杀毒软件是如何在<strong>不运行程序</strong>的情况下，一眼看穿你的恶意代码的。</p>
+<hr>
+<h3 id="h-1-远古时代哈希匹配-hash-matching" class="toc-header"><a class="toc-anchor" href="#h-1-远古时代哈希匹配-hash-matching">¶</a> 1. 远古时代：哈希匹配 (Hash Matching)</h3>
+<p>这是杀毒软件最原始、也是最简单粗暴的手段。</p>
+<ul>
+<li><strong>原理：</strong> AV 厂商维护着一个巨大的黑名单数据库。当你把一个文件复制到电脑上时，AV 会立刻计算这个文件的 <strong>MD5</strong> 或 <strong>SHA-1</strong> 哈希值。如果这个哈希值在黑名单里，杀。</li>
+<li><strong>比喻：</strong> 这就像通缉令上的<strong>指纹对比</strong>。</li>
+<li><strong>红队视角：</strong>
+<ul>
+<li><strong>难度：</strong> 极低。</li>
+<li><strong>绕过：</strong> 哈希的特性是“雪崩效应”。你只需要修改文件中的任何<strong>一个比特（Bit）</strong>（比如在文件末尾加一个空格，或者修改一个无关紧要的字节），整个文件的哈希值就会完全改变。</li>
+<li><strong>现状：</strong> 现在几乎没有单纯靠哈希查杀的 AV 了，这主要是用于云端快速判定已知样本。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="h-2-工业时代特征码查杀-signature-scanning" class="toc-header"><a class="toc-anchor" href="#h-2-工业时代特征码查杀-signature-scanning">¶</a> 2. 工业时代：特征码查杀 (Signature Scanning)</h3>
+<p>由于改个字节就能绕过哈希，AV 厂商进化出了“特征码”技术。这是传统杀软（如早期的 360、火绒、卡巴斯基）的核心能力。</p>
+<ul>
+<li><strong>原理：</strong> AV 不再看整个文件，而是扫描文件中是否存在<strong>特定的、已知的恶意代码片段</strong>。
+<ul>
+<li>例如：Cobalt Strike 默认生成的 Shellcode 开头通常是 <code>\xfc\xe8</code>。AV 只要扫描到文件中连续出现这两个字节，加上后面几个特定的指令序列，就判定为恶意。</li>
+<li>例如：文件中包含字符串 <code>"VirtualAlloc"</code> 且紧接着 <code>"CreateThread"</code>，且文件没有微软签名，判黑。</li>
+</ul>
+</li>
+<li><strong>比喻：</strong> 这就像<strong>纹身识别</strong>。你换了件衣服（改了哈希），但你胳膊上的“左青龙右白虎”（特征码）还在，安检员依然认识你。</li>
+<li><strong>红队视角：</strong>
+<ul>
+<li><strong>难度：</strong> 中等。</li>
+<li><strong>绕过：</strong> 也就是我们常说的“免杀（Bypass AV）”。
+<ul>
+<li><strong>加密/编码：</strong> 如果把 Shellcode 加密（如 XOR、AES），那么 <code>\xfc\xe8</code> 就不存在了，变成了一堆乱码。</li>
+<li><strong>替换指令：</strong> 如果 AV 查杀 <code>Add eax, 1</code>，我就改成 <code>Inc eax</code>，效果一样但机器码不同。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="h-3-静态启发式pe-结构与导入表分析-pe-heuristics" class="toc-header"><a class="toc-anchor" href="#h-3-静态启发式pe-结构与导入表分析-pe-heuristics">¶</a> 3. 静态启发式：PE 结构与导入表分析 (PE Heuristics)</h3>
+<p>随着黑客学会了加密 Shellcode，AV 发现很难找到固定的“特征字符串”了。于是，他们开始分析文件的"长相”（PE 结构）。</p>
+<ul>
+<li><strong>原理：</strong> 分析 Windows 可执行文件（PE）的元数据和结构，寻找“不正常”的迹象。
+<ul>
+<li><strong>导入表 (IAT) 分析：</strong> 一个声明自己是“记事本”的程序，为什么导入了网络连接函数 (<code>socket</code>) 和 内存操作函数 (<code>VirtualAlloc</code>)？这很可疑。</li>
+<li><strong>资源节分析：</strong> 文件的图标是不是太模糊？版本信息是不是乱填的？</li>
+<li><strong>熵值 (Entropy) 分析：</strong> 这是一个大杀器。正常的程序代码是有逻辑的，熵值适中。而<strong>加密后</strong>的 Shellcode 看起来像完全随机的乱码，<strong>熵值极高</strong>。如果 AV 发现一个 EXE 文件的某个段落熵值过高，它会推断：“这里面藏了加密数据，可能是病毒。”</li>
+</ul>
+</li>
+<li><strong>比喻：</strong> 这就像<strong>侧写师</strong>。即使你遮住了纹身，但你大热天穿大衣（高熵值），或者作为一个厨师却随身带着手术刀（异常导入表），依然会被列为嫌疑人。</li>
+<li><strong>红队视角：</strong>
+<ul>
+<li>你需要让你的程序看起来“像个好人”。比如给 Loader 加上合法的数字签名、伪造正常的版本信息、降低代码的熵值。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="h-4-现代战争机器学习与聚类分析-ml-clustering" class="toc-header"><a class="toc-anchor" href="#h-4-现代战争机器学习与聚类分析-ml-clustering">¶</a> 4. 现代战争：机器学习与聚类分析 (ML &amp; Clustering)</h3>
+<p>这是目前最前沿的静态查杀技术，也是让无数免杀师傅头秃的原因。</p>
+<p>现在的 AV（特别是像 Windows Defender、CrowdStrike 这种）不再依赖人工提取特征码，而是把数亿个黑白样本喂给 AI 模型训练。</p>
+<ul>
+<li>
+<p><strong>机器学习 (ML) 判黑：</strong></p>
+<ul>
+<li><strong>原理：</strong> AI 将文件提取出成千上万个维度的特征（指令密度、跳转指令的分布、函数调用的顺序图、字符串的统计学特征等）。它不看具体的某一行代码，而是计算一个<strong>恶意概率</strong>，或者是<strong>综合打分</strong>。</li>
+<li><strong>现状：</strong> 哪怕你用从未见过的加密算法，只要你的 Loader 编译出来的代码结构（Code Structure）和已知的恶意软件<strong>长得像</strong>，AI 就会判定为恶意。</li>
+</ul>
+</li>
+<li>
+<p><strong>聚类分析 (Clustering) - 溯源的噩梦：</strong></p>
+<ul>
+<li>这不仅仅是查杀，更是<strong>情报关联</strong>。</li>
+<li><strong>原理：</strong> 安全厂商（如 VirusTotal）会将捕获的样本进行聚类。如果你写 Loader 的习惯、使用的编译器版本、甚至复制粘贴的某个开源函数，与之前某个黑客组织（APT）的样本高度相似，你的样本会被自动归类到该家族。</li>
+<li><strong>红队视角：</strong> 这意味着“一招鲜吃遍天”的时代结束了。你必须避免代码复用，甚至需要刻意改变编程风格。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="总结静态对抗的本质" class="toc-header"><a class="toc-anchor" href="#总结静态对抗的本质">¶</a> 💡 总结：静态对抗的本质</h3>
+<p>在不运行程序的前提下，静态查杀的演进史就是一场“隐藏特征”与“提取特征”的博弈。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">时代</th>
+<th style="text-align:left">防御方手段 (蓝队)</th>
+<th style="text-align:left">攻击方应对 (红队)</th>
+<th style="text-align:left">核心逻辑</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>远古</strong></td>
+<td style="text-align:left">哈希 (MD5)</td>
+<td style="text-align:left">修改 1 个比特</td>
+<td style="text-align:left">只要我不完全一样，我就不是病毒。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>工业</strong></td>
+<td style="text-align:left">特征码 (Signature)</td>
+<td style="text-align:left">加密 Shellcode、代码变形</td>
+<td style="text-align:left">只要藏好关键部位，我就不是病毒。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>现代</strong></td>
+<td style="text-align:left">机器学习 (ML/AI)</td>
+<td style="text-align:left">模拟合法程序行为、降低熵值</td>
+<td style="text-align:left"><strong>我必须装得像一个正常的良民。</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="针对现代静态分析的绕过思路" class="toc-header"><a class="toc-anchor" href="#针对现代静态分析的绕过思路">¶</a> 🎯 针对现代静态分析的绕过思路</h2>
+<p>针对以 AI 和 PE 结构分析为核心的现代静态查杀，红队的主要思路不再是“藏起特征”，而是“嫁祸于人”或“抹去文件痕迹”。</p>
+<h3 id="️-思路一借尸还魂白加黑-dll-劫持" class="toc-header"><a class="toc-anchor" href="#️-思路一借尸还魂白加黑-dll-劫持">¶</a> 🛡️ 思路一：借尸还魂（白加黑 / DLL 劫持）</h3>
+<ul>
+<li><strong>核心原理：</strong> 利用 Windows 系统或常见软件中**已签名的、合法可执行文件（白 EXE）**的信任度，让它来承担加载恶意代码的风险。</li>
+<li><strong>具体方法：</strong>
+<ol>
+<li>找到一个具备微软数字签名的 <code>白.exe</code> 文件。</li>
+<li>分析该 <code>白.exe</code> 启动时会<strong>缺失</strong>或<strong>优先加载</strong>哪个外部 DLL 文件。</li>
+<li>伪造一个同名但带有恶意 Shellcode 的 <strong>黑.dll</strong> 文件，并将它放在 <code>白.exe</code> 相同目录下。</li>
+</ol>
+</li>
+<li><strong>静态绕过点：</strong> AV/EDR 的静态分析机制看到的是一个拥有<strong>合法数字签名</strong>的 <code>白.exe</code> 文件。它会倾向于相信这个文件是无害的。真正的恶意代码 (<code>黑.dll</code>) 虽然没有签名，但它是由受信任的进程加载的，降低了触发静态警报的概率。</li>
+</ul>
+<h3 id="️-思路二偷天换日无文件利用-解释器" class="toc-header"><a class="toc-anchor" href="#️-思路二偷天换日无文件利用-解释器">¶</a> 🛡️ 思路二：偷天换日（无文件利用 / 解释器）</h3>
+<ul>
+<li><strong>核心原理：</strong> 既然 PE 文件（EXE/DLL）是重点监控对象，那我就根本不使用 PE 文件作为载体。</li>
+<li><strong>具体方法：</strong>
+<ol>
+<li><strong>解释器利用：</strong> 利用系统中已有的、具备合法签名的解释器程序（如 <code>powershell.exe</code>, <code>wscript.exe</code>, <code>python.exe</code>）。</li>
+<li>攻击者通过命令行参数或管道，让解释器执行一个 <strong>脚本</strong>（如 PowerShell 脚本），该脚本负责在内存中下载并执行 Shellcode。</li>
+</ol>
+</li>
+<li><strong>静态绕过点：</strong> 磁盘上只有一个合法的解释器，恶意代码主体甚至<strong>不会作为文件落地</strong>，机器学习模型失去了它的“输入源”。这种技术极大地规避了静态分析。</li>
+</ul>
+<h3 id="️-思路三鸠占鹊巢pe-函数修补与代码段-patching" class="toc-header"><a class="toc-anchor" href="#️-思路三鸠占鹊巢pe-函数修补与代码段-patching">¶</a> 🛡️ 思路三：鸠占鹊巢（PE 函数修补与代码段 Patching）</h3>
+<ul>
+<li><strong>核心原理：</strong> 放弃创建新的恶意 EXE，而是直接修改一个已存在的、合法的、且<strong>带有签名</strong>的 PE 文件内部的执行流程。目标是让文件在静态检测时<strong>完全保留原始文件的特征和签名</strong>。</li>
+<li><strong>具体方法与流程（基于 PE 结构）：</strong>
+<ol>
+<li><strong>选择目标：</strong> 找到一个目标 <code>白.exe</code>。它必须有合法的数字签名，且文件体积较大，以容纳 Shellcode。</li>
+<li><strong>流程分析：</strong> 使用逆向工具（如 IDA）分析 <code>白.exe</code> 的执行流程，找到一个符合条件的函数进行修补。<strong>条件通常包括：</strong>
+<ul>
+<li>该函数处于程序主执行流程中（确保它会被调用）。</li>
+<li>函数体积较大，足以容纳整个恶意 Shellcode。</li>
+<li>该函数最好不是程序的核心功能，修补后不影响程序的正常启动（或仅影响一个小功能）。</li>
+</ul>
+</li>
+<li><strong>地址转换：</strong> 确定该目标函数的<strong>虚拟地址 (VA)</strong> 或<strong>相对虚拟地址 (RVA)</strong>，并将其转换为文件在磁盘上的<strong>文件偏移 (FO)</strong>。</li>
+<li><strong>代码覆盖：</strong> 将你的恶意 Shellcode（必须经过精心设计，确保体积足够小）覆盖到该函数对应的文件偏移位置。</li>
+<li><strong>自然执行：</strong> 当用户运行该文件时，程序流程会自然执行到被覆盖的函数。此时，CPU 执行的将是你修补进去的 Shellcode。</li>
+</ol>
+</li>
+<li><strong>静态绕过点：</strong> * 文件头、导入表、资源段等关键 PE 结构 <strong>没有被破坏</strong>。
+<ul>
+<li><strong>数字签名的干扰</strong>（虽然理论上 Patch 后签名校验会失败，但在某些场景下，只校验文件头和关键段的 AV/EDR 会放行）。</li>
+<li>机器学习模型和聚类分析在提取特征时，读取的是<strong>原始文件的结构</strong>，因此判定该文件为安全的“白文件”。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>那么，如果我们成功骗过了静态扫描，双击运行了程序，是不是就万事大吉了？</strong></p>
+<p><strong>大错特错。</strong></p>
+<p>当你双击的那一刻，另一场更惊心动魄的战争——<strong>动态行为对抗</strong>，才刚刚开始。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

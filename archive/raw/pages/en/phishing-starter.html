@@ -1,0 +1,881 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>钓鱼导论 - 信任关系的建立和诱导 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="钓鱼导论 - 信任关系的建立和诱导"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/phishing-starter"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="phishing-starter" title="钓鱼导论 - 信任关系的建立和诱导" description="" :tags="[]" created-at="2025-11-27T17:45:31.221Z" updated-at="2025-11-27T17:57:47.750Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLpkpPpsbzor53mnK/vvJrlv4PnkIbmiJjnmoToibrmnK8iLCJhbmNob3IiOiIj6ZKT6bG86K+d5pyv5b+D55CG5oiY55qE6Im65pyvIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+SvCDor53mnK/kuIDvvJrlupTogZgv5oub6IGY77yI5pyA5rOb55So77yJIiwiYW5jaG9yIjoiI+ivneacr+S4gOW6lOiBmOaLm+iBmOacgOazm+eUqCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkrwg6K+d5pyv5LqM77ya5Lia5Yqh5ZCI5L2c77yI6ZKI5a+56ZSA5ZSu77yJIiwiYW5jaG9yIjoiI+ivneacr+S6jOS4muWKoeWQiOS9nOmSiOWvuemUgOWUriIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkrwg6K+d5pyv5LiJ77ya5YGH5ryP5rSe5bqU5oClIiwiYW5jaG9yIjoiI+ivneacr+S4ieWBh+a8j+a0nuW6lOaApSIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkrwg6K+d5pyv5Zub77ya5Y+v5L+h56uZ54K55Lit6L2sIiwiYW5jaG9yIjoiI+ivneacr+Wbm+WPr+S/oeermeeCueS4rei9rCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkrwg6K+d5pyv5LqU77ya56ys5LiJ5pa55bmz5Y+w5byV5rWBIiwiYW5jaG9yIjoiI+ivneacr+S6lOesrOS4ieaWueW5s+WPsOW8lea1gSIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi55S16K+d5rKf6YCa77ya5Zu95YaF54m56Imy55qEXCLpkpPpsbzliqDpgJ/lmahcIiIsImFuY2hvciI6IiPnlLXor53msp/pgJrlm73lhoXnibnoibLnmoTpkpPpsbzliqDpgJ/lmagiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLwn5OeIOS4uuS7gOS5iOeUteivneayn+mAmuWcqOWbveWGheeJueWIq+acieaViO+8nyIsImFuY2hvciI6IiPkuLrku4DkuYjnlLXor53msp/pgJrlnKjlm73lhoXnibnliKvmnInmlYgiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn5OeIOeUteivneayn+mAmueahOS4ieS4quaXtuacuiIsImFuY2hvciI6IiPnlLXor53msp/pgJrnmoTkuInkuKrml7bmnLoiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLml7bmnLrkuIDvvJrlj5HpgIHpgq7ku7bliY0iLCJhbmNob3IiOiIj5pe25py65LiA5Y+R6YCB6YKu5Lu25YmNIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5pe25py65LqM77ya5Y+R6YCB6YKu5Lu25ZCO77yI5pyA5bi455So77yJIiwiYW5jaG9yIjoiI+aXtuacuuS6jOWPkemAgemCruS7tuWQjuacgOW4uOeUqCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaXtuacuuS4ie+8muWvueaWueeKueixq+aXtiIsImFuY2hvciI6IiPml7bmnLrkuInlr7nmlrnnirnosavml7YiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IvCfk54g55S16K+d5rKf6YCa55qE6L+b6Zi26K+d5pyvIiwiYW5jaG9yIjoiI+eUteivneayn+mAmueahOi/m+mYtuivneacryIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6Iuivneacr+S4gO+8muWItumAoOe0p+i/q+aEnyIsImFuY2hvciI6IiPor53mnK/kuIDliLbpgKDntKfov6vmhJ8iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLor53mnK/kuozvvJrlu7rnq4vkuJPkuJrlvaLosaEiLCJhbmNob3IiOiIj6K+d5pyv5LqM5bu656uL5LiT5Lia5b2i6LGhIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi6K+d5pyv5LiJ77ya5bqU5a+5XCLmiYvmnLrmiZPkuI3lvIBcIiIsImFuY2hvciI6IiPor53mnK/kuInlupTlr7nmiYvmnLrmiZPkuI3lvIAiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLor53mnK/lm5vvvJrlupTlr7lcIuadgOavkui9r+S7tuitpuWRilwiIiwiYW5jaG9yIjoiI+ivneacr+Wbm+W6lOWvueadgOavkui9r+S7tuitpuWRiiIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi8J+TniDnlLXor53msp/pgJrnmoTpu4Tph5Hml7bpl7QiLCJhbmNob3IiOiIj55S16K+d5rKf6YCa55qE6buE6YeR5pe26Ze0IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+TniDlpJrmrKHmsp/pgJrnrZbnlaUiLCJhbmNob3IiOiIj5aSa5qyh5rKf6YCa562W55WlIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLor7Hlr7zor53mnK/vvJrorqnnm67moIfmjInkvaDnmoTmhI/lm77ooYzliqgiLCJhbmNob3IiOiIj6K+x5a+86K+d5pyv6K6p55uu5qCH5oyJ5L2g55qE5oSP5Zu+6KGM5YqoIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+OrSDmoLjlv4Pljp/liJnvvJrlvJXlr7zogIzpnZ7lkb3ku6QiLCJhbmNob3IiOiIj5qC45b+D5Y6f5YiZ5byV5a+86ICM6Z2e5ZG95LukIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDlnLrmma/kuIDvvJrlvJXlr7znlKjnlLXohJHogIzpnZ7miYvmnLoiLCJhbmNob3IiOiIj5Zy65pmv5LiA5byV5a+855So55S16ISR6ICM6Z2e5omL5py6IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDlnLrmma/kuozvvJrlvJXlr7zlhbPpl63mnYDmr5Lova/ku7YiLCJhbmNob3IiOiIj5Zy65pmv5LqM5byV5a+85YWz6Zet5p2A5q+S6L2v5Lu2IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDlnLrmma/kuInvvJrlvJXlr7zlkK/nlKjlro8iLCJhbmNob3IiOiIj5Zy65pmv5LiJ5byV5a+85ZCv55So5a6PIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDlnLrmma/lm5vvvJrlupTlr7nplb/ml7bpl7TkuI3miZPlvIAiLCJhbmNob3IiOiIj5Zy65pmv5Zub5bqU5a+56ZW/5pe26Ze05LiN5omT5byAIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OrSDlnLrmma/kupTvvJrlupTlr7nmioDmnK/kurrlkZjlrqHmn6UiLCJhbmNob3IiOiIj5Zy65pmv5LqU5bqU5a+55oqA5pyv5Lq65ZGY5a6h5p+lIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiJQbGFuIELvvJrlvZPlip7lhazlj7DlvI/mnLrlpLHmiYvml7bnmoRcIuWknOmXtOS9nOaImFwiIiwiYW5jaG9yIjoiI3BsYW4tYuW9k+WKnuWFrOWPsOW8j+acuuWkseaJi+aXtueahOWknOmXtOS9nOaImCIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IvCfjJkg5Li65LuA5LmI6KaB562J5Yiw5pma5LiK77yfIiwiYW5jaG9yIjoiI+S4uuS7gOS5iOimgeetieWIsOaZmuS4iiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfkrsg5Lik55So5py677ya5L2g55qEXCLnrKzkuozmiJjlnLpcIiIsImFuY2hvciI6IiPkuKTnlKjmnLrkvaDnmoTnrKzkuozmiJjlnLoiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn46vIOS4pOeUqOacuueahOS4ieWkp+eJueeCuSIsImFuY2hvciI6IiPkuKTnlKjmnLrnmoTkuInlpKfnibnngrkiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLnibnngrnkuIDvvJrlronlhajmjqrmlr3nm7jlr7nmnb7mh4giLCJhbmNob3IiOiIj54m554K55LiA5a6J5YWo5o6q5pa955u45a+55p2+5oeIIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi54m554K55LqM77ya572R57uc546v5aKD54m55q6KIiwiYW5jaG9yIjoiI+eJueeCueS6jOe9kee7nOeOr+Wig+eJueauiiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IueJueeCueS4ie+8muaXtumXtOeql+WPo+WPr+mihOa1iyIsImFuY2hvciI6IiPnibnngrnkuInml7bpl7Tnqpflj6Plj6/pooTmtYsiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IvCfjqMg6ZKI5a+55Lik55So5py655qE6ZKT6bG8562W55WlIiwiYW5jaG9yIjoiI+mSiOWvueS4pOeUqOacuueahOmSk+mxvOetlueVpSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuetlueVpeS4gO+8muWNoeaXtumXtOmHjeaWsOmSk+mxvCIsImFuY2hvciI6IiPnrZbnlaXkuIDljaHml7bpl7Tph43mlrDpkpPpsbwiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLnrZbnlaXkuozvvJrlj5HpgIFcIuWoseS5kOexu1wi5paH5Lu2IiwiYW5jaG9yIjoiI+etlueVpeS6jOWPkemAgeWoseS5kOexu+aWh+S7tiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuetlueVpeS4ie+8mumSiOWvuVwi5omL5py654Ot54K5XCLlnLrmma8iLCJhbmNob3IiOiIj562W55Wl5LiJ6ZKI5a+55omL5py654Ot54K55Zy65pmvIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLwn5WQIOaZmumXtOmSk+mxvOeahOacgOS9s+aXtumXtOihqCIsImFuY2hvciI6IiPmmZrpl7TpkpPpsbznmoTmnIDkvbPml7bpl7TooagiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn46vIOWmguS9leWIpOaWreebruagh+S9v+eUqOeahOaYr+S4pOeUqOacuu+8nyIsImFuY2hvciI6IiPlpoLkvZXliKTmlq3nm67moIfkvb/nlKjnmoTmmK/kuKTnlKjmnLoiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLmlrnms5XkuIDvvJrmi5vogZjkv6Hmga/liKTmlq0iLCJhbmNob3IiOiIj5pa55rOV5LiA5oub6IGY5L+h5oGv5Yik5patIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5pa55rOV5LqM77ya56S+5Lqk5bmz5Y+w6KeC5a+fIiwiYW5jaG9yIjoiI+aWueazleS6jOekvuS6pOW5s+WPsOinguWvnyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuaWueazleS4ie+8muebtOaOpeekvuW3peivoumXriIsImFuY2hvciI6IiPmlrnms5XkuInnm7TmjqXnpL7lt6Xor6Lpl64iLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IuKaoO+4jyDkuKTnlKjmnLrpkpPpsbznmoTms6jmhI/kuovpobkiLCJhbmNob3IiOiIj77iPLeS4pOeUqOacuumSk+mxvOeahOazqOaEj+S6i+mhuSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuazqOaEj+S4gO+8mkMyIOmFjee9ruimgeaUr+aMgeWkmue9kee7nOeOr+WigyIsImFuY2hvciI6IiPms6jmhI/kuIBjMi3phY3nva7opoHmlK/mjIHlpJrnvZHnu5znjq/looMiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLms6jmhI/kuozvvJrml7bpl7Tnqpflj6PmnInpmZAiLCJhbmNob3IiOiIj5rOo5oSP5LqM5pe26Ze056qX5Y+j5pyJ6ZmQIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5rOo5oSP5LiJ77ya6KGM5Li66KaB6ZqQ6JS9IiwiYW5jaG9yIjoiI+azqOaEj+S4ieihjOS4uuimgemakOiUvSIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi8J+TiiDmiJDlip/moYjkvovvvJrlpJzpl7TnqoHnoLTnmoTnnJ/lrp7mlYXkuosiLCJhbmNob3IiOiIj5oiQ5Yqf5qGI5L6L5aSc6Ze056qB56C055qE55yf5a6e5pWF5LqLIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+klCDkuLrku4DkuYjkuKTnlKjmnLrmmK9cIui9r+iCi1wi77yfIiwiYW5jaG9yIjoiI+S4uuS7gOS5iOS4pOeUqOacuuaYr+i9r+iCiyIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi6YKu5Lu25Zue5omn77ya6LCB5omT5byA5LqG5L2g55qE6YKu5Lu277yfIiwiYW5jaG9yIjoiI+mCruS7tuWbnuaJp+iwgeaJk+W8gOS6huS9oOeahOmCruS7tiIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IvCflI0g5Li65LuA5LmI6ZyA6KaB5Zue5omn77yfIiwiYW5jaG9yIjoiI+S4uuS7gOS5iOmcgOimgeWbnuaJpyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfk6cg5ZCv55So6YKu5Lu25Zue5omn55qE5pa55rOVIiwiYW5jaG9yIjoiI+WQr+eUqOmCruS7tuWbnuaJp+eahOaWueazlSIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuaWueazleS4gO+8mumCruS7tuWuouaIt+err+iHquW4puWbnuaJpyIsImFuY2hvciI6IiPmlrnms5XkuIDpgq7ku7blrqLmiLfnq6/oh6rluKblm57miaciLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLmlrnms5XkuozvvJrlg4/ntKDot5/ouKrvvIjmm7TpmpDolL3vvIkiLCJhbmNob3IiOiIj5pa55rOV5LqM5YOP57Sg6Lef6Liq5pu06ZqQ6JS9IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi5pa55rOV5LiJ77ya6ZO+5o6l6Lef6LiqIiwiYW5jaG9yIjoiI+aWueazleS4iemTvuaOpei3n+i4qiIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi8J+TiiDpgJrov4flm57miafliKTmlq3orr7lpIfnsbvlnosiLCJhbmNob3IiOiIj6YCa6L+H5Zue5omn5Yik5pat6K6+5aSH57G75Z6LIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+TiiDpgJrov4flm57miafliKTmlq3ml7bpl7TmqKHlvI8iLCJhbmNob3IiOiIj6YCa6L+H5Zue5omn5Yik5pat5pe26Ze05qih5byPIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+OryDln7rkuo7lm57miafnmoTkuozmrKHpkpPpsbznrZbnlaUiLCJhbmNob3IiOiIj5Z+65LqO5Zue5omn55qE5LqM5qyh6ZKT6bG8562W55WlIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi562W55Wl5LiA77ya6ZKI5a+5XCLlt7Lor7vmnKrkuIrnur9cIueahOebruaghyIsImFuY2hvciI6IiPnrZbnlaXkuIDpkojlr7nlt7Lor7vmnKrkuIrnur/nmoTnm67moIciLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLnrZbnlaXkuozvvJrpkojlr7lcIuacquivu1wi55qE55uu5qCHIiwiYW5jaG9yIjoiI+etlueVpeS6jOmSiOWvueacquivu+eahOebruaghyIsImNoaWxkcmVuIjpbXX1dfV19LHsidGl0bGUiOiLmgLvnu5PvvJrkuI3opoHlv4PmgKXvvIzlpJrlpI3nm5jlpJrljaHnu4boioIiLCJhbmNob3IiOiIj5oC757uT5LiN6KaB5b+D5oCl5aSa5aSN55uY5aSa5Y2h57uG6IqCIiwiY2hpbGRyZW4iOltdfV0=" :page-id="28" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="phishing-starter.md"><template slot="contents"><div><h2 id="钓鱼话术心理战的艺术" class="toc-header"><a class="toc-anchor" href="#钓鱼话术心理战的艺术">¶</a> 钓鱼话术：心理战的艺术</h2>
+<p>有了伪装技术，还需要话术配合。而话术是用来建立信任关系的，有了足够的信任关系，才可以驱使对方进行一些非常规行为。</p>
+<h3 id="话术一应聘招聘最泛用" class="toc-header"><a class="toc-anchor" href="#话术一应聘招聘最泛用">¶</a> 💼 话术一：应聘/招聘（最泛用）</h3>
+<p><strong>为什么应聘招聘的模式很泛用？</strong></p>
+<p>没有哪家公司不招人，除非它太小了，就算裁员期的公司也招人。<br>
+没有哪家公司的员工不想跳槽，就算待遇很好，也难免有工作不顺心的时候。<br>
+而且：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">
+1. HR 不是技术人员，安全意识相对薄弱
+2. 简历有"分发属性"（HR 会转给用人部门）
+3. 可以通过第三方平台建立信任
+4. 应聘者可能面临裁员危机 急着找工作
+
+</code></pre>
+<p><strong>完整话术示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：应聘【前端开发工程师】- 张三 - 3年经验
+
+您好，李经理：
+
+我叫张三，毕业于XX大学，3年前端开发经验。
+在 Boss 直聘上看到贵司在招聘前端工程师，非常感兴趣。
+
+我的技术栈：
+- Vue 3 / React 18
+- TypeScript
+- 微前端架构
+
+附件是我的简历和作品集，麻烦查看。
+
+期待您的回复！
+
+张三
+手机：138-0000-1234
+微信：zhang_san_dev
+</code></pre>
+<p><strong>附件：</strong></p>
+<ul>
+<li><code>张三-前端开发-3年.7z</code>（解压后包含<strong>个人简历.pdf.lnk</strong>）</li>
+</ul>
+<hr>
+<h3 id="话术二业务合作针对销售" class="toc-header"><a class="toc-anchor" href="#话术二业务合作针对销售">¶</a> 💼 话术二：业务合作（针对销售）</h3>
+<p><strong>前提：</strong> 从公司官网找到"商务合作"邮箱</p>
+<p><strong>话术示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：XX科技 - 代理商资质申请
+
+您好，李经理：
+
+我是 XX 科技有限公司的商务经理张三。
+我们在华东地区有较强的渠道资源，看到贵司产品非常感兴趣。
+
+我们的优势：
+- 华东地区 50+ 合作伙伴
+- 年销售额 5000万+
+- 有独立的技术支持团队
+
+附件是我们的营业执照和资质证明，麻烦审核。
+
+期待与您合作！
+
+张三
+XX科技有限公司 商务经理
+手机：138-0000-1234
+公司官网：www.xx-tech.com
+</code></pre>
+<p><strong>附件：</strong></p>
+<ul>
+<li><code>XX科技-营业执照.pdf.lnk</code></li>
+<li><code>XX科技-资质证明.rar</code>（自解压）</li>
+</ul>
+<hr>
+<h3 id="话术三假漏洞应急" class="toc-header"><a class="toc-anchor" href="#话术三假漏洞应急">¶</a> 💼 话术三：假漏洞应急</h3>
+<p><strong>场景：</strong> 目标公司用了第三方软件，正好有漏洞</p>
+<p><strong>话术示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：【严重漏洞】某某系统存在 SQL 注入
+
+您好，安全团队：
+
+我方是 XX 系统供应商，该系统最近存在 SQL 注入漏洞。
+
+漏洞详情：
+- URL: https://xxx.com/api/user
+- 参数：id
+- 影响：可以获取所有用户信息
+
+附件是漏洞复现工具和截图，请尽快修复。
+
+（附上几张看起来很专业的截图）
+</code></pre>
+<p><strong>附件：</strong></p>
+<ul>
+<li><code>SQL注入复现工具.exe</code>（实际是木马，但会真的输出一些看似漏洞的数据）</li>
+<li><code>漏洞截图.png</code>（真实的截图）</li>
+</ul>
+<p><strong>为什么有效？</strong></p>
+<ul>
+<li>利用应急人员的责任心</li>
+<li>即使知道有风险，也不得不查看</li>
+<li>如果是真漏洞，不处理会造成严重后果</li>
+</ul>
+<hr>
+<h3 id="话术四可信站点中转" class="toc-header"><a class="toc-anchor" href="#话术四可信站点中转">¶</a> 💼 话术四：可信站点中转</h3>
+<p><strong>问题：</strong> 邮件网关会扫描附件</p>
+<p><strong>解决：</strong> 把木马传到目标公司自己的网站</p>
+<p><strong>操作步骤：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">1. 找到目标公司的某个可上传文件的地方
+   - 论坛
+   - 文件分享平台
+   - 招聘系统
+
+2. 上传你的木马
+   获得下载链接：https://目标公司.com/files/简历.7z
+
+3. 发送钓鱼邮件：
+   "这是我的简历，已经传过一次你们的招聘系统了：https://目标公司.com/files/简历.7z"
+</code></pre>
+<p><strong>为什么有效？</strong></p>
+<ul>
+<li>下载链接是目标公司自己的域名</li>
+<li>邮件网关可能不会拦截自己域名的链接</li>
+<li>用户看到是公司域名，更容易信任</li>
+</ul>
+<hr>
+<h3 id="话术五第三方平台引流" class="toc-header"><a class="toc-anchor" href="#话术五第三方平台引流">¶</a> 💼 话术五：第三方平台引流</h3>
+<p><strong>场景：</strong> 通过招聘网站建立信任</p>
+<p><strong>操作流程：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">1. 在 Boss 直聘上找到目标公司的招聘信息
+2. 投递简历（正常的简历，不含木马）
+3. 和 HR 聊天，建立信任
+4. HR："能发一下你的详细简历吗？"
+5. 你："好的，我用邮件发给您"
+6. 发送钓鱼邮件（此时 HR 已经信任你）
+</code></pre>
+<hr>
+<h2 id="电话沟通国内特色的钓鱼加速器" class="toc-header"><a class="toc-anchor" href="#电话沟通国内特色的钓鱼加速器">¶</a> 电话沟通：国内特色的"钓鱼加速器"</h2>
+<h3 id="为什么电话沟通在国内特别有效" class="toc-header"><a class="toc-anchor" href="#为什么电话沟通在国内特别有效">¶</a> 📞 为什么电话沟通在国内特别有效？</h3>
+<p><strong>国内的特殊文化背景：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">1. 中国人重视"人情"，电话沟通后更容易信任
+2. 很多企业员工习惯电话确认邮件内容
+3. 语音比文字更容易建立信任感
+4. 可以实时引导，解决对方的疑虑
+</code></pre>
+<p><strong>数据对比：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">仅发邮件的成功率：10-15%
+邮件 + 电话的成功率：30-40%
+</code></pre>
+<hr>
+<h3 id="电话沟通的三个时机" class="toc-header"><a class="toc-anchor" href="#电话沟通的三个时机">¶</a> 📞 电话沟通的三个时机</h3>
+<h4 id="时机一发送邮件前" class="toc-header"><a class="toc-anchor" href="#时机一发送邮件前">¶</a> 时机一：发送邮件前</h4>
+<p><strong>场景：</strong> 伪装成求职者</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">对话示例：
+
+你："您好，是李经理吗？我在 Boss 上看到贵司在招前端开发。"
+HR："是的，你是？"
+你："我叫张三，有 3 年经验，想应聘这个职位。"
+HR："好的，你把简历发到 hr@xxx.com"
+你："好的，我马上发，麻烦您查收。"
+
+（挂断电话后立即发送钓鱼邮件）
+</code></pre>
+<p><strong>为什么有效？</strong></p>
+<ul>
+<li>✅ 建立了真实的联系</li>
+<li>✅ HR 会主动去找你的邮件</li>
+<li>✅ 有了电话沟通，HR 不会怀疑邮件的真实性</li>
+</ul>
+<hr>
+<h4 id="时机二发送邮件后最常用" class="toc-header"><a class="toc-anchor" href="#时机二发送邮件后最常用">¶</a> 时机二：发送邮件后（最常用）</h4>
+<p><strong>场景：</strong> 对方可能在手机上查看邮件</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">等待 10-15 分钟后打电话：
+
+你："您好，李经理，我是刚才给您投简历的张三。"
+HR："哦，我看到邮件了。"
+你："麻烦您查收一下，如果有任何问题可以随时联系我。"
+HR："好的，我看看。"
+
+（如果对方在手机上）
+HR："诶，我在手机上打不开你的简历。"
+你："哦，不好意思，我这个简历是用 Word 编辑的，用手机可能打不开。您方便的话，在电脑上用 Word 打开一下就可以了。"
+</code></pre>
+<p><strong>关键话术：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"这个文件是在电脑上编辑的，需要用 Word/Excel 打开"
+"手机上可能显示不正常，建议在电脑上查看"
+"我的作品集里有一些交互效果，手机上看不了"
+</code></pre>
+<hr>
+<h4 id="时机三对方犹豫时" class="toc-header"><a class="toc-anchor" href="#时机三对方犹豫时">¶</a> 时机三：对方犹豫时</h4>
+<p><strong>场景：</strong> 对方可能产生了怀疑</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">如果对方长时间没有反应，再次打电话：
+
+你："您好，李经理，我想确认一下您是否收到了我的简历？"
+HR："收到了，不过我还没打开。"
+你："好的，没关系。我看贵司这个职位要求有 Vue 和 React 经验，正好是我擅长的，所以特别想争取这个机会。您方便的话帮我看一下吧。"
+HR："好的，我待会看看。"
+
+（施加一点点压力，同时表达真诚）
+</code></pre>
+<hr>
+<h3 id="电话沟通的进阶话术" class="toc-header"><a class="toc-anchor" href="#电话沟通的进阶话术">¶</a> 📞 电话沟通的进阶话术</h3>
+<h4 id="话术一制造紧迫感" class="toc-header"><a class="toc-anchor" href="#话术一制造紧迫感">¶</a> 话术一：制造紧迫感</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"李经理，我这边还有另外两个 offer 在等我回复，但我还是更想加入贵司。如果您觉得合适的话，咱们能尽快安排个面试吗？"
+
+（暗示：我很抢手，你要抓紧）
+</code></pre>
+<hr>
+<h4 id="话术二建立专业形象" class="toc-header"><a class="toc-anchor" href="#话术二建立专业形象">¶</a> 话术二：建立专业形象</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"李经理，我看到贵司用的是 Vue 3 技术栈，我之前在 XX 公司也是做这个的，还做过一些性能优化的工作。我的简历里有详细的项目经验，您可以看一下。"
+
+（用专业术语增加可信度）
+</code></pre>
+<hr>
+<h4 id="话术三应对手机打不开" class="toc-header"><a class="toc-anchor" href="#话术三应对手机打不开">¶</a> 话术三：应对"手机打不开"</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">对方："我在手机上打不开你的简历。"
+
+你的回应（选择一种）：
+
+方案一（推荐）：
+"不好意思，我这个简历是用 Word 2019 编辑的，有些格式手机上显示不了。您方便的话，在电脑上用 Office 打开一下就好了。"
+
+方案二（如果对方坚持）：
+"要不这样，我重新保存一个 PDF 版本发给您？不过我的作品集链接在 Word 文档里，PDF 可能点不了。"
+
+方案三（高级）：
+"我看您是在手机上，要不等您回到办公室再看？我不着急，您方便的时候看就行。"
+</code></pre>
+<hr>
+<h4 id="话术四应对杀毒软件警告" class="toc-header"><a class="toc-anchor" href="#话术四应对杀毒软件警告">¶</a> 话术四：应对"杀毒软件警告"</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">对方："我打开的时候电脑提示有风险。"
+
+你的回应：
+
+镇定自若：
+"哦，可能是因为我的简历里嵌入了一些作品集的链接，有些杀软会误报。您可以放心打开，我给很多公司都发过这个简历，都没问题的。"
+
+或者：
+"可能是您公司的安全软件比较严格，我的简历确实有一些超链接。要不您先放到白名单里，看完再删除也可以。"
+
+（关键：语气要自然，就像在说一件很正常的事）
+</code></pre>
+<hr>
+<h3 id="电话沟通的黄金时间" class="toc-header"><a class="toc-anchor" href="#电话沟通的黄金时间">¶</a> 📞 电话沟通的黄金时间</h3>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>时间段</th>
+<th>适合场景</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>10:00-11:30</strong></td>
+<td>初次联系</td>
+<td>上午精神好，更容易沟通</td>
+</tr>
+<tr>
+<td><strong>14:00-15:00</strong></td>
+<td>跟进邮件</td>
+<td>午休后，处理邮件的高峰期</td>
+</tr>
+<tr>
+<td><strong>16:00-17:00</strong></td>
+<td>催促打开</td>
+<td>快下班了，想快速处理完</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>避免的时间：</strong></p>
+<ul>
+<li>9:00 之前（可能还没到公司）</li>
+<li>12:00-14:00（午休时间）</li>
+<li>18:00 之后（下班了，打私人电话会引起警觉）</li>
+</ul>
+<hr>
+<h3 id="多次沟通策略" class="toc-header"><a class="toc-anchor" href="#多次沟通策略">¶</a> 📞 多次沟通策略</h3>
+<p><strong>不要一次就放弃，可以分多次联系：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">第 1 次（发邮件前）：
+"您好，我想应聘贵司的职位，可以发个简历给您吗？"
+
+第 2 次（发邮件后 15 分钟）：
+"李经理，我刚才把简历发到您邮箱了，麻烦查收。"
+
+第 3 次（如果还没打开，第二天上午）：
+"李经理，不好意思打扰您，想确认一下您是否收到了我的简历？"
+
+第 4 次（最后一次，下午时分）：
+"李经理，我看还有几个公司在等我回复，但我还是最想加入贵司。如果您觉得我的经验不合适，也请告诉我一声，我好去考虑其他机会。"
+
+（最后一次带一点点"威胁"，但语气要委婉）
+</code></pre>
+<hr>
+<h2 id="诱导话术让目标按你的意图行动" class="toc-header"><a class="toc-anchor" href="#诱导话术让目标按你的意图行动">¶</a> 诱导话术：让目标按你的意图行动</h2>
+<h3 id="核心原则引导而非命令" class="toc-header"><a class="toc-anchor" href="#核心原则引导而非命令">¶</a> 🎭 核心原则：引导而非命令</h3>
+<p><strong>错误示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"你必须在电脑上打开"
+"你要用 Word 打开才行"
+</code></pre>
+<p><strong>正确示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"建议您在电脑上查看，手机上可能格式不对"
+"用 Word 打开效果最好，我做了一些排版"
+</code></pre>
+<hr>
+<h3 id="场景一引导用电脑而非手机" class="toc-header"><a class="toc-anchor" href="#场景一引导用电脑而非手机">¶</a> 🎭 场景一：引导用电脑而非手机</h3>
+<p><strong>对方：</strong> "我在手机上看一下"</p>
+<p><strong>你的回应：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">选项 1（强调内容）：
+"我的简历里有一些作品集的演示视频链接，手机上看可能加载比较慢。建议您在电脑上看，体验会好很多。"
+
+选项 2（强调格式）：
+"我用 Word 做了一些排版设计，手机上可能显示不太正常。您方便的话，在电脑上用 Office 打开一下吧。"
+
+选项 3（制造紧迫感）：
+"其实手机也能看，不过我的作品集链接可能点不了。要不您先大概看看，等回办公室了再仔细看？"
+</code></pre>
+<hr>
+<h3 id="场景二引导关闭杀毒软件" class="toc-header"><a class="toc-anchor" href="#场景二引导关闭杀毒软件">¶</a> 🎭 场景二：引导关闭杀毒软件</h3>
+<p><strong>对方：</strong> "电脑提示这个文件有风险"</p>
+<p><strong>你的回应：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">选项 1（正常化）：
+"可能是因为我的简历里嵌入了一些在线作品集的链接，有些安全软件会误报外部链接。您可以选择'仍要运行'就好了。"
+
+选项 2（从众心理）：
+"我给很多公司都发过这个简历，有些公司的安全软件确实会提示。不过您放心，我只是个求职者，不可能做什么奇怪的事情。"
+
+选项 3（转移责任）：
+"哦，您公司的安全策略比较严格啊。要不您先保存到桌面，然后加到信任列表里再打开？我之前有个朋友的公司也是这样。"
+</code></pre>
+<hr>
+<h3 id="场景三引导启用宏" class="toc-header"><a class="toc-anchor" href="#场景三引导启用宏">¶</a> 🎭 场景三：引导启用宏</h3>
+<p><strong>对方：</strong> "打开了，但是显示需要启用宏"</p>
+<p><strong>你的回应：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">选项 1（技术流）：
+"哦对，因为我的简历里有一些自动生成的图表（如技能评分雷达图），需要启用宏才能正常显示。您点一下上面的'启用内容'就可以了。"
+
+选项 2（正常化）：
+"是的，我用了 Word 的一些高级功能，需要启用宏。这是正常的，很多专业简历模板都会用到。"
+
+选项 3（暗示专业性）：
+"对，我的简历用了一些动态展示效果，需要启用宏。您点一下'启用内容'，就能看到我的技能图表了。"
+</code></pre>
+<hr>
+<h3 id="场景四应对长时间不打开" class="toc-header"><a class="toc-anchor" href="#场景四应对长时间不打开">¶</a> 🎭 场景四：应对长时间不打开</h3>
+<p><strong>对方没反应，你再次联系：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">话术 1（关心式）：
+"李经理，我担心您可能太忙了没看到邮件，所以再提醒您一下。如果您觉得不合适，也请告诉我一声，我好安排其他面试。"
+
+话术 2（催促式）：
+"李经理，我这边另一个公司要求明天给答复，但我还是更想加入贵司。您能帮我看一下简历吗？"
+
+话术 3（专业式）：
+"李经理，我仔细看了贵司的职位要求，我的经验应该是比较匹配的。如果您方便的话，能否安排个电话聊聊？我可以详细介绍一下我的项目经验。"
+</code></pre>
+<hr>
+<h3 id="场景五应对技术人员审查" class="toc-header"><a class="toc-anchor" href="#场景五应对技术人员审查">¶</a> 🎭 场景五：应对技术人员审查</h3>
+<p><strong>对方：</strong> "我们让技术部门先看一下你的简历"</p>
+<p><strong>你的回应：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">选项 1（表示理解）：
+"好的，没问题。不过技术部门可能更关注我的代码能力，要不我直接把 GitHub 地址发给您？简历主要是给 HR 看的。"
+
+选项 2（转移注意力）：
+"当然可以。不过我的简历主要是介绍项目经验，技术细节在我的作品集网站上。要不我把链接也发给您？"
+
+选项 3（如果已经暴露，及时止损）：
+"好的，那我重新整理一下，发一个纯文本版本的简历给您。"
+</code></pre>
+<hr>
+<h2 id="plan-b当办公台式机失手时的夜间作战" class="toc-header"><a class="toc-anchor" href="#plan-b当办公台式机失手时的夜间作战">¶</a> Plan B：当办公台式机失手时的"夜间作战"</h2>
+<h3 id="为什么要等到晚上" class="toc-header"><a class="toc-anchor" href="#为什么要等到晚上">¶</a> 🌙 为什么要等到晚上？</h3>
+<p><strong>场景：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">你给目标公司的 HR 发了简历
+等了一整天，Beacon 没有上线
+查看邮件回执：邮件被打开了
+但是没有机器上线
+
+可能的原因：
+1. 办公台式机有严格的 EDR
+2. 网络出口有严格的防火墙策略
+3. 目标在虚拟机/沙箱中打开了文件
+4. 木马被杀软拦截了
+</code></pre>
+<p><strong>这时候，不要放弃。等到晚上，目标可能会：</strong></p>
+<hr>
+<h3 id="两用机你的第二战场" class="toc-header"><a class="toc-anchor" href="#两用机你的第二战场">¶</a> 💻 两用机：你的"第二战场"</h3>
+<p><strong>什么是两用机？</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">笔记本电脑，既是办公设备，也是个人娱乐设备
+
+员工白天在公司办公：
+→ 连接公司有线网络
+→ 受到严格的安全策略管控
+→ 有 EDR、防火墙、网络监控
+
+员工晚上带回家：
+→ 连接家里的 WiFi
+→ 可能还会 VPN 回公司内网
+→ 安全策略松懈很多
+</code></pre>
+<hr>
+<h3 id="两用机的三大特点" class="toc-header"><a class="toc-anchor" href="#两用机的三大特点">¶</a> 🎯 两用机的三大特点</h3>
+<h4 id="特点一安全措施相对松懈" class="toc-header"><a class="toc-anchor" href="#特点一安全措施相对松懈">¶</a> 特点一：安全措施相对松懈</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">办公台式机：
+✅ 强制安装 EDR
+✅ USB 端口禁用
+✅ 应用白名单
+✅ 网络严格管控
+
+两用机（笔记本）：
+❌ 可能没装 EDR（影响性能，员工会抱怨）
+❌ 可能只装了轻量级杀软
+❌ 网络策略相对宽松（需要远程办公）
+❌ 可能有本地管理员权限
+</code></pre>
+<p><strong>原因：</strong></p>
+<ul>
+<li>笔记本需要在家办公，不能管控太死</li>
+<li>员工经常抱怨 EDR 影响性能，IT 部门可能妥协</li>
+<li>管理笔记本比管理台式机困难得多</li>
+</ul>
+<hr>
+<h4 id="特点二网络环境特殊" class="toc-header"><a class="toc-anchor" href="#特点二网络环境特殊">¶</a> 特点二：网络环境特殊</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">情况 1：在家连接家庭 WiFi
+→ 完全没有公司的网络安全设备
+→ 木马可以自由出网
+→ 但此时无法访问公司内网
+
+情况 2：在家连接 VPN
+→ 既可以出网（通过家庭网络）
+→ 又可以访问内网（通过 VPN）
+→ 这是最理想的情况！
+
+情况 3：在咖啡厅/高铁上连热点
+→ 如果目标公司内网不出网
+→ 员工可能会用手机热点让电脑出网
+→ 然后通过 VPN 访问内网
+</code></pre>
+<hr>
+<h4 id="特点三时间窗口可预测" class="toc-header"><a class="toc-anchor" href="#特点三时间窗口可预测">¶</a> 特点三：时间窗口可预测</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">晚上 19:00 - 23:00：
+- 员工回家后可能继续工作
+- 或者打游戏、看视频（两用机的典型用途）
+- 这是你的黄金时间窗口
+
+周末：
+- 员工在家加班
+- 更可能使用笔记本
+- 安全监控更少
+</code></pre>
+<hr>
+<h3 id="针对两用机的钓鱼策略" class="toc-header"><a class="toc-anchor" href="#针对两用机的钓鱼策略">¶</a> 🎣 针对两用机的钓鱼策略</h3>
+<h4 id="策略一卡时间重新钓鱼" class="toc-header"><a class="toc-anchor" href="#策略一卡时间重新钓鱼">¶</a> 策略一：卡时间重新钓鱼</h4>
+<p><strong>场景：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">白天：给目标发了简历，没有上线
+晚上 19:00：重新发一封邮件
+</code></pre>
+<p><strong>话术示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：Re: 应聘【前端开发工程师】- 张三 - 补充材料
+
+李经理，您好：
+
+不好意思打扰您了，我刚才想起来，忘记在简历里附上我的作品集了。
+
+我重新整理了一下，麻烦您查看：
+- 附件是完整版简历（包含作品集链接）
+- 我的 GitHub：github.com/zhangsan
+
+期待您的回复！
+
+张三
+</code></pre>
+<p><strong>为什么有效？</strong></p>
+<ul>
+<li>员工晚上可能在家用笔记本处理邮件</li>
+<li>此时电脑的安全措施可能更宽松</li>
+<li>员工警惕性降低（已经下班了）</li>
+</ul>
+<hr>
+<h4 id="策略二发送娱乐类文件" class="toc-header"><a class="toc-anchor" href="#策略二发送娱乐类文件">¶</a> 策略二：发送"娱乐类"文件</h4>
+<p><strong>白天的钓鱼文件：</strong> 简历、报告、合同（看起来很正式）</p>
+<p><strong>晚上的钓鱼文件：</strong> 游戏外挂、破解软件、视频（员工的娱乐需求）</p>
+<p><strong>示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">场景：你发现目标公司的员工在某个游戏论坛很活跃
+
+你在论坛发帖：
+"分享一个 XXX 游戏的辅助工具，亲测有效！"
+附件：游戏辅助.exe（实际是木马）
+
+或者通过私信：
+"兄弟，看你也在玩 XXX，我这有个挺好用的工具，发你试试"
+</code></pre>
+<p><strong>为什么有效？</strong></p>
+<ul>
+<li>员工晚上用笔记本打游戏是常见场景</li>
+<li>游戏玩家对"辅助工具"有强烈需求</li>
+<li>娱乐时的警惕性远低于工作时</li>
+</ul>
+<hr>
+<h4 id="策略三针对手机热点场景" class="toc-header"><a class="toc-anchor" href="#策略三针对手机热点场景">¶</a> 策略三：针对"手机热点"场景</h4>
+<p><strong>场景：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">某些公司的内网完全不出网
+员工需要访问外网时：
+1. 打开手机热点
+2. 笔记本连接热点
+3. 同时保持 VPN 连接到内网
+
+这时候：
+- 笔记本可以访问内网
+- 笔记本可以访问外网
+- 你的 C2 可以连接成功！
+</code></pre>
+<p><strong>如何判断目标公司不出网？</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">1. 查看招聘信息：
+   "公司内网与互联网物理隔离"
+   "办公网络采用双网隔离"
+
+2. 查看员工抱怨：
+   在脉脉/V2EX 等平台搜索
+   "XXX 公司内网不能上网好烦"
+
+3. 社工询问：
+   伪装成面试者："请问贵司办公电脑可以上网吗？"
+</code></pre>
+<p><strong>钓鱼策略：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">既然员工需要用热点才能访问外网
+那我们就在他们需要访问外网的时候下钩
+
+示例话术（通过招聘平台聊天）：
+
+你："李经理，我整理了一份详细的项目文档"
+你："不过文档在我的云盘上，我发个链接给您吧"
+你："链接：https://你的C2服务器/project-doc.7z"
+
+HR 要下载：
+→ 发现内网下载不了
+→ 打开手机热点
+→ 下载并运行
+→ Beacon 上线（通过热点出网）
+→ VPN 还连着，可以访问内网
+</code></pre>
+<hr>
+<h3 id="晚间钓鱼的最佳时间表" class="toc-header"><a class="toc-anchor" href="#晚间钓鱼的最佳时间表">¶</a> 🕐 晚间钓鱼的最佳时间表</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">18:00 - 19:00  下班路上
+→ 员工可能用手机查看邮件
+→ 此时发邮件，他们回家后会在笔记本上打开
+
+19:00 - 20:00  刚到家
+→ 可能继续处理工作
+→ 或者打开电脑娱乐
+→ 这是第一个黄金窗口
+
+20:00 - 22:00  娱乐时间
+→ 打游戏、看视频
+→ 如果发娱乐类钓鱼文件，这是最佳时机
+
+22:00 - 23:00  睡前突击
+→ 有些员工会在睡前再处理一下工作
+→ 警惕性最低的时候
+
+周末全天
+→ 在家加班的员工
+→ 更可能使用笔记本
+→ 公司安全团队可能不在线
+</code></pre>
+<hr>
+<h3 id="如何判断目标使用的是两用机" class="toc-header"><a class="toc-anchor" href="#如何判断目标使用的是两用机">¶</a> 🎯 如何判断目标使用的是两用机？</h3>
+<h4 id="方法一招聘信息判断" class="toc-header"><a class="toc-anchor" href="#方法一招聘信息判断">¶</a> 方法一：招聘信息判断</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">查看公司招聘信息中的福利：
+✅ "配备 MacBook Pro"
+✅ "提供高配笔记本电脑"
+✅ "支持远程办公"
+✅ "弹性工作制"
+
+这些都暗示员工有笔记本，且可能带回家
+</code></pre>
+<hr>
+<h4 id="方法二社交平台观察" class="toc-header"><a class="toc-anchor" href="#方法二社交平台观察">¶</a> 方法二：社交平台观察</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">在脉脉/知乎/V2EX/小红书 搜索：
+"XXX 公司 远程办公"
+"XXX 公司 配置笔记本"
+"XXX 公司 电脑配置"
+
+员工可能会讨论：
+"公司给配的 ThinkPad，带回家太重了"
+"MacBook Pro 16 寸，公司给配的，真香"
+</code></pre>
+<hr>
+<h4 id="方法三直接社工询问" class="toc-header"><a class="toc-anchor" href="#方法三直接社工询问">¶</a> 方法三：直接社工询问</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">伪装成面试者，在面试/聊天时问：
+
+"请问贵司支持远程办公吗？"
+"入职后会配什么电脑？台式机还是笔记本？"
+"如果带笔记本回家，可以访问公司内网吗？"
+
+HR 通常会直接回答这些问题
+</code></pre>
+<hr>
+<h3 id="️-两用机钓鱼的注意事项" class="toc-header"><a class="toc-anchor" href="#️-两用机钓鱼的注意事项">¶</a> ⚠️ 两用机钓鱼的注意事项</h3>
+<h4 id="注意一c2-配置要支持多网络环境" class="toc-header"><a class="toc-anchor" href="#注意一c2-配置要支持多网络环境">¶</a> 注意一：C2 配置要支持多网络环境</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">办公环境：
+- 可能通过代理出网
+- 可能只能访问特定端口
+
+家庭环境：
+- 直接连接互联网
+- 几乎没有限制
+
+热点环境：
+- 运营商可能有限制
+- 网络不稳定
+
+你的 C2 需要：
+→ 支持多种通信协议（HTTP/HTTPS/DNS）
+→ 支持多个监听端口
+→ 有域前置（Domain Fronting）能力
+</code></pre>
+<hr>
+<h4 id="注意二时间窗口有限" class="toc-header"><a class="toc-anchor" href="#注意二时间窗口有限">¶</a> 注意二：时间窗口有限</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">笔记本在家：
+- 可能只开机 2-3 小时
+- 随时可能关机睡觉
+
+你需要：
+→ 快速建立持久化：并且通过powercfg避免休眠
+→ 快速导出关键信息
+→ 快速进行横向移动（如果有 VPN）
+</code></pre>
+<hr>
+<h4 id="注意三行为要隐蔽" class="toc-header"><a class="toc-anchor" href="#注意三行为要隐蔽">¶</a> 注意三：行为要隐蔽</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">在家使用电脑：
+- 员工可能更容易注意到异常
+- 风扇声音变大
+- 电脑变卡
+- 杀软弹窗
+
+要做到：
+→ 降低 CPU 使用率
+→ 避免频繁的网络通信
+→ 不要触发杀软行为检测
+</code></pre>
+<hr>
+<h3 id="成功案例夜间突破的真实故事" class="toc-header"><a class="toc-anchor" href="#成功案例夜间突破的真实故事">¶</a> 📊 成功案例：夜间突破的真实故事</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">目标：某互联网公司
+尝试：白天发送简历钓鱼，失败（EDR 拦截）
+
+Plan B：
+1. 晚上 20:00 重新发送"作品集"
+2. HR 在家用 MacBook 打开
+3. MacBook 没有安装 EDR（影响性能）
+4. 只有系统自带的 XProtect（容易绕过）
+5. Beacon 成功上线
+
+关键信息：
+- 笔记本连接了公司 VPN
+- 同时连接家庭 WiFi
+- 既能出网，又能访问内网
+- 一夜之间完成了内网渗透
+
+结果：
+- 通过该笔记本，访问了公司 GitLab
+- 下载了大量源代码
+- 通过 VPN，访问了内网数据库
+- 第二天上午，拿下了核心服务器
+</code></pre>
+<hr>
+<h3 id="为什么两用机是软肋" class="toc-header"><a class="toc-anchor" href="#为什么两用机是软肋">¶</a> 🤔 为什么两用机是"软肋"？</h3>
+<p><strong>从管理角度：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">台式机：
+→ 放在公司，IT 部门完全控制
+→ 可以强制安装各种安全软件
+→ 员工无法拆卸/修改
+
+笔记本：
+→ 员工带回家，IT 部门难以管控
+→ 安装太多安全软件，员工会抱怨卡顿
+→ 员工可能自己"优化"（卸载安全软件）
+</code></pre>
+<p><strong>从技术角度：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">台式机：
+→ 有线网络，稳定可控
+→ 统一的网络策略
+→ 统一的安全基线
+
+笔记本：
+→ WiFi 连接，环境多变
+→ 家庭网络、公共网络、热点
+→ 难以统一管控
+</code></pre>
+<p><strong>从心理角度：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">在公司：
+→ 警惕性高
+→ 有安全意识培训
+→ 有同事的"监督"
+
+在家：
+→ 警惕性低
+→ "这是我自己的电脑"（虽然是公司的）
+→ "反正在家，没人看见"
+</code></pre>
+<hr>
+<h2 id="邮件回执谁打开了你的邮件" class="toc-header"><a class="toc-anchor" href="#邮件回执谁打开了你的邮件">¶</a> 邮件回执：谁打开了你的邮件？</h2>
+<h3 id="为什么需要回执" class="toc-header"><a class="toc-anchor" href="#为什么需要回执">¶</a> 🔍 为什么需要回执？</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">你收集了 100 个邮箱
+不知道哪些还在使用
+不知道哪些人会查看邮件
+
+有了回执：
+→ 知道谁打开了邮件
+→ 知道什么时间打开的
+→ 可以判断是否在手机上打开
+→ 可以决定是否需要二次钓鱼
+</code></pre>
+<hr>
+<h3 id="启用邮件回执的方法" class="toc-header"><a class="toc-anchor" href="#启用邮件回执的方法">¶</a> 📧 启用邮件回执的方法</h3>
+<h4 id="方法一邮件客户端自带回执" class="toc-header"><a class="toc-anchor" href="#方法一邮件客户端自带回执">¶</a> 方法一：邮件客户端自带回执</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">Outlook：
+选项 -&gt; 请求已读回执
+
+Thunderbird：
+选项 -&gt; 回执
+
+Foxmail：
+选项 -&gt; 要求回执
+</code></pre>
+<p><strong>收到回执后的信息：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：已读：应聘前端开发工程师 - 张三
+发件人：hr@target.com
+内容：您的邮件已于 2024-01-15 14:23 被查看
+</code></pre>
+<p><strong>问题：</strong></p>
+<ul>
+<li>很多邮件客户端会提示用户"是否发送回执"</li>
+<li>谨慎的用户会选择"否"</li>
+<li>成功率约 30-40%</li>
+</ul>
+<hr>
+<h4 id="方法二像素跟踪更隐蔽" class="toc-header"><a class="toc-anchor" href="#方法二像素跟踪更隐蔽">¶</a> 方法二：像素跟踪（更隐蔽）</h4>
+<p>注意：在coremail环境（以及国内最常见的163、qq邮箱）中，这反而会容易导致被标记为垃圾邮件。</p>
+<p><strong>原理：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">在邮件正文中插入一个 1x1 像素的透明图片
+图片地址：http://你的服务器/track/user123.png
+
+用户打开邮件时：
+→ 邮件客户端加载图片
+→ 向你的服务器发送请求
+→ 你知道了邮件被打开
+
+服务器日志：
+192.168.1.100 - [15/Jan/2024:14:23:15] "GET /track/user123.png"
+</code></pre>
+<p><strong>实现：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-html">&lt;!-- 在邮件 HTML 中插入 --&gt;
+&lt;img src="http://你的服务器/track/user123.png" width="1" height="1" style="display:none"&gt;
+</code></pre>
+<p><strong>优势：</strong></p>
+<ul>
+<li>用户完全无感知</li>
+<li>不需要用户同意</li>
+<li>成功率接近 100%（如果邮件客户端加载图片）</li>
+</ul>
+<p><strong>问题：</strong></p>
+<ul>
+<li>有些邮件客户端默认不加载外部图片</li>
+<li>Gmail 会通过代理加载图片（无法获取真实 IP）</li>
+</ul>
+<hr>
+<h4 id="方法三链接跟踪" class="toc-header"><a class="toc-anchor" href="#方法三链接跟踪">¶</a> 方法三：链接跟踪</h4>
+<p><strong>原理：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">在邮件中放一个下载链接
+链接带有唯一标识符
+
+示例：
+"您好，这是我的简历：
+ 下载链接：http://你的服务器/resume/download?id=user123"
+
+用户点击链接：
+→ 服务器记录访问
+→ 302 重定向到真实文件
+→ 你知道了谁在什么时间点击了链接
+</code></pre>
+<p><strong>服务器端代码示例（Python Flask）：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-python">@app.route('/resume/download')
+def download():
+    user_id = request.args.get('id')
+    ip = request.remote_addr
+    user_agent = request.headers.get('User-Agent')
+  
+    # 记录访问日志
+    log_access(user_id, ip, user_agent)
+  
+    # 重定向到真实文件
+    return redirect('https://cdn.example.com/real-resume.pdf')
+</code></pre>
+<hr>
+<h3 id="通过回执判断设备类型" class="toc-header"><a class="toc-anchor" href="#通过回执判断设备类型">¶</a> 📊 通过回执判断设备类型</h3>
+<p><strong>通过 User-Agent 判断：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">桌面端：
+Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+→ 可能在办公电脑上
+→ 可能有严格的安全措施
+
+移动端：
+Mozilla/5.0 (iPhone; CPU iPhone OS 15_0)
+→ 在手机上查看
+→ 可以用话术引导在电脑上打开
+
+邮件客户端：
+Microsoft Outlook 16.0
+→ 办公环境
+→ 警惕性可能较高
+</code></pre>
+<hr>
+<h3 id="通过回执判断时间模式" class="toc-header"><a class="toc-anchor" href="#通过回执判断时间模式">¶</a> 📊 通过回执判断时间模式</h3>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">工作时间打开（9:00-18:00）：
+→ 可能在办公室
+→ 可能有安全监控
+→ 警惕性较高
+
+非工作时间打开（19:00-23:00）：
+→ 可能在家
+→ 可能用笔记本
+→ 警惕性较低
+→ 这是你的机会！
+
+周末打开：
+→ 在家加班
+→ 安全团队可能不在线
+→ 更好的攻击窗口
+</code></pre>
+<hr>
+<h3 id="基于回执的二次钓鱼策略" class="toc-header"><a class="toc-anchor" href="#基于回执的二次钓鱼策略">¶</a> 🎯 基于回执的二次钓鱼策略</h3>
+<h4 id="策略一针对已读未上线的目标" class="toc-header"><a class="toc-anchor" href="#策略一针对已读未上线的目标">¶</a> 策略一：针对"已读未上线"的目标</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">情况：邮件被打开了，但 Beacon 没上线
+
+可能原因：
+1. 在沙箱中打开了
+2. EDR 拦截了
+3. 只是预览了邮件，没打开附件
+4. 在手机上打开的
+
+你的行动：
+→ 等到晚上
+→ 重新发送（换个伪装方式）
+→ 配合电话沟通
+</code></pre>
+<p><strong>话术示例：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">主题：Re: 应聘前端开发工程师 - 补充说明
+
+李经理，您好：
+
+不好意思，刚才发现我发的简历格式有点问题
+（可能是我电脑的 Word 版本太新了）
+
+我重新保存了一份兼容版本，麻烦您再查看一下
+
+附件：张三-前端开发-简历（兼容版）.pdf.lnk
+</code></pre>
+<hr>
+<h4 id="策略二针对未读的目标" class="toc-header"><a class="toc-anchor" href="#策略二针对未读的目标">¶</a> 策略二：针对"未读"的目标</h4>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">情况：邮件发出 2 小时了，还没被打开
+
+可能原因：
+1. 对方太忙，还没看邮件
+2. 邮件被垃圾邮件过滤了
+3. 邮箱地址无效
+
+你的行动：
+→ 打电话确认
+→ 制造紧迫感
+</code></pre>
+<p><strong>电话话术：</strong></p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-">"李经理，我是刚才给您投简历的张三"
+"我看其他几个公司都在催我，但我还是最想加入贵司"
+"您方便的话，能帮我看一下简历吗？"
+"如果今天看不了，我可以明天再联系您"
+
+（施加压力，同时表现礼貌）
+</code></pre>
+<hr>
+<h2 id="总结不要心急多复盘多卡细节" class="toc-header"><a class="toc-anchor" href="#总结不要心急多复盘多卡细节">¶</a> 总结：不要心急，多复盘多卡细节</h2>
+<p>成熟的钓鱼方案依赖于大量的实践和复盘，一两次失败是很正常的事情。<br>
+<s>你又不在缅北，失败了也不会有人过来电击你的</s></p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

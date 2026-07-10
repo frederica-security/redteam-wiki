@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>资产测绘 - 知道你在进攻什么 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="资产测绘 - 知道你在进攻什么"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/finding-assets"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="finding-assets" title="资产测绘 - 知道你在进攻什么" description="" :tags="[]" created-at="2025-11-19T20:35:37.172Z" updated-at="2025-11-19T20:39:15.373Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiIxLiDlvJXoqIDvvJrkuI3opoHlgZrpgqPkuKrigJznm7Lnm67ouLnpl6jigJ3nmoTkuroiLCJhbmNob3IiOiIjaC0xLeW8leiogOS4jeimgeWBmumCo+S4quebsuebrui4uemXqOeahOS6uiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjIuIOS7gOS5iOaYr+KAnOi1hOS6p+KAne+8nyAoWW91ciBUYXJnZXRzKSDwn46vIiwiYW5jaG9yIjoiI2gtMi3ku4DkuYjmmK/otYTkuqcteW91ci10YXJnZXRzIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi8J+Pm++4jyDln5/lkI0gKERvbWFpbikiLCJhbmNob3IiOiIj77iPLeWfn+WQjS1kb21haW4iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLwn4+gIElQIOWcsOWdgCAoSVAgQWRkcmVzcykiLCJhbmNob3IiOiIjaXAt5Zyw5Z2ALWlwLWFkZHJlc3MiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjMuIOW/hemhu+imgeaHgueahOe9kee7nOWfuuehgO+8mkIg5q615LiOIEMg5q61IPCfjJAiLCJhbmNob3IiOiIjaC0zLeW/hemhu+imgeaHgueahOe9kee7nOWfuuehgGIt5q615LiOLWMt5q61IiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiNC4gRE5TIOino+aekO+8muS6kuiBlOe9keeahOeUteivneacrCDwn5OWIiwiYW5jaG9yIjoiI2gtNC1kbnMt6Kej5p6Q5LqS6IGU572R55qE55S16K+d5pysIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiNS4g5oyH57q56K+G5YirIChGaW5nZXJwcmludGluZynvvJrov5nmmK/ku4DkuYjmnZDmlpnlgZrnmoTvvJ8g8J+UjSIsImFuY2hvciI6IiNoLTUt5oyH57q56K+G5YirLWZpbmdlcnByaW50aW5n6L+Z5piv5LuA5LmI5p2Q5paZ5YGa55qEIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiNi4g6auY57qn5L6m5a+f77ya6YCa6L+H4oCc54m55b6B4oCd5a+75om+6ZqQ6JeP55uu5qCHIPCflbXvuI/igI3imYDvuI8iLCJhbmNob3IiOiIjaC02LemrmOe6p+S+puWvn+mAmui/h+eJueW+geWvu+aJvumakOiXj+ebruaghy3vuI/vuI8iLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLwn5a877iPIEZhdmljb24gSGFzaCAo5Zu+5qCH5ZOI5biMKSIsImFuY2hvciI6IiPvuI8tZmF2aWNvbi1oYXNoLeWbvuagh+WTiOW4jCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfk5wgSFRUUFMg5pWw5a2X6K+B5LmmIChTU0wgQ2VydGlmaWNhdGUpIiwiYW5jaG9yIjoiI2h0dHBzLeaVsOWtl+ivgeS5pi1zc2wtY2VydGlmaWNhdGUiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjcuIOS4uuS7gOS5iOimgei/meS5iOWBmu+8n+S4gOS4quWFs+S6juKAnOWwgSBJUOKAneeahOaVmeiurSDwn5qrIiwiYW5jaG9yIjoiI2gtNy3kuLrku4DkuYjopoHov5nkuYjlgZrkuIDkuKrlhbPkuo7lsIEtaXDnmoTmlZnorq0iLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLinYwg5paw5omL5Ymn5pys77ya5q2j6Z2i56Gs5YiaIiwiYW5jaG9yIjoiI+aWsOaJi+WJp+acrOato+mdouehrOWImiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IuKchSDpq5jmiYvliafmnKzvvJrlr7vmib7igJzova/mn7/lrZDigJ0iLCJhbmNob3IiOiIj6auY5omL5Ymn5pys5a+75om+6L2v5p+/5a2QIiwiY2hpbGRyZW4iOltdfV19XQ==" :page-id="17" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="finding-assets.md"><template slot="contents"><div><h2 id="h-1-引言不要做那个盲目踹门的人" class="toc-header"><a class="toc-anchor" href="#h-1-引言不要做那个盲目踹门的人">¶</a> 1. 引言：不要做那个“盲目踹门”的人</h2>
+<p>很多新手拿到目标后的第一反应是：打开工具，对着主站一顿乱扫。<br>
+🔴 <strong>结果：</strong> 3 秒后被防火墙（WAF）拉黑，连登录框都没见到，游戏结束。</p>
+<p><strong>资产测绘（Asset Mapping）</strong> 就是在攻击开始前，绘制一张目标的“全景地图”。你的目标不是去撞最硬的墙，而是找到那扇忘记上锁的窗。</p>
+<hr>
+<h2 id="h-2-什么是资产-your-targets" class="toc-header"><a class="toc-anchor" href="#h-2-什么是资产-your-targets">¶</a> 2. 什么是“资产”？ (Your Targets) 🎯</h2>
+<p>在网络世界里，资产不仅仅是钱，而是<strong>目标在互联网上拥有的所有“触点”</strong>。只要是能通网的，都可能是突破口。</p>
+<h3 id="️-域名-domain" class="toc-header"><a class="toc-anchor" href="#️-域名-domain">¶</a> 🏛️ 域名 (Domain)</h3>
+<p>就像房子的招牌（如 <code>example.com</code>）。</p>
+<ul>
+<li><strong>重点关注：子域名 (Subdomains)</strong>
+<ul>
+<li>主站 (<code>www</code>) 通常防御最严密。</li>
+<li>但开发服 (<code>dev</code>)、测试服 (<code>test</code>)、旧版系统 (<code>old</code>)、VPN 入口 (<code>vpn</code>) 往往是防御的<strong>短板</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ip-地址-ip-address" class="toc-header"><a class="toc-anchor" href="#ip-地址-ip-address">¶</a> 🏠 IP 地址 (IP Address)</h3>
+<p>就像房子的门牌号（如 <code>203.0.113.10</code>）。</p>
+<ul>
+<li>有时候域名套了 CDN（内容分发网络，相当于保护罩），你打的是 CDN 节点而不是真实服务器。找到<strong>真实 IP</strong> 也是测绘的重要一环。</li>
+</ul>
+<hr>
+<h2 id="h-3-必须要懂的网络基础b-段与-c-段" class="toc-header"><a class="toc-anchor" href="#h-3-必须要懂的网络基础b-段与-c-段">¶</a> 3. 必须要懂的网络基础：B 段与 C 段 🌐</h2>
+<p>新手经常听到老手说：“扫一下它的 C 段”。这是什么意思？</p>
+<p>IP 地址通常长这样：<code>192.168.1.10</code> (A.B.C.D)。我们可以把它想象成行政区划：</p>
+<ul>
+<li>
+<p><strong>C 段 (C-Class / /24)：</strong></p>
+<ul>
+<li>指 IP 的前三段相同，只有最后一段不同。</li>
+<li><strong>例子：</strong> 目标 IP 是 <code>1.1.1.10</code>，它的 C 段邻居是 <code>1.1.1.1</code> 到 <code>1.1.1.255</code>。</li>
+<li><strong>红队视角：</strong> 企业通常会买一整段连续的 IP。如果 <code>1.1.1.10</code> 是防御森严的主站，那么住在隔壁的 <code>1.1.1.11</code> 很可能就是一台<strong>没有任何防护的测试服务器</strong>。拿下邻居，就等于进入了内网小区。</li>
+</ul>
+</li>
+<li>
+<p><strong>B 段 (B-Class / /16)：</strong></p>
+<ul>
+<li>指 IP 的前两段相同（范围更大）。</li>
+<li>通常只有超大型互联网公司或集团才会拥有 B 段资产。扫描 B 段耗时较长，但能发现更多边缘资产。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="h-4-dns-解析互联网的电话本" class="toc-header"><a class="toc-anchor" href="#h-4-dns-解析互联网的电话本">¶</a> 4. DNS 解析：互联网的电话本 📖</h2>
+<ul>
+<li><strong>概念：</strong> 电脑记不住 <code>www.google.com</code> 这种单词，它只认识 IP。DNS 就是把“域名”翻译成“IP”的服务。</li>
+<li><strong>A 记录：</strong> 域名对应的 IPv4 地址。</li>
+<li><strong>CNAME：</strong> 域名的别名（常用于识别是否使用了 CDN）。</li>
+<li><strong>DNS域传送漏洞：</strong> 由于dns配置不当，本来只有备份服务器能获得主服务器的数据，由于漏洞导致任意client都能通过“域传送”获得主服务器的数据。</li>
+<li><strong>红队技巧：</strong> 查看 DNS 历史记录（Historical DNS）。有时现在的域名解析到了高防 IP，但半年前的历史记录可能暴露了它的<strong>真实源站 IP</strong>。</li>
+</ul>
+<hr>
+<h2 id="h-5-指纹识别-fingerprinting这是什么材料做的" class="toc-header"><a class="toc-anchor" href="#h-5-指纹识别-fingerprinting这是什么材料做的">¶</a> 5. 指纹识别 (Fingerprinting)：这是什么材料做的？ 🔍</h2>
+<p>找到了房子（IP/域名），你还得知道这房子是用什么材料盖的。</p>
+<ul>
+<li><strong>Web 指纹：</strong> 网站是用什么技术写的？
+<ul>
+<li>如果你识别出目标用的是 <strong>WordPress</strong>，你就去搜 WordPress 的漏洞。</li>
+<li>如果你识别出目标用的是 <strong>Java (Spring Boot)</strong>，你就去测试 Java 反序列化漏洞。</li>
+</ul>
+</li>
+<li><strong>端口指纹：</strong> 只有 80/443 端口（网页）吗？
+<ul>
+<li>开放了 <strong>3389</strong>？那是远程桌面，可以尝试爆破密码。</li>
+<li>开放了 <strong>3306</strong>？那是 MySQL 数据库，可能存在弱口令。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="h-6-高级侦察通过特征寻找隐藏目标-️️" class="toc-header"><a class="toc-anchor" href="#h-6-高级侦察通过特征寻找隐藏目标-️️">¶</a> 6. 高级侦察：通过“特征”寻找隐藏目标 🕵️‍♀️</h2>
+<p>有些资产没有绑定明显的域名，或者藏在云服务器里，怎么找到它们？这时候要用“侧写”技术。</p>
+<h3 id="️-favicon-hash-图标哈希" class="toc-header"><a class="toc-anchor" href="#️-favicon-hash-图标哈希">¶</a> 🖼️ Favicon Hash (图标哈希)</h3>
+<p><strong>原理：</strong> 每个网站浏览器标签页上的那个小图标（Favicon.ico），在代码里都是一串特定的二进制数据。我们可以计算这串数据的“指纹”（Hash 值）。<br>
+<strong>实战：</strong></p>
+<ol>
+<li>计算目标主站图标的 Hash 值。</li>
+<li>在网络空间搜索引擎（如 Shodan/Fofa）里搜索这个 Hash。</li>
+<li><strong>惊喜：</strong> 你可能会发现几十个 IP 使用了完全相同的图标。这些 IP 即使没有绑定域名，也大概率是属于同一家公司的（比如后台管理系统、开发测试环境）。</li>
+</ol>
+<h3 id="https-数字证书-ssl-certificate" class="toc-header"><a class="toc-anchor" href="#https-数字证书-ssl-certificate">¶</a> 📜 HTTPS 数字证书 (SSL Certificate)</h3>
+<p><strong>原理：</strong> 为了实现 HTTPS 加密，网站必须安装证书。证书里包含“颁发给谁”的信息（Organization 或 Common Name）。<br>
+<strong>实战：</strong></p>
+<ol>
+<li>查看目标网站的证书信息，比如“颁发给：Jack Corp”。</li>
+<li>搜索所有证书中包含“Jack Corp”的 IP 地址。</li>
+<li><strong>惊喜：</strong> 你能找到所有属于该公司的服务器，哪怕它们仅仅是一个跑在 AWS 上、只有 IP 的测试接口。</li>
+</ol>
+<hr>
+<h2 id="h-7-为什么要这么做一个关于封-ip的教训" class="toc-header"><a class="toc-anchor" href="#h-7-为什么要这么做一个关于封-ip的教训">¶</a> 7. 为什么要这么做？一个关于“封 IP”的教训 🚫</h2>
+<p>为什么新手总是还没开始就被封号，而老手却能从容进出？</p>
+<h3 id="新手剧本正面硬刚" class="toc-header"><a class="toc-anchor" href="#新手剧本正面硬刚">¶</a> ❌ 新手剧本：正面硬刚</h3>
+<ol>
+<li>锁定目标主站 <code>www.target.com</code>。</li>
+<li>开启全端口扫描器，速度拉满。</li>
+<li><strong>结局：</strong> 目标的 WAF（Web 应用防火墙）检测到高频流量，判定为攻击，直接封禁你的 IP。你什么都没得到，还暴露了自己的意图。</li>
+</ol>
+<h3 id="高手剧本寻找软柿子" class="toc-header"><a class="toc-anchor" href="#高手剧本寻找软柿子">¶</a> ✅ 高手剧本：寻找“软柿子”</h3>
+<ol>
+<li><strong>资产测绘：</strong> 通过子域名挖掘和证书查询，发现目标有一个新上线的业务 <code>beta-shop.target.com</code>，以及同 C 段的一个 <code>192.168.x.x</code> 的测试服务器。</li>
+<li><strong>分析：</strong> 这个新业务（New Biz）刚上线，为了调试方便，可能<strong>关掉了防火墙</strong>；而那个 C 段的 IP 可能是个旧系统（Legacy），没人维护。</li>
+<li><strong>进攻：</strong> 避开主站，直接攻击这个边缘的测试系统。</li>
+<li><strong>结局：</strong> 轻松拿到权限，并以此为跳板，从内部渗透进主站网络。</li>
+</ol>
+<blockquote>
+<p>💡 <strong>总结：</strong> 资产测绘的核心目的，是避开防守最严密的正门，找到那个被管理员遗忘的、缺乏维护的、或者正在测试的<strong>脆弱入口</strong>。</p>
+</blockquote>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

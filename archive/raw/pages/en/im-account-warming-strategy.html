@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>储备消耗战 : 你的养号策略 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="储备消耗战 : 你的养号策略"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/im-account-warming-strategy"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="im-account-warming-strategy" title="储备消耗战 : 你的养号策略" description="" :tags="[]" created-at="2025-11-27T18:35:56.096Z" updated-at="2025-11-27T18:35:59.607Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiLlvq7kv6Hpo47mjqfvvJrotKblj7figJzmnYPph43igJ3lhrPlrprlkb3ov5AiLCJhbmNob3IiOiIj5b6u5L+h6aOO5o6n6LSm5Y+35p2D6YeN5Yaz5a6a5ZG96L+QIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5qC45b+D5oyH5qCH77ya5L2g5LiN6IO956Kw55qE5pWw5a2X57qi57q/IiwiYW5jaG9yIjoiI+aguOW/g+aMh+agh+S9oOS4jeiDveeisOeahOaVsOWtl+e6oue6vyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6Iuadg+mHjeWKoOWIhuinhOWIme+8muaooeaLn+ecn+WunueUqOaItyIsImFuY2hvciI6IiPmnYPph43liqDliIbop4TliJnmqKHmi5/nnJ/lrp7nlKjmiLciLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLmnYPph43miaPliIbop4TliJnvvJrpgb/lhY3igJznqIvluo/ooYzkuLrigJ0iLCJhbmNob3IiOiIj5p2D6YeN5omj5YiG6KeE5YiZ6YG/5YWN56iL5bqP6KGM5Li6IiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLotKblj7fms6jlhozkuI7lrZjmtLvvvJrln7rlnLDnmoTlu7rnq4siLCJhbmNob3IiOiIj6LSm5Y+35rOo5YaM5LiO5a2Y5rS75Z+65Zyw55qE5bu656uLIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoi5rOo5YaM55qE5Y6f5YiZ77yI546v5aKD5o6n5Yi277yJIiwiYW5jaG9yIjoiI+azqOWGjOeahOWOn+WImeeOr+Wig+aOp+WItiIsImNoaWxkcmVuIjpbXX1dfSx7InRpdGxlIjoi5p6B566A5YW75Y+35pyv77ya5omT6YCg4oCc6ICB5Y+34oCd55qE5pel5bi4IiwiYW5jaG9yIjoiI+aegeeugOWFu+WPt+acr+aJk+mAoOiAgeWPt+eahOaXpeW4uCIsImNoaWxkcmVuIjpbeyJ0aXRsZSI6IuaWsOWPt+S4iue6v++8mummluWRqOaguOW/g+aTjeS9nO+8iOmrmOmjjumZqeacn++8iSIsImFuY2hvciI6IiPmlrDlj7fkuIrnur/pppblkajmoLjlv4Pmk43kvZzpq5jpo47pmanmnJ8iLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiLpq5jmnYPph43ml6XluLjnu7TmiqTvvJrlpJrlhYPkupLliqgiLCJhbmNob3IiOiIj6auY5p2D6YeN5pel5bi457u05oqk5aSa5YWD5LqS5YqoIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiLnu4jmnoHpmLLlvqHvvJrlubPlj7DnmoTnm5Hmjqfop4TliJnvvIjnn6Xlt7Hnn6XlvbzvvIkiLCJhbmNob3IiOiIj57uI5p6B6Ziy5b6h5bmz5Y+w55qE55uR5o6n6KeE5YiZ55+l5bex55+l5b28IiwiY2hpbGRyZW4iOltdfV0=" :page-id="30" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="im-account-warming-strategy.md"><template slot="contents"><div><p>为什么要打这场“储备消耗战”？</p>
+<p>在上一章中，我们强调了 IM 消息相比邮件的巨大优势：<strong>信任感高</strong>、<strong>易于挥发</strong>（撤回后难以取证）以及<strong>客户端攻击面广</strong>。</p>
+<p>然而，所有这些优势都依赖于一个前提：<strong>你的 IM 账号能够存活</strong>。</p>
+<p>用于侦察、钓鱼和渗透的账号本质上是<strong>消耗品</strong>。每一次成功的钓鱼，都伴随着极高的被举报风险。尤其当你利用像微信这样的平台时，你正在挑战一套基于社交图谱、行为分析和大数据风控的复杂系统。</p>
+<p>一旦你的账号被目标用户举报或触发平台风控：</p>
+<ol>
+<li><strong>行动中断：</strong> 账号立即被封禁，消息无法发送，你精心设计的攻击链条（OAuth 链接或 LNK 文件）瞬间失效。</li>
+<li><strong>横向打击：</strong> 平台会启动<strong>横向检测机制</strong>，扫描同 IP、同设备、同 WIFI 下的其他账号，导致你的整个账号池资源崩溃。</li>
+</ol>
+<p>因此，红队的策略必须是一场<strong>储备消耗战</strong>——你需要持续、稳定地投入资源，通过<strong>养号</strong>来提高账号的<strong>权重分</strong>，以确保在战斗中能经受住举报，维持高自由度的操作空间。</p>
+<hr>
+<h2 id="微信风控账号权重决定命运" class="toc-header"><a class="toc-anchor" href="#微信风控账号权重决定命运">¶</a> 微信风控：账号“权重”决定命运</h2>
+<p>微信的本质是一套<strong>账号评分体系</strong>。一个高权重的账号，即使进行与低权重账号相同的“钓鱼”操作，也可能安然无事。这是因为腾讯会将有限的监控资源优先倾斜给<strong>低权重、高风险</strong>的账号。</p>
+<h3 id="核心指标你不能碰的数字红线" class="toc-header"><a class="toc-anchor" href="#核心指标你不能碰的数字红线">¶</a> 核心指标：你不能碰的数字红线</h3>
+<p>这些数字是普遍安全值，一旦触碰很容易立即触发风控。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">限制类型</th>
+<th style="text-align:left">限制数值</th>
+<th style="text-align:left">风险说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>主动添加好友</strong></td>
+<td style="text-align:left">每天 ≤ 50 人；每 10 小时 ≤ 15 人</td>
+<td style="text-align:left">超出阀值，你发送的钓鱼请求对方无法收到，并有封号风险。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>被动添加好友</strong></td>
+<td style="text-align:left">每天 ≤ 200 人</td>
+<td style="text-align:left"><strong>钓鱼初期</strong>，被动添加是安全拉客的方式。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>建群/进群</strong></td>
+<td style="text-align:left">每天进群 ≤ 10 个；群人数超 100 需实名验证。</td>
+<td style="text-align:left">批量进群是账号异常活跃的重要特征。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>好友上限</strong></td>
+<td style="text-align:left">总上限约 5000+ 人</td>
+<td style="text-align:left"><strong>注意：</strong> 好友数超过 4000 人反而会降低权重分。</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>关键思路：</strong> 风控的判断不仅看 <strong>“全天指标”</strong>，更看 <strong>“单位时间指标”</strong>。一次性加 20 人立即封号，分摊到每小时加 5 人，则可能安全达标。</p>
+</blockquote>
+<h3 id="权重加分规则模拟真实用户" class="toc-header"><a class="toc-anchor" href="#权重加分规则模拟真实用户">¶</a> 权重加分规则：模拟真实用户</h3>
+<p>你的养号策略，就是模拟一个<strong>重度、多元化、高质量</strong>的真实用户。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">行为类别</th>
+<th style="text-align:left">操作目的与价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>基础信息</strong></td>
+<td style="text-align:left"><strong>完整性满分</strong>：绑定手机号、银行卡、QQ、邮箱，完成实名认证。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>使用时长</strong></td>
+<td style="text-align:left"><strong>注册时间越长，权重越高</strong>。这是最难用技术弥补的指标。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>聊天互动</strong></td>
+<td style="text-align:left">图文、语音、视频等<strong>互动方式多样</strong>，与多个好友维持稳定、<strong>双向</strong>的聊天频率。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>内容生态</strong></td>
+<td style="text-align:left">经常发朋友圈，与好友有点赞和评论互动；阅读腾讯新闻、订阅和阅读公众号。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>金融行为</strong></td>
+<td style="text-align:left">经常使用微信支付、发/抢红包、购买理财产品、充值话费。<strong>这是证明账号价值最高的行为。</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="权重扣分规则避免程序行为" class="toc-header"><a class="toc-anchor" href="#权重扣分规则避免程序行为">¶</a> 权重扣分规则：避免“程序行为”</h3>
+<p>所有<strong>中间没有其他操作、单一行为频繁重复</strong>的动作，都会被判定为机器操作，导致扣分。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">扣分风险点</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>环境异常</strong></td>
+<td style="text-align:left">使用黑名单 IP；同一 WiFi 下大量账号进行相同操作；IP 或定位发生突变。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>行为异常</strong></td>
+<td style="text-align:left">个人信息改动过于频繁；新加好友不互动，且被删除比例过高。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>单一高频</strong></td>
+<td style="text-align:left">短时间发 10 条以上朋友圈；频繁刷新“附近的人”或摇一摇（高风险功能）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>违规内容</strong></td>
+<td style="text-align:left">发送包含欺诈、色情、政治、金融敏感词汇（如发票、期货、支付宝、银行账号）的信息。</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="账号注册与存活基地的建立" class="toc-header"><a class="toc-anchor" href="#账号注册与存活基地的建立">¶</a> 账号注册与存活：基地的建立</h2>
+<p>新号的存活周期是所有策略的基石。在注册阶段，平台会进行最严格的设备和环境检测。</p>
+<h3 id="注册的原则环境控制" class="toc-header"><a class="toc-anchor" href="#注册的原则环境控制">¶</a> 注册的原则（环境控制）</h3>
+<ol>
+<li><strong>设备限制：</strong> 一台手机<strong>一个月注册次数 &lt; 5 次</strong>，一天 &lt; 2 次。</li>
+<li><strong>IP 切换：</strong> 注册时必须使用<strong>手机流量卡</strong>，在第二次注册前，必须启动<strong>两次飞行模式</strong>（强制切换 IP）。</li>
+<li><strong>环境固化：</strong> 注册完成后<strong>不能立即切换手机登陆</strong>，尽量在原手机保持 <strong>7 天</strong>以上。</li>
+<li><strong>批量规避：</strong> 即使购买账号，也要选择<strong>传统号段 (13x)</strong>，且手机号码<strong>不要挨着</strong>。</li>
+<li><strong>安卓优先：</strong> <strong>安卓系统</strong>注册的账号，因其系统权限和可收集的信息更多，权重通常高于苹果系统。</li>
+</ol>
+<hr>
+<h2 id="极简养号术打造老号的日常" class="toc-header"><a class="toc-anchor" href="#极简养号术打造老号的日常">¶</a> 极简养号术：打造“老号”的日常</h2>
+<p>养号有两个目的：<strong>提高权重防封</strong>，以及<strong>铺垫朋友圈提高信任度</strong>（为你的<strong>钓鱼话术</strong>提供背景支撑）。</p>
+<h3 id="新号上线首周核心操作高风险期" class="toc-header"><a class="toc-anchor" href="#新号上线首周核心操作高风险期">¶</a> 新号上线：首周核心操作（高风险期）</h3>
+<p>这是新号适应环境、获得信任的阶段，必须谨慎。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">时间</th>
+<th style="text-align:left">操作重点</th>
+<th style="text-align:left">注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>第一天</strong></td>
+<td style="text-align:left">互加 3-5 个老号；老号给新号备注/标签；互聊 5-10 句话。</td>
+<td style="text-align:left"><strong>不要立即修改全套资料！</strong> 让账号适应环境。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>次日</strong></td>
+<td style="text-align:left">设置微信号（不能有规律）；模拟对话；发一条朋友圈。</td>
+<td style="text-align:left">资料修改不要批量、不要有规律，且要错开时间。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>持续 7 天</strong></td>
+<td style="text-align:left"><strong>保持手机流量</strong>；打开定位（模拟移动轨迹）；每天至少发送一次朋友圈。</td>
+<td style="text-align:left">资料设置好后一段时间内不要频繁修改。</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="高权重日常维护多元互动" class="toc-header"><a class="toc-anchor" href="#高权重日常维护多元互动">¶</a> 高权重日常维护：多元互动</h3>
+<p>目标是<strong>多元化、日常化</strong>的使用，避免任何单一的高频动作。</p>
+<ol>
+<li><strong>聊天互动：</strong>
+<ul>
+<li>与 3-5 个好友聊天，每天分三个时间段，每次 5-10 句<strong>双向</strong>对话（文字、语音、图片等多样内容）。</li>
+<li><strong>战术价值：</strong> 确保账号权重，以便后续发送 OAuth 链接或 LNK 文件时不被立即拦截。</li>
+</ul>
+</li>
+<li><strong>内容生态：</strong>
+<ul>
+<li>模拟阅读腾讯新闻、订阅公众号，并<strong>分享到朋友圈</strong>，用其他号点赞评论。</li>
+<li><strong>战术价值：</strong> 打造一个有血有肉的社交形象，为你的<strong>钓鱼话术</strong>提供可信背景。</li>
+<li>多刷视频号：这是微信的重点主推新功能，能显著的增加你的账号权重。</li>
+</ul>
+</li>
+<li><strong>金融与发现：</strong>
+<ul>
+<li>发 1 个红包给老号，收 1 个红包。</li>
+<li>模拟使用游戏、购物等功能。</li>
+<li><strong>战术价值：</strong> 增加账号的金融权重，提高在风控系统中的地位。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="终极防御平台的监控规则知己知彼" class="toc-header"><a class="toc-anchor" href="#终极防御平台的监控规则知己知彼">¶</a> 终极防御：平台的监控规则（知己知彼）</h2>
+<p>了解微信的三大监控规则，才能理解你的每一次操作都在被如何评估，从而规避<strong>程序化行为</strong>。</p>
+<ol>
+<li>
+<p><strong>监控等级规则 (Level Monitoring)：</strong></p>
+<ul>
+<li>不同权重的账号对应不同的监控强度。资源有限，优先监控低权重账号。</li>
+</ul>
+</li>
+<li>
+<p><strong>横向检测规则 (Horizontal Detection)：</strong></p>
+<ul>
+<li>当你的一个账号因钓鱼行为被判断异常后，腾讯会立即扫描<strong>同 IP、同定位</strong>下的其他账号是否有同样的异常，<strong>同环境的账号会被牵连</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>属性监控规则 (Attribute Monitoring)：</strong></p>
+<ul>
+<li>根据账号的性别、地区等属性进行功能限制。例如，某些功能只对特定属性的账号开放。</li>
+</ul>
+</li>
+</ol>
+<p><strong>总结：</strong> 储备消耗战是一场对细节、耐心和环境控制的考验。你的目标是将你的“料号”培养成一个拥有最高自由度、足以承受几次用户举报的“惯犯”，以保障你在 IM 攻防链中的资源稳定。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

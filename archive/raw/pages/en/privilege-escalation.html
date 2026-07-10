@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>权限提升 - 从小兵到女王 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="权限提升 - 从小兵到女王"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/privilege-escalation"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="privilege-escalation" title="权限提升 - 从小兵到女王" description="" :tags="[]" created-at="2025-11-27T14:47:34.880Z" updated-at="2025-11-27T16:09:24.145Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiIxLiDlvJXoqIDvvJpIYXJkIE1vZGUg5byA5ZCvIiwiYW5jaG9yIjoiI2gtMS3lvJXoqIBoYXJkLW1vZGUt5byA5ZCvIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiMi4g5pq05Yqb56C06KejIHZzLiDpgLvovpHmrLrpqpciLCJhbmNob3IiOiIjaC0yLeaatOWKm+egtOinoy12cy3pgLvovpHmrLrpqpciLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIzLiDnn6Xlt7Hnn6XlvbzvvJrlrqvmrr/nmoTop4TliJkgKFdpbmRvd3MgSW50ZXJuYWxzKSIsImFuY2hvciI6IiNoLTMt55+l5bex55+l5b285a6r5q6/55qE6KeE5YiZLXdpbmRvd3MtaW50ZXJuYWxzIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoiMe+4j+KDoyDkvaDnmoTlt6XniYzvvJpUb2tlbiAo6K6/6Zeu5Luk54mMKSIsImFuY2hvciI6IiNoLTHvuI/ig6Mt5L2g55qE5bel54mMdG9rZW4t6K6/6Zeu5Luk54mMIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiMu+4j+KDoyDpl6jnpoHlkI3ljZXvvJpEQUNMICjorr/pl67mjqfliLbliJfooagpIiwiYW5jaG9yIjoiI2gtMu+4j+KDoy3pl6jnpoHlkI3ljZVkYWNsLeiuv+mXruaOp+WItuWIl+ihqCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjPvuI/ig6Mg5aWz55qH55qE5pu/6Lqr77yaSW1wZXJzb25hdGlvbiAo5qih5oufKSIsImFuY2hvciI6IiNoLTPvuI/ig6Mt5aWz55qH55qE5pu/6LqraW1wZXJzb25hdGlvbi3mqKHmi58iLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjQuIOWvu+aJvueMjueJqe+8muaUu+WHu+mdouaemuS4viAoSHVudGluZykiLCJhbmNob3IiOiIjaC00LeWvu+aJvueMjueJqeaUu+WHu+mdouaemuS4vi1odW50aW5nIiwiY2hpbGRyZW4iOlt7InRpdGxlIjoiMe+4j+KDoyDlr7vmib7igJzlv5jkuobplIHnmoTpl6jigJ0gKFdlYWsgUGVybWlzc2lvbnMpIiwiYW5jaG9yIjoiI2gtMe+4j+KDoy3lr7vmib7lv5jkuobplIHnmoTpl6gtd2Vhay1wZXJtaXNzaW9ucyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjLvuI/ig6Mg5a+75om+4oCc5YK755Oc5pyN5Yqh4oCdIChVbnF1b3RlZCBTZXJ2aWNlIFBhdGgpIiwiYW5jaG9yIjoiI2gtMu+4j+KDoy3lr7vmib7lgrvnk5zmnI3liqEtdW5xdW90ZWQtc2VydmljZS1wYXRoIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoiM++4j+KDoyDlr7vmib7igJzng63lv4PogqDnmoTku4bkurrigJ0gKFBvdGF0byBBdHRhY2tzIC8gTmFtZWQgUGlwZXMpIiwiYW5jaG9yIjoiI2gtM++4j+KDoy3lr7vmib7ng63lv4PogqDnmoTku4bkurotcG90YXRvLWF0dGFja3MtbmFtZWQtcGlwZXMiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjUuIOmAu+i+kea8j+a0nueahOmrmOe6p+iJuuacr++8muespuWPt+mTvuaOpSAoU3ltbGlua3MpIiwiYW5jaG9yIjoiI2gtNS3pgLvovpHmvI/mtJ7nmoTpq5jnuqfoibrmnK/nrKblj7fpk77mjqUtc3ltbGlua3MiLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiI2LiDlrp7miJjlhbXlmajvvJrku47miYvlt6XliLDoh6rliqjljJYiLCJhbmNob3IiOiIjaC02LeWunuaImOWFteWZqOS7juaJi+W3peWIsOiHquWKqOWMliIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjcuIOaAu+e7k++8muaguOW/g+aAnee7tOaWueW8jyIsImFuY2hvciI6IiNoLTct5oC757uT5qC45b+D5oCd57u05pa55byPIiwiY2hpbGRyZW4iOltdfV0=" :page-id="21" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="privilege-escalation.md"><template slot="contents"><div><p>本章节建议搭配芙蕾德莉卡的pdf讲解视频观看： <a href="https://www.bilibili.com/video/BV1DverzuEzL" class="is-external-link">https://www.bilibili.com/video/BV1DverzuEzL</a><br>
+涉及的pdf如下：<br>
+<a href="https://github.com/tyranid/windows-logical-eop-workshop/releases/download/44CON-2017/Introduction.to.Logical.Privilege.Escalation.on.Windows.pdf" class="is-external-link">https://github.com/tyranid/windows-logical-eop-workshop/releases/download/44CON-2017/Introduction.to.Logical.Privilege.Escalation.on.Windows.pdf</a></p>
+<h2 id="h-1-引言hard-mode-开启" class="toc-header"><a class="toc-anchor" href="#h-1-引言hard-mode-开启">¶</a> 1. 引言：Hard Mode 开启</h2>
+<p>在上一章《Bypass UAC》中，我们的生活很美好：我们本来就在 <strong>Administrators</strong> 组里，只需要用一点小手段绕过弹窗，就能获得至高无上的权力。</p>
+<p>但在现实的红队行动中，<strong>90% 的情况</strong>是你通过钓鱼邮件，横向移动或 Web 漏洞拿到的 Shell，只是一个<strong>卑微的普通用户/域用户</strong>（比如 <code>User</code> 或 <code>IIS AppPool</code>）。</p>
+<p>这时候，你再用 UACME 是没用的，因为你的“身份证”上根本就没有“管理员”这三个字。你不需要“解锁”，你需要的是<strong>篡位</strong>。</p>
+<p>这一章，我们将探讨如何从<strong>普通用户 (Pawn)</strong> 逆袭成为 <strong>SYSTEM (Queen)</strong>。我们将跟随 Windows 提权大师 <strong>James Forshaw</strong> 的思路，学习一种不需要写汇编代码的高级艺术——<strong>逻辑提权</strong>。</p>
+<hr>
+<h2 id="h-2-暴力破解-vs-逻辑欺骗" class="toc-header"><a class="toc-anchor" href="#h-2-暴力破解-vs-逻辑欺骗">¶</a> 2. 暴力破解 vs. 逻辑欺骗</h2>
+<p>想要获得更高的权限，通常有两条路：</p>
+<ul>
+<li><strong>路子正（内存破坏）：</strong> 寻找 Windows 内核的缓冲区溢出漏洞（Kernel Exploit）。这就像是拿着大锤去砸宫殿的墙，进行正面猛攻。但现在微软把墙修得越来越厚（SMEP, ASLR, KVA），这条路越来越难走，而且容易把系统搞蓝屏。</li>
+<li><strong>路子巧（逻辑漏洞）：</strong> 这是 James Forshaw 提倡的方法。<strong>我们不砸墙，我们骗保安。</strong>
+<ul>
+<li>逻辑提权的本质是：<strong>利用系统原本合法的“规则”，组合出程序员意想不到的“后果”。</strong></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="h-3-知己知彼宫殿的规则-windows-internals" class="toc-header"><a class="toc-anchor" href="#h-3-知己知彼宫殿的规则-windows-internals">¶</a> 3. 知己知彼：宫殿的规则 (Windows Internals)</h2>
+<p>要骗过保安，你得先懂宫殿的规矩。在 Windows 里，权限控制主要看三个东西：</p>
+<h3 id="h-1️⃣-你的工牌token-访问令牌" class="toc-header"><a class="toc-anchor" href="#h-1️⃣-你的工牌token-访问令牌">¶</a> 1️⃣ 你的工牌：Token (访问令牌)</h3>
+<p>每个进程都有一个 Token。它决定了你是谁。</p>
+<ul>
+<li><strong>普通用户 Token：</strong> 只能访问自己的桌面和文档。</li>
+<li><strong>SYSTEM Token：</strong> 拥有整个操作系统的生杀大权。</li>
+</ul>
+<blockquote>
+<p><strong>提权的目标：</strong> 偷到一个 SYSTEM 的 Token，贴在自己脑门上。</p>
+</blockquote>
+<h3 id="h-2️⃣-门禁名单dacl-访问控制列表" class="toc-header"><a class="toc-anchor" href="#h-2️⃣-门禁名单dacl-访问控制列表">¶</a> 2️⃣ 门禁名单：DACL (访问控制列表)</h3>
+<p>每个文件和服务都有一张名单。</p>
+<ul>
+<li>通常，<code>C:\Windows\System32</code> 的名单上写着：<code>Administrator: Full Control</code>，<code>User: Read Only</code>。</li>
+<li>这就是为什么你无法替换系统文件的原因。</li>
+</ul>
+<h3 id="h-3️⃣-女皇的替身impersonation-模拟" class="toc-header"><a class="toc-anchor" href="#h-3️⃣-女皇的替身impersonation-模拟">¶</a> 3️⃣ 女皇的替身：Impersonation (模拟)</h3>
+<p>这是 Windows 最容易被利用的机制。</p>
+<ul>
+<li><strong>原理：</strong> 系统服务（SYSTEM 权限）经常需要帮用户办事。为了安全，服务会暂时**“模拟”**成那个用户的权限去办事。</li>
+<li><strong>漏洞：</strong> 如果我们能诱骗一个 SYSTEM 服务来连接我们（比如通过命名管道 Named Pipe），并且它<strong>忘记</strong>了降级（或者我们可以利用某种技巧捕获它的凭证），我们就能把它的 Token 偷过来！</li>
+</ul>
+<hr>
+<h2 id="h-4-寻找猎物攻击面枚举-hunting" class="toc-header"><a class="toc-anchor" href="#h-4-寻找猎物攻击面枚举-hunting">¶</a> 4. 寻找猎物：攻击面枚举 (Hunting)</h2>
+<p>作为一个小兵，我们要在系统里四处游荡，寻找那些<strong>配置错误</strong>或<strong>逻辑不严谨</strong>的角落。</p>
+<h3 id="h-1️⃣-寻找忘了锁的门-weak-permissions" class="toc-header"><a class="toc-anchor" href="#h-1️⃣-寻找忘了锁的门-weak-permissions">¶</a> 1️⃣ 寻找“忘了锁的门” (Weak Permissions)</h3>
+<p>有些软件安装时很粗心，把安装目录设为了 <code>Everyone: Full Control</code>。</p>
+<ul>
+<li><strong>实战：</strong> 如果你发现一个以 SYSTEM 权限运行的杀毒软件，它的服务主程序竟然允许你<strong>修改</strong>。</li>
+<li><strong>操作：</strong> 把你的木马改名为该杀毒软件的名字，重启服务。</li>
+<li><strong>结果：</strong> 系统自动以 SYSTEM 权限启动了你的木马。</li>
+</ul>
+<h3 id="h-2️⃣-寻找傻瓜服务-unquoted-service-path" class="toc-header"><a class="toc-anchor" href="#h-2️⃣-寻找傻瓜服务-unquoted-service-path">¶</a> 2️⃣ 寻找“傻瓜服务” (Unquoted Service Path)</h3>
+<ul>
+<li><strong>原理：</strong> Windows 解析路径的逻辑缺陷。
+<ul>
+<li>路径：<code>C:\Program Files\My App\service.exe</code></li>
+<li>如果路径没加引号，系统会按顺序尝试运行：
+<ol>
+<li><code>C:\Program.exe</code> ❌</li>
+<li><code>C:\Program Files\My.exe</code> ❌</li>
+<li><code>C:\Program Files\My App\service.exe</code> ✅</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>利用：</strong> 如果你有权限在 C 盘根目录写文件，你就放一个恶意的 <code>Program.exe</code>。下次服务重启时，它就会错误地执行你的程序！</li>
+</ul>
+<h3 id="h-3️⃣-寻找热心肠的仆人-potato-attacks-named-pipes" class="toc-header"><a class="toc-anchor" href="#h-3️⃣-寻找热心肠的仆人-potato-attacks-named-pipes">¶</a> 3️⃣ 寻找“热心肠的仆人” (Potato Attacks / Named Pipes)</h3>
+<p>这是基于 James Forshaw 理论最经典的实战应用（如 JuicyPotato, PrintNightmare）。</p>
+<ul>
+<li><strong>剧本：</strong>
+<ol>
+<li><strong>设局：</strong> 我们创建一个恶意的 COM 对象或 RPC 服务器（想象成一个虚假的求助站）。</li>
+<li><strong>诱骗：</strong> 我们强行触发一个高权限的 SYSTEM 服务（如 DCOM 服务），让它来访问我们的求助站。</li>
+<li><strong>窃取：</strong> 当 SYSTEM 服务连接我们时，它会携带它的身份凭证（Token）。</li>
+<li><strong>伪装：</strong> 我们利用 Windows 的 API（<code>ImpersonateNamedPipeClient</code>），直接把这个 SYSTEM Token 拿过来，变成了我们自己的。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2 id="h-5-逻辑漏洞的高级艺术符号链接-symlinks" class="toc-header"><a class="toc-anchor" href="#h-5-逻辑漏洞的高级艺术符号链接-symlinks">¶</a> 5. 逻辑漏洞的高级艺术：符号链接 (Symlinks)</h2>
+<p>James Forshaw 最擅长的领域。这是一种<strong>隔山打牛</strong>的战术。</p>
+<p><strong>场景：</strong><br>
+有一个系统服务，任务是定期清理 <code>C:\Temp\log.txt</code>。它是 SYSTEM 权限。</p>
+<p><strong>攻击逻辑：</strong></p>
+<ol>
+<li><strong>观察：</strong> 我们发现这个服务在删除文件前，没有严格检查文件是不是真的日志。</li>
+<li><strong>偷梁换柱：</strong> 我们删掉 <code>log.txt</code>，并在原地建立一个<strong>符号链接 (Mount Point / Junction)</strong>，指向 <code>C:\Windows\System32\drivers\pci.sys</code>（关键驱动文件）。</li>
+<li><strong>借刀杀人：</strong> 服务再次运行时，它以为自己在删日志，实际上顺着我们的链接，把系统的关键驱动删了！</li>
+<li><strong>提权：</strong> 同样的逻辑，如果服务是<strong>写文件</strong>，我们就能让它帮我们把恶意 DLL 写入 System32 目录。</li>
+</ol>
+<blockquote>
+<p><strong>核心思想：</strong> 我没有权限写系统目录，但我可以把一个“我有权写的地方”变成“通往系统目录的虫洞”。</p>
+</blockquote>
+<hr>
+<h2 id="h-6-实战兵器从手工到自动化" class="toc-header"><a class="toc-anchor" href="#h-6-实战兵器从手工到自动化">¶</a> 6. 实战兵器：从手工到自动化</h2>
+<p>理解了原理，实战中我们通常使用封装好的工具。</p>
+<ul>
+<li><strong>PowerUp (PowerShell):</strong> 经典的枚举工具。
+<ul>
+<li><code>Invoke-AllChecks</code>：自动帮你扫描有没有“没加引号的服务路径”、“权限错误的注册表键值”等。</li>
+</ul>
+</li>
+<li><strong>Potato Family (土豆家族):</strong>
+<ul>
+<li><code>JuicyPotato</code> / <code>RottenPotato</code> / <code>SweetPotato</code>：专门利用 COM/RPC 机制骗取 SYSTEM Token 的神器。</li>
+</ul>
+</li>
+<li><strong>PrintNightmare / SpoolSample:</strong> 利用打印机服务（Spooler）的逻辑漏洞，强制让域控制器或者本机回连我们，从而窃取凭证。</li>
+</ul>
+<hr>
+<h2 id="h-7-总结核心思维方式" class="toc-header"><a class="toc-anchor" href="#h-7-总结核心思维方式">¶</a> 7. 总结：核心思维方式</h2>
+<p>从 Bypass UAC 到 Privilege Escalation，你会发现利用思维的转变：</p>
+<ul>
+<li><strong>Bypass UAC</strong> 是在想：<strong>“我是没带钥匙的老板，怎么让保安别管我？”</strong></li>
+<li><strong>Privilege Escalation</strong> 是在想：<strong>“我只是个扫地的，但我怎么诱骗老板把金库钥匙落在我这里？”</strong></li>
+</ul>
+<p>逻辑提权不需要你对抗昂贵的杀毒软件内存防御，你需要对抗的是<strong>程序员的逻辑疏忽</strong>。只要系统里还存在“服务帮用户办事”的逻辑，这种提权路径就永远存在。</p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

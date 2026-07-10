@@ -1,0 +1,108 @@
+site_name: Redteam Wiki
+site_url: https://redteam-wiki.org/
+site_description: 免费、面向实战、新手友好的红队攻防技术入门指南
+copyright: 文档内容采用 CC BY-SA 4.0 许可
+docs_dir: docs
+site_dir: site
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  language: zh
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: 切换至深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: 切换至浅色模式
+  features:
+    - navigation.sections
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+  - redirects:
+      redirect_maps:
+        privilege-escalation.md: en/privilege-escalation.md
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      toc_depth: 2-4
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.details
+  - admonition
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  # BEGIN AUTO NAV
+  - "Home": "index.md"
+  - "重要须知": "en/notify.md"
+  - "速查词典": "en/dictionary.md"
+  - "工具准备": "en/tools-list.md"
+  - "快速开始": "en/quickstart.md"
+  - "信息收集，了解你的目标": "en/info-collect.md"
+  - "资产测绘 - 知道你在进攻什么": "en/finding-assets.md"
+  - "人员测绘 - 你养鱼的池塘": "en/people-collect.md"
+  - "木马，一切行动的基石": "en/trojan-starter.md"
+  - "shellcode - 木马的心脏": "en/shellcode-starter.md"
+  - "你的第一次远程控制 - CobaltStrike101": "en/cs-101.md"
+  - "静态对抗 - 从特征码到聚类特征": "en/static-analyze.md"
+  - "动态对抗 - 行为分析何以可能": "en/dynamic-competition.md"
+  - "致盲与失能 - 瘫痪守卫者": "en/blinding-edr.md"
+  - "对抗虚拟化 - 特殊\"国情\"下的绕过": "en/anti-vm-cn-specific.md"
+  - "断开进程链 - 让Shatter Attack再次伟大": "en/break-chain.md"
+  - "物理读写利用绕过技术 - mmpfn详解": "en/physical-memory-rw-mmpfn.md"
+  - "痕迹的抹除 - 清理现场": "en/log-clearing.md"
+  - "钓鱼，你的第一台战利品": "en/phishing-tutorial.md"
+  - "没人是蠢货：钓鱼载荷的选择": "en/choose-file.md"
+  - "钓鱼导论：信任的建立和诱导": "en/phishing-starter.md"
+  - "IM攻防：拓展攻击面和想象力": "en/IM-vuln.md"
+  - "储备消耗战 : 你的养号策略": "en/im-account-warming-strategy.md"
+  - "享用和维持你的战利品": "en/persistence-and-credential-harvesting.md"
+  - "BypassUAC - 拿回原本的权限": "en/uac-bypass.md"
+  - "权限提升 - 从小兵到女王": "en/privilege-escalation.md"
+  - "持久化 - 稳固你的战利品": "en/persistence.md"
+  - "凭证获取 - 你手中的钥匙": "en/credential-harvesting-the-keys-in-your-hand.md"
+  - "命令与控制": "en/c2-infrastructure-stealth.md"
+  - "C2载荷与通信技术": "en/c2-payload-and-stealth-comms.md"
+  - "Web渗透，从正面创造突破口": "en/web-starter.md"
+  - "传统漏洞 - 古老但有效": "en/basic-web-vuln.md"
+  - "反序列化 - 现代进攻技术": "en/deserialize-basic.md"
+  - "Nday利用 - 框架，组件，和应用": "en/basic-nday.md"
+  - "0day漏洞 - 危险来源于未知": "en/basic-0day.md"
+  - "供应链攻击 - 善攻者动于九天之上": "en/supply-chain-attack-basic.md"
+  - "横向移动 ，战果的指数扩增": "en/lateral-movement.md"
+  - "扫描和密码喷洒 - 从新手用到退役": "en/scanning.md"
+  - "Windows AD - 域攻防的那些事": "en/windows-ad-security.md"
+  - "附录":
+      - "Windows本地提权原理详解": "en/lpe-example.md"
+      - "猴子打字 - 浅谈windows内核漏洞挖掘": "en/windows-kernel-vuln.md"
+      - "提问的智慧": "en/ask-question.md"
+  # END AUTO NAV
+

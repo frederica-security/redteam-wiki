@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>Bypass UAC - 拿回原本的权限 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="Bypass UAC - 拿回原本的权限"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/uac-bypass"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="uac-bypass" title="Bypass UAC - 拿回原本的权限" description="" :tags="[]" created-at="2025-11-27T13:57:46.487Z" updated-at="2025-11-27T14:08:05.733Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W3sidGl0bGUiOiIxLiDlvJXoqIDvvJrmiJHliLDlupXmmK/kuI3mmK/nrqHnkIblkZjvvJ8iLCJhbmNob3IiOiIjaC0xLeW8leiogOaIkeWIsOW6leaYr+S4jeaYr+euoeeQhuWRmCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjIuIOS7gOS5iOaYryBVQUPvvJ/vvIjpgqPkuKrng6bkurrnmoTlvLnnqpfvvIkiLCJhbmNob3IiOiIjaC0yLeS7gOS5iOaYry11YWPpgqPkuKrng6bkurrnmoTlvLnnqpciLCJjaGlsZHJlbiI6W119LHsidGl0bGUiOiIzLiDnu5Xov4fnmoTmoLjlv4Pljp/nkIbvvJrns7vnu5/kv6Hku7vnmoTigJzog4zlj5vigJ0iLCJhbmNob3IiOiIjaC0zLee7lei/h+eahOaguOW/g+WOn+eQhuezu+e7n+S/oeS7u+eahOiDjOWPmyIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjQuIOa3seW6puino+aekO+8mlVBQyDnu5Xov4fnmoTkuInlpKfmtYHmtL4iLCJhbmNob3IiOiIjaC00Lea3seW6puino+aekHVhYy3nu5Xov4fnmoTkuInlpKfmtYHmtL4iLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLwn5ug77iPIOa1gea0vuS4gO+8muazqOWGjOihqOWKq+aMgSAoUmVnaXN0cnkgTWFuaXB1bGF0aW9uKSIsImFuY2hvciI6IiPvuI8t5rWB5rS+5LiA5rOo5YaM6KGo5Yqr5oyBLXJlZ2lzdHJ5LW1hbmlwdWxhdGlvbiIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IvCfm6DvuI8g5rWB5rS+5LqM77yaRExMIOWKq+aMgeS4juaWh+S7tuaTjeS9nCAoSUZpbGVPcGVyYXRpb24pIiwiYW5jaG9yIjoiI++4jy3mtYHmtL7kuoxkbGwt5Yqr5oyB5LiO5paH5Lu25pON5L2cLWlmaWxlb3BlcmF0aW9uIiwiY2hpbGRyZW4iOltdfSx7InRpdGxlIjoi8J+boO+4jyDmtYHmtL7kuInvvJrmu6XnlKjpq5jmnYPpmZAgQ09NIOaOpeWPoyIsImFuY2hvciI6IiPvuI8t5rWB5rS+5LiJ5rul55So6auY5p2D6ZmQLWNvbS3mjqXlj6MiLCJjaGlsZHJlbiI6W119XX0seyJ0aXRsZSI6IjUuIOWunuaImOWFteWZqO+8mlVBQ01FIChVQUMgTWUpIiwiYW5jaG9yIjoiI2gtNS3lrp7miJjlhbXlmah1YWNtZS11YWMtbWUiLCJjaGlsZHJlbiI6W3sidGl0bGUiOiLlpoLkvZXkvb/nlKjvvJ8iLCJhbmNob3IiOiIj5aaC5L2V5L2/55SoIiwiY2hpbGRyZW4iOltdfV19LHsidGl0bGUiOiI2LiDwn5uh77iPIOWvueaKl+inhuinku+8mumYsuWuiOaWueWmguS9leWPkeeOsOS9oO+8nyIsImFuY2hvciI6IiNoLTYt77iPLeWvueaKl+inhuinkumYsuWuiOaWueWmguS9leWPkeeOsOS9oCIsImNoaWxkcmVuIjpbXX0seyJ0aXRsZSI6IjcuIOKaoO+4jyDms6jmhI/kuovpobkiLCJhbmNob3IiOiIjaC03Le+4jy3ms6jmhI/kuovpobkiLCJjaGlsZHJlbiI6W119XQ==" :page-id="20" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="uac-bypass.md"><template slot="contents"><div><h2 id="h-1-引言我到底是不是管理员" class="toc-header"><a class="toc-anchor" href="#h-1-引言我到底是不是管理员">¶</a> 1. 引言：我到底是不是管理员？</h2>
+<p>想象一下，你通过精心设计的钓鱼邮件或在内网中横向移动，终于成功控制了一台目标PC。</p>
+<p>你兴奋地在 Shell 中敲下 <code>whoami /groups</code>，屏幕上赫然显示你所在的组是：<strong>BUILTIN\Administrators</strong>（管理员组）。</p>
+<p>“太棒了！”你心想，“我是管理员，干什么都可以。”</p>
+<p>于是，你试图运行 Mimikatz 抓取密码，或者试图向 <code>C:\Windows\System32</code> 写入一个持久化后门。</p>
+<p>结果，你只得到这个结果：<strong>Access Denied（拒绝访问）</strong>。</p>
+<p>你可能会怀疑人生：“我明明在 Administrators 组里，为什么连个文件都写不进去？”</p>
+<p><strong>欢迎来到 UAC（用户账户控制）。</strong></p>
+<hr>
+<h2 id="h-2-什么是-uac那个烦人的弹窗" class="toc-header"><a class="toc-anchor" href="#h-2-什么是-uac那个烦人的弹窗">¶</a> 2. 什么是 UAC？（那个烦人的弹窗）</h2>
+<p>在 Windows Vista 之前（比如 XP 时代），管理员就是神，运行什么都是最高权限。这导致病毒一旦进来就能毁灭系统。</p>
+<p>为了安全，微软引入了 <strong>UAC (User Account Control)</strong>。它的核心逻辑是：</p>
+<p><strong>“平时是平民，用时才变身。”</strong></p>
+<p>即使你是管理员，登录后系统也只给你一个“缩水版”的权限令牌（Medium Integrity）。只有当你真正需要干大事（比如装软件、改系统设置）时，系统才会弹出一个黑屏窗口问你：“你确定要允许此应用对你的设备进行更改吗？”</p>
+<p>只有你点了“是”，系统才会给你一个<strong>完整版</strong>的高权限令牌（High Integrity）。</p>
+<p><strong>对于红队黑客来说，这个弹窗是致命的。</strong></p>
+<p>因为我们在远程控制别人的电脑，一旦触发这个弹窗，受害者会在屏幕上看到，而我们不仅看不到弹窗，还会因为无法点击“是”而被拒之门外。</p>
+<p><strong>BypassUAC 的目的，就是不触发那个弹窗，悄悄地让系统把“完整版权限”交还给我们。</strong></p>
+<hr>
+<h2 id="h-3-绕过的核心原理系统信任的背叛" class="toc-header"><a class="toc-anchor" href="#h-3-绕过的核心原理系统信任的背叛">¶</a> 3. 绕过的核心原理：系统信任的“背叛”</h2>
+<p>既然 UAC 这么严，为什么还能绕过呢？因为 Windows 对“自家人”非常偏心。</p>
+<p>微软设置了一个 <strong>“白名单机制” (AutoElevate)</strong>。</p>
+<p>系统里有许多微软自带的程序（比如 <code>任务管理器</code>、<code>事件查看器</code>、<code>fodhelper.exe</code> 等），它们在启动时，<strong>系统会默认它们是安全的，自动静默提升权限，不会弹窗。</strong></p>
+<p>这就给了我们可乘之机。</p>
+<p><strong>典型攻击思路：</strong></p>
+<p>如果我能“欺骗”或者“劫持”这些受信任的白名单程序，让它们在拥有高权限的时候，顺便帮我执行一下我的恶意代码，那我不也就拥有高权限了吗？</p>
+<p>这就像是：你想进一个高级VIP俱乐部（高权限），门口保安（UAC）不让你进。但这时候，俱乐部的老板（白名单程序）来了，保安不敢拦。你迅速躲进老板的行李箱里（注入/劫持），就这样大摇大摆地混进去了。</p>
+<p>具体怎么躲进行李箱？这涉及到一些基础知识。</p>
+<hr>
+<h2 id="h-4-深度解析uac-绕过的三大流派" class="toc-header"><a class="toc-anchor" href="#h-4-深度解析uac-绕过的三大流派">¶</a> 4. 深度解析：UAC 绕过的三大流派</h2>
+<p>虽然绕过方法有几十种，但万变不离其宗，主要归结为以下三类技术。</p>
+<h3 id="️-流派一注册表劫持-registry-manipulation" class="toc-header"><a class="toc-anchor" href="#️-流派一注册表劫持-registry-manipulation">¶</a> 🛠️ 流派一：注册表劫持 (Registry Manipulation)</h3>
+<p>这是最常见、最经典的技术（例如著名的 <code>fodhelper</code> 利用）。</p>
+<ul>
+<li><strong>原理：</strong> 很多高权限系统程序在启动时，会去查询注册表里的特定键值，来决定“我要运行什么”。而普通用户刚好有权限修改这些键值。</li>
+<li><strong>攻击链：</strong>
+<ol>
+<li><strong>目标：</strong> <code>fodhelper.exe</code>（Windows 功能管理工具，自动高权限）。</li>
+<li><strong>劫持：</strong> 它启动时会查询 <code>ms-settings</code> 协议。我们将注册表中该协议的关联命令改为 <code>cmd.exe</code>。</li>
+<li><strong>触发：</strong> 攻击者启动 <code>fodhelper.exe</code>。</li>
+<li><strong>结果：</strong> <code>fodhelper</code>（高权限）读取注册表 -&gt; 发现命令是 <code>cmd.exe</code> -&gt; <strong>以高权限启动 CMD</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="️-流派二dll-劫持与文件操作-ifileoperation" class="toc-header"><a class="toc-anchor" href="#️-流派二dll-劫持与文件操作-ifileoperation">¶</a> 🛠️ 流派二：DLL 劫持与文件操作 (IFileOperation)</h3>
+<p>你可能会问：“DLL 劫持我懂，但我不是管理员，我没办法把我的毒 DLL 复制到 <code>C:\Windows\System32</code> 这种受保护目录去劫持系统程序啊？”</p>
+<p>这就引入了 Windows 的一个神奇 COM 接口：<strong><code>IFileOperation</code></strong>。</p>
+<ul>
+<li><strong>原理：</strong> <code>IFileOperation</code> 是资源管理器用来复制文件的组件。它是一个<strong>自动提权</strong>的 COM 对象。只要你不是把 UAC 设置为最高级别，它就会<strong>不弹窗</strong>地帮你把文件复制到系统目录。</li>
+<li><strong>攻击链：</strong>
+<ol>
+<li><strong>准备：</strong> 准备一个恶意的 DLL（例如 <code>cryptbase.dll</code>）。</li>
+<li><strong>搬运：</strong> 调用 <code>IFileOperation</code> 接口，请求系统把这个 DLL 复制到 <code>C:\Windows\System32\sysprep\</code> 目录下（普通方式无法写入）。</li>
+<li><strong>触发：</strong> 启动 <code>sysprep.exe</code>。</li>
+<li><strong>结果：</strong> <code>sysprep</code> 在高权限目录下发现了恶意的 DLL 并加载，代码执行成功。</li>
+</ol>
+</li>
+</ul>
+<h3 id="️-流派三滥用高权限-com-接口" class="toc-header"><a class="toc-anchor" href="#️-流派三滥用高权限-com-接口">¶</a> 🛠️ 流派三：滥用高权限 COM 接口</h3>
+<p>这是一种更“优雅”的技术，通常不需要文件落地。</p>
+<ul>
+<li><strong>原理：</strong> Windows 中有一些 COM 接口设计之初就是为了执行管理任务的。</li>
+<li><strong>攻击链：</strong> 攻击者在低权限下实例化一个配置为 Auto-Elevate 的 COM 对象，然后调用其公开的方法（如 <code>ShellExec</code>），让这个高权限的对象帮我们去运行指定的程序。</li>
+</ul>
+<hr>
+<h2 id="h-5-实战兵器uacme-uac-me" class="toc-header"><a class="toc-anchor" href="#h-5-实战兵器uacme-uac-me">¶</a> 5. 实战兵器：UACME (UAC Me)</h2>
+<p>原理听起来很复杂，但在实战中，我们通常使用现成的工具。</p>
+<p><code>hfiref0x</code> 开发了名为 <strong>UACME</strong> 的开源项目，它几乎是 BypassUAC 界的“百科全书”，收录了 70 多种绕过方法。</p>
+<ul>
+<li><strong>项目地址：</strong> <code>https://github.com/hfiref0x/UACME</code></li>
+<li><strong>核心工具：</strong> <code>Akagi</code></li>
+</ul>
+<h3 id="如何使用" class="toc-header"><a class="toc-anchor" href="#如何使用">¶</a> 如何使用？</h3>
+<p>UACME 编译后会得到一个 <code>akagi64.exe</code>。使用方法非常简单：</p>
+<pre class="prismjs line-numbers" v-pre="true"><code class="language-bash"># 语法：akagi64.exe [方法编号] [你想运行的程序]
+
+# 例子：使用方法 61 (基于注册表劫持)，启动一个高权限的 CMD
+akagi64.exe 61 c:\windows\system32\cmd.exe
+</code></pre>
+<p>一旦成功，你会发现弹出的新 CMD 窗口标题栏上写着“管理员”，或者运行 <code>whoami /groups</code> 时，能看到 <code>High Mandatory Level</code>（高完整性级别）。这意味着你拿回了原本属于你的权力。</p>
+<hr>
+<h2 id="h-6-️-对抗视角防守方如何发现你" class="toc-header"><a class="toc-anchor" href="#h-6-️-对抗视角防守方如何发现你">¶</a> 6. 🛡️ 对抗视角：防守方如何发现你？</h2>
+<p>不要以为用了 UACME 就万事大吉。现在的 EDR（终端检测响应系统）对这些行为极其敏感。</p>
+<ol>
+<li><strong>文件查杀：</strong> <code>Akagi.exe</code> 这个文件本身就是全网通缉犯，落地即杀。实战中我们通常只参考其<strong>代码原理</strong>，自己重写一个小工具。</li>
+<li><strong>父子进程异常：</strong> 如果 <code>fodhelper.exe</code> 突然生出了一个 <code>cmd.exe</code> 或 <code>powershell.exe</code> 作为子进程，这在正常系统中是不可能发生的，EDR 会直接报警。</li>
+<li><strong>注册表监控：</strong> 类似 <code>HKCU\Software\Classes\ms-settings\</code> 这种敏感注册表位置，是 EDR 的重点监控对象。</li>
+</ol>
+<hr>
+<h2 id="h-7-️-注意事项" class="toc-header"><a class="toc-anchor" href="#h-7-️-注意事项">¶</a> 7. ⚠️ 注意事项</h2>
+<p>最后，强调几个新手最容易犯的错误：</p>
+<ol>
+<li><strong>Bypass UAC ≠ 提权 (LPE)：</strong>
+<ul>
+<li>Bypass UAC 的前提是<strong>你已经是管理员组的用户</strong>，只是被 UAC 限制了。</li>
+<li>如果你只是一个普通用户（User 组），UACME 是救不了你的，你需要的是内核提权漏洞（LPE）。</li>
+</ul>
+</li>
+<li><strong>方法的时效性：</strong>
+<ul>
+<li>微软一直在修复这些“漏洞”。UACME 的作者会在 README 中标注哪些方法在哪个版本被修复了（Fixed in...）。请选用标记为 <strong>Unfixed</strong> 的方法。</li>
+</ul>
+</li>
+<li><strong>记得擦屁股（清理战场）：</strong>
+<ul>
+<li>很多方法会修改注册表或在系统目录丢 DLL。实验结束后，务必清理痕迹，否则这不仅是不专业的表现，更是给防御者留下的最明显的线索。</li>
+</ul>
+</li>
+</ol>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

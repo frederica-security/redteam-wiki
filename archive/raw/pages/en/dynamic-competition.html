@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>动态对抗 - 行为分析何以可能 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="动态对抗 - 行为分析何以可能"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/dynamic-competition"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="dynamic-competition" title="动态对抗 - 行为分析何以可能" description="" :tags="[]" created-at="2025-11-19T19:40:31.757Z" updated-at="2025-11-19T20:22:03.119Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W10=" :page-id="15" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="dynamic-competition.md"><template slot="contents"><div><p>本章节建议搭配芙蕾德莉卡的安全学习科普视频观看 <a href="https://www.bilibili.com/video/BV1z8CXBRE7H" class="is-external-link">https://www.bilibili.com/video/BV1z8CXBRE7H</a></p>
+<p>在上一章，我们通过混淆和白加黑（静态对抗），成功骗过了杀软的文件扫描。我们将“枪”拆散了藏进“蛋糕”里，顺利带过了安检。</p>
+<p>但当你双击运行程序，试图把“枪”组装起来开火时，你发现周围的便衣警察（EDR）立刻扑了上来。</p>
+<p><strong>这就是动态对抗。</strong></p>
+<p>在动态对抗的世界里，杀软不再看你“长得像不像坏人”，而是看你**“有没有做坏事”**。无论你的代码加密得多么完美，你终究要调用系统 API，要申请内存，要联网，要读取文件。<strong>只要你有动作，就会留下痕迹。</strong></p>
+<p>本章将带你深入系统的底层，看看那些看不见的“监控探头”是如何工作的。</p>
+<hr>
+<h3 id="h-1-上古时代的监控ssdt-hook-ring-0-的猫鼠游戏" class="toc-header"><a class="toc-anchor" href="#h-1-上古时代的监控ssdt-hook-ring-0-的猫鼠游戏">¶</a> 1. 上古时代的监控：SSDT Hook (Ring 0 的猫鼠游戏)</h3>
+<p>在早期的 Windows XP 时代，杀毒软件为了监控系统，做法非常野蛮。</p>
+<ul>
+<li><strong>原理：</strong> Windows 想要执行核心操作（比如打开文件、创建进程），最终都要查询一张表——<strong>SSDT (System Service Descriptor Table，系统服务描述符表)</strong>。这张表里记录了所有内核函数的地址。</li>
+<li><strong>Hook 技术：</strong> 早期的杀软（以及病毒）会直接修改这张表，把原本指向 Windows 内核的地址，改成指向杀软自己的驱动程序。
+<ul>
+<li><strong>流程：</strong> 你调用 <code>OpenProcess</code> -&gt; 跳转到杀软驱动 -&gt; 杀软检查你是不是在抓 LSASS（读取密码） -&gt; 杀软放行或拦截。</li>
+</ul>
+</li>
+<li><strong>结局：</strong> 这种做法非常不稳定。如果两个杀软同时修改这张表，或者修改出错，Windows 就会直接蓝屏（BSOD）。微软在 64 位系统中引入了 <strong>PatchGuard (PG)</strong> 技术，严禁任何人乱改内核表，标志着 SSDT Hook 时代的终结。</li>
+</ul>
+<hr>
+<h3 id="h-2-现代法治社会内核回调-kernel-callbacks" class="toc-header"><a class="toc-anchor" href="#h-2-现代法治社会内核回调-kernel-callbacks">¶</a> 2. 现代法治社会：内核回调 (Kernel Callbacks)</h3>
+<p>微软禁止了 SSDT Hook，但杀软总得干活啊。于是微软说：“别乱改我家内核了，我给你们开正规接口。”</p>
+<p>这就是现在的 <strong>内核回调机制</strong>。也是目前 EDR 监控的主流方式。</p>
+<h4 id="a-进程与线程监控-pssetcreateprocessnotifyroutine" class="toc-header"><a class="toc-anchor" href="#a-进程与线程监控-pssetcreateprocessnotifyroutine">¶</a> A. 进程与线程监控 (PsSetCreateProcessNotifyRoutine)</h4>
+<ul>
+<li><strong>原理：</strong> 杀软向系统注册一个回调函数。每当有新进程创建（Create）或退出（Exit）时，Windows 内核会<strong>主动通知</strong>杀软。</li>
+<li><strong>场景：</strong> 当你的 Loader 试图启动 <code>cmd.exe</code> 或 <code>powershell.exe</code> 时，EDR 也是第一时间知道的。</li>
+</ul>
+<h4 id="b-句柄与对象访问监控-obregistercallbacks" class="toc-header"><a class="toc-anchor" href="#b-句柄与对象访问监控-obregistercallbacks">¶</a> B. 句柄与对象访问监控 (ObRegisterCallbacks) 🚨</h4>
+<ul>
+<li><strong>这是红队的噩梦。</strong></li>
+<li><strong>原理：</strong> 当一个程序试图获取另一个程序的<strong>句柄 (Handle)</strong> 时，内核会触发这个回调。</li>
+<li><strong>场景：</strong> 当你试图使用 Mimikatz 读取 <code>lsass.exe</code>（本地安全机构子系统服务）的内存来抓取密码时，你必须先获取 <code>lsass</code> 的句柄。
+<ul>
+<li>EDR 的驱动在回调里一看：“哎？你一个陌生的 <code>temp.exe</code> 为什么要申请 <code>lsass</code> 的读写权限？”</li>
+<li><strong>结果：</strong> 直接剥夺你的权限，你的程序会收到“Access Denied（访问拒绝）”，操作失败。</li>
+</ul>
+</li>
+</ul>
+<h4 id="c-镜像加载监控-pssetloadimagenotifyroutine" class="toc-header"><a class="toc-anchor" href="#c-镜像加载监控-pssetloadimagenotifyroutine">¶</a> C. 镜像加载监控 (PsSetLoadImageNotifyRoutine)</h4>
+<ul>
+<li><strong>场景：</strong> 当你的程序试图加载一个 DLL 时（比如加载漏洞利用的 DLL），EDR 会被通知并进行检查。</li>
+</ul>
+<hr>
+<h3 id="h-3-无处不在的摄像头etw-event-tracing-for-windows" class="toc-header"><a class="toc-anchor" href="#h-3-无处不在的摄像头etw-event-tracing-for-windows">¶</a> 3. 无处不在的摄像头：ETW (Event Tracing for Windows)</h3>
+<p>如果说回调函数是“门卫”，那么 ETW 就是布满整个大楼的“高清摄像头”。</p>
+<ul>
+<li><strong>什么是 ETW？</strong><br>
+它是 Windows 内置的一套极其强大的日志和追踪系统。原本是给开发者调试用的，现在被蓝队用来抓黑客。</li>
+<li><strong>它能看到什么？</strong><br>
+ETW 深入到了 .NET 运行时和各种系统组件内部。
+<ul>
+<li><strong>Cobalt Strike 的痛点：</strong> CS 经常使用 <code>execute-assembly</code> 在内存中运行 C# 程序。在没有文件落地的情况下，传统的杀软很难查。</li>
+<li><strong>ETW 的杀招：</strong> .NET 运行时会通过 ETW 将<strong>程序集的加载、方法的调用</strong>甚至<strong>恶意关键词</strong>广播出来。EDR 只需要订阅这些事件，就能看见你在内存里偷偷跑了什么。</li>
+</ul>
+</li>
+<li><strong>红队对策：</strong> 所谓的“ETW Patching”技术，就是想办法在内存里把这个摄像头的线剪断（修改内存中的 ETW 发送函数，让它失效）。</li>
+</ul>
+<hr>
+<h3 id="h-4-网络层的关卡wfp-windows-filtering-platform" class="toc-header"><a class="toc-anchor" href="#h-4-网络层的关卡wfp-windows-filtering-platform">¶</a> 4. 网络层的关卡：WFP (Windows Filtering Platform)</h3>
+<p>你可能会发现，有时你的木马运行起来了，也没被杀，但就是<strong>不上线</strong>。这可能是 WFP 在作祟。</p>
+<ul>
+<li><strong>原理：</strong> WFP 是微软提供的一套网络流量处理平台。它允许安全软件在数据包进入网卡之前，在内核层进行拦截、检查和修改。</li>
+<li><strong>监控深度：</strong> 它不仅仅看 IP 和端口（像防火墙那样），它能看到发起网络请求的<strong>进程是谁</strong>，甚至能深入分析数据包的内容。</li>
+<li><strong>场景：</strong> 你的木马试图连接 C2 服务器。虽然防火墙规则允许出站，但 EDR 的 WFP 驱动发现发起连接的是一个刚启动的、未签名的、行为可疑的进程，于是直接在内核层丢弃了数据包。</li>
+</ul>
+<hr>
+<h3 id="h-5-降维打击虚拟化对抗-vt-x-与-ring-1" class="toc-header"><a class="toc-anchor" href="#h-5-降维打击虚拟化对抗-vt-x-与-ring-1">¶</a> 5. 降维打击：虚拟化对抗 (VT-x 与 Ring -1)</h3>
+<p>如果说上面的对抗还是在同一个维度（Ring 3 - Ring 0 内核层）互搏，那么虚拟化技术就是<strong>降维打击</strong>。</p>
+<p>代表产品：<strong>360 核晶 (Core Crystal)</strong>、<strong>卡巴斯基硬件虚拟化</strong>。</p>
+<ul>
+<li>
+<p><strong>Ring 的概念：</strong></p>
+<ul>
+<li><strong>Ring 3：</strong> 用户模式（你的浏览器、木马都在这）。</li>
+<li><strong>Ring 0：</strong> 内核模式（操作系统、驱动程序在这）。</li>
+<li><strong>Ring -1 (Root mode)：</strong> 硬件虚拟化层（Hypervisor）。</li>
+</ul>
+</li>
+<li>
+<p><strong>原理：</strong><br>
+利用 CPU 的硬件虚拟化技术（Intel VT-x），杀软会把自己安装在 <strong>Hypervisor (Ring -1)</strong> 层，然后把整个 Windows 操作系统跑在虚拟机里。</p>
+<ul>
+<li><strong>上帝视角：</strong> 杀软现在是操作系统的“宿主”。即使你作为一个顶级黑客，通过内核漏洞拿到了 Windows 的 Ring 0 权限（最高系统权限），试图关闭杀软驱动。</li>
+<li><strong>降维压制：</strong> 对不起，杀软在 Ring -1。你 Ring 0 的操作对它来说，就像是虚拟机里的程序想关闭宿主机一样，完全无效。它可以在更高维度监控内存、拦截指令。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="总结红队该怎么办" class="toc-header"><a class="toc-anchor" href="#总结红队该怎么办">¶</a> 💡 总结：红队该怎么办？</h3>
+<p>看到这里，新手可能会感到绝望：<em>“天罗地网，这还怎么玩？”</em></p>
+<p>别灰心，攻防永远是动态平衡的。针对上述防御，红队也进化出了相应的战术：</p>
+<ol>
+<li><strong>直接系统调用 (Direct Syscalls)：</strong> 既然你监控了 Windows API（Ring 3 Hook），那我就跳过 API，直接去敲内核的大门，绕过用户层监控。</li>
+<li><strong>自带驱动攻击 (BYOVD)：</strong> Bring Your Own Vulnerable Driver。我带一个有漏洞的合法驱动进场，利用这个驱动的漏洞进入内核，去和 EDR 的驱动肉搏，致盲它。</li>
+<li><strong>ETW/AMSI Patch：</strong> 在内存中动态修改检测函数的代码，让它“瞎掉”</li>
+<li><strong>杀软edr 0day</strong> 即使是正经虚拟机也会被逃逸，何况是代码质量有时还比较堪忧的杀毒软件呢，哪怕开启了虚拟化技术，也存在被漏洞打掉的机会。</li>
+</ol>
+<p>推荐阅读</p>
+<p><a href="https://docs.huihoo.com/infoq/qconbeijing/2016/day3/%E6%89%93%E7%A0%B4%E8%A7%84%E5%88%99%EF%BC%8C%E6%88%91%E6%98%AF%E9%BB%91%E5%AE%A2%E4%B8%93%E9%A2%98/8-3.%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8-%E4%B8%81%E5%B7%9D%E8%BE%BE.pdf" class="is-external-link">沙箱逃逸：来自安全软件的鼎力相助</a></p>
+<p><strong>记住：没有攻不破的系统，只有未被发现的路径。</strong></p>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

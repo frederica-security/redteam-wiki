@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>工具准备 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="工具准备"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/tools-list"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="tools-list" title="工具准备" description="" :tags="[]" created-at="2025-11-19T18:18:51.995Z" updated-at="2025-11-19T18:18:55.660Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W10=" :page-id="13" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="tools-list.md"><template slot="contents"><div><blockquote>
+<p><strong>⚠️ 警告：保命须知</strong></p>
+<ol>
+<li><strong>虚拟机原则：</strong> 本列表中提到的所有工具，<strong>必须且只能</strong>在虚拟机（VMware/VirtualBox）中运行。绝不要在宿主机上安装或运行任何攻防工具。</li>
+<li><strong>来源警示：</strong> 对于 Cobalt Strike 等商业软件，市面上流传的“破解版”<strong>极大概率含有后门</strong>。请务必保持警惕，我们仅提供官方链接，使用非官方版本后果自负。</li>
+<li><strong>法律边界：</strong> 所有工具仅限用于授权的红队演习、靶场训练或 CTF 比赛。</li>
+</ol>
+</blockquote>
+<h3 id="️-基础设施与环境" class="toc-header"><a class="toc-anchor" href="#️-基础设施与环境">¶</a> 🏗️ 基础设施与环境</h3>
+<p>搭建一个安全、可控的实验环境是红队行动的第一步。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">工具名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">官方/项目地址</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>VMware Workstation</strong></td>
+<td style="text-align:left">虚拟机软件</td>
+<td style="text-align:left"><a href="https://www.vmware.com/products/workstation-pro.html" class="is-external-link">官网</a></td>
+<td style="text-align:left"><strong>必备。</strong> 建议使用 Pro 版本以便于网络配置（如仅主机模式）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>VirtualBox</strong></td>
+<td style="text-align:left">虚拟机软件</td>
+<td style="text-align:left"><a href="https://www.virtualbox.org/" class="is-external-link">官网</a></td>
+<td style="text-align:left">免费开源的替代方案。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Commando VM</strong></td>
+<td style="text-align:left">Windows 攻击机环境</td>
+<td style="text-align:left"><a href="https://github.com/mandiant/commando-vm" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">Mandiant 出品的脚本，能把纯净的 Windows 变成全功能的攻击机。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Docker</strong></td>
+<td style="text-align:left">容器服务</td>
+<td style="text-align:left"><a href="https://www.docker.com/" class="is-external-link">官网</a></td>
+<td style="text-align:left">快速搭建靶场（如 Vulfocus）或隔离运行工具。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Visual Studio</strong></td>
+<td style="text-align:left">C/C++ 开发环境</td>
+<td style="text-align:left"><a href="https://visualstudio.microsoft.com/" class="is-external-link">官网</a></td>
+<td style="text-align:left"><strong>开发 Loader 必备</strong>。建议安装“C++ 桌面开发”组件。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Python</strong></td>
+<td style="text-align:left">脚本语言环境</td>
+<td style="text-align:left"><a href="https://www.python.org/" class="is-external-link">官网</a></td>
+<td style="text-align:left">红队脚本（Exp/Poc）最常用的语言。</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h3 id="️-red-team-实战核心工具箱" class="toc-header"><a class="toc-anchor" href="#️-red-team-实战核心工具箱">¶</a> ⚔️ Red Team 实战核心工具箱</h3>
+<p>这些工具是红队行动中的“主力武器”，涵盖从侦察到控制的全流程。虽然它们已经不适合当前的实战强度，但仍是很好的教学工具。</p>
+<h4 id="h-1-命令与控制-c2" class="toc-header"><a class="toc-anchor" href="#h-1-命令与控制-c2">¶</a> 1. 命令与控制 (C2)</h4>
+<blockquote>
+<p><strong>注意：</strong> C2 服务端必须运行在 Linux 虚拟机中。</p>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">工具名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">官方/项目地址</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Cobalt Strike</strong></td>
+<td style="text-align:left">商业 C2 框架</td>
+<td style="text-align:left"><a href="https://www.cobaltstrike.com/" class="is-external-link">官网</a></td>
+<td style="text-align:left"><strong>业界标准</strong>。提供强大的 Beacon 和定制化能力。<em>(注意：请仅在隔离环境研究)</em></td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Metasploit (MSF)</strong></td>
+<td style="text-align:left">漏洞利用框架</td>
+<td style="text-align:left"><a href="https://www.metasploit.com/" class="is-external-link">官网</a></td>
+<td style="text-align:left"><strong>新手入门首选</strong>。拥有海量 Exploit 库，适合漏洞验证。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Sliver</strong></td>
+<td style="text-align:left">开源 C2 框架</td>
+<td style="text-align:left"><a href="https://github.com/BishopFox/sliver" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">优秀的开源替代品，支持 Go 语言开发 Implant，免杀效果较好。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Havoc</strong></td>
+<td style="text-align:left">现代化 C2</td>
+<td style="text-align:left"><a href="https://github.com/HavocFramework/Havoc" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">界面类似 CS，开源且更新活跃，适合研究学习。</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="h-2-信息侦察与资产测绘" class="toc-header"><a class="toc-anchor" href="#h-2-信息侦察与资产测绘">¶</a> 2. 信息侦察与资产测绘</h4>
+<blockquote>
+<p><strong>原则：</strong> 被动侦察优先，避免直接接触目标。</p>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">工具名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">官方/项目地址</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Nmap</strong></td>
+<td style="text-align:left">端口扫描神器</td>
+<td style="text-align:left"><a href="https://nmap.org/" class="is-external-link">官网</a></td>
+<td style="text-align:left">主机发现、端口扫描、服务识别。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fscan</strong></td>
+<td style="text-align:left">内网综合扫描</td>
+<td style="text-align:left"><a href="https://github.com/shadow1ng/fscan" class="is-external-link">GitHub</a></td>
+<td style="text-align:left"><strong>内网大杀器</strong>。单文件，速度快，支持弱口令爆破和漏洞扫描。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ladon</strong></td>
+<td style="text-align:left">大型内网渗透扫描器</td>
+<td style="text-align:left"><a href="https://github.com/k8gege/Ladon" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">功能极其丰富，支持多种协议扫描和利用。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Shodan</strong></td>
+<td style="text-align:left">网络空间测绘</td>
+<td style="text-align:left"><a href="https://www.shodan.io/" class="is-external-link">官网</a></td>
+<td style="text-align:left">搜索暴露在互联网上的设备（被动侦察）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Fofa</strong></td>
+<td style="text-align:left">网络空间测绘</td>
+<td style="text-align:left"><a href="https://fofa.info/" class="is-external-link">官网</a></td>
+<td style="text-align:left">国内常用的资产测绘平台。</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="h-3-权限维持与横向移动" class="toc-header"><a class="toc-anchor" href="#h-3-权限维持与横向移动">¶</a> 3. 权限维持与横向移动</h4>
+<blockquote>
+<p><strong>场景：</strong> 获得初始立足点后，扩大战果。</p>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">工具名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">官方/项目地址</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Mimikatz</strong></td>
+<td style="text-align:left">凭证抓取</td>
+<td style="text-align:left"><a href="https://www.google.com/search?q=https://github.com/gentilkiwi/mimikatz" class="is-external-link">GitHub</a></td>
+<td style="text-align:left"><strong>内网之王</strong>。从内存中抓取密码、哈希、票据。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Impacket</strong></td>
+<td style="text-align:left">协议工具包</td>
+<td style="text-align:left"><a href="https://github.com/fortra/impacket" class="is-external-link">GitHub</a></td>
+<td style="text-align:left"><strong>必备库</strong>。包含 <code>psexec.py</code>, <code>wmiexec.py</code>, <code>secretsdump.py</code> 等横向移动神器的 Python 库。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>BloodHound</strong></td>
+<td style="text-align:left">域分析工具</td>
+<td style="text-align:left"><a href="https://github.com/SpecterOps/BloodHound" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">图形化展示 AD 域内的攻击路径，寻找最短提权路线。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Ligolo-ng</strong></td>
+<td style="text-align:left">内网隧道</td>
+<td style="text-align:left"><a href="https://github.com/nicocha30/ligolo-ng" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">新一代隧道工具，性能优于传统的 Socks 代理，支持 TUN 接口。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>Frp</strong></td>
+<td style="text-align:left">反向代理</td>
+<td style="text-align:left"><a href="https://github.com/fatedier/frp" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">高性能反向代理应用，常用于内网穿透。</td>
+</tr>
+</tbody>
+</table></div>
+<h4 id="h-4-免杀与武器化-weaponization" class="toc-header"><a class="toc-anchor" href="#h-4-免杀与武器化-weaponization">¶</a> 4. 免杀与武器化 (Weaponization)</h4>
+<blockquote>
+<p><strong>场景：</strong> 让你的 Payload 绕过 AV/EDR。</p>
+</blockquote>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th style="text-align:left">工具名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">官方/项目地址</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><strong>Donut</strong></td>
+<td style="text-align:left">Shellcode 生成器</td>
+<td style="text-align:left"><a href="https://github.com/TheWover/donut" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">将 EXE/.NET 程序转换为 Shellcode。</td>
+</tr>
+<tr>
+<td style="text-align:left"><strong>SysWhispers2/3</strong></td>
+<td style="text-align:left">系统调用生成</td>
+<td style="text-align:left"><a href="https://github.com/jthuraisamy/SysWhispers2" class="is-external-link">GitHub</a></td>
+<td style="text-align:left">生成直接系统调用 (Direct Syscalls) 代码，绕过 EDR 的 API Hook。</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h3 id="辅助工具-技能补充" class="toc-header"><a class="toc-anchor" href="#辅助工具-技能补充">¶</a> 🚩 辅助工具 (技能补充)</h3>
+<p>虽然 Red Team 更侧重实战，但部分工具在特定场景（如 Web 漏洞挖掘、逆向分析、流量取证）中依然非常有用。</p>
+<h4 id="web-安全" class="toc-header"><a class="toc-anchor" href="#web-安全">¶</a> 🌐 Web 安全</h4>
+<ul>
+<li><strong>Burp Suite:</strong> <a href="https://portswigger.net/burp" class="is-external-link">官网</a> - 这里的绝对核心，代理、抓包、重放。</li>
+<li><strong>SQLMap:</strong> <a href="https://github.com/sqlmapproject/sqlmap" class="is-external-link">GitHub</a> - 自动化 SQL 注入工具。</li>
+<li><strong>Dirsearch:</strong> <a href="https://github.com/maurosoria/dirsearch" class="is-external-link">GitHub</a> - 目录爆破工具。</li>
+<li><strong>Hackbar:</strong> [浏览器插件] - 快速修改 HTTP 请求参数。</li>
+<li><strong>AntSword (蚁剑):</strong> <a href="https://github.com/AntSwordProject/antSword" class="is-external-link">GitHub</a> - 开源 Webshell 管理工具。</li>
+</ul>
+<h4 id="逆向与-pwn" class="toc-header"><a class="toc-anchor" href="#逆向与-pwn">¶</a> 💫 逆向与 Pwn</h4>
+<ul>
+<li><strong>IDA Pro / Free:</strong> <a href="https://hex-rays.com/ida-free/" class="is-external-link">官网</a> - 静态反汇编神器。</li>
+<li><strong>Ghidra:</strong> <a href="https://ghidra-sre.org/" class="is-external-link">官网</a> - NSA 开源的逆向工具，免费且强大。</li>
+<li><strong>x64dbg:</strong> <a href="https://x64dbg.com/" class="is-external-link">官网</a> - Windows 下优秀的动态调试器。</li>
+<li><strong>Pwntools:</strong> <a href="https://github.com/Gallopsled/pwntools" class="is-external-link">GitHub</a> - 编写 Pwn 题 Exp 的 Python 库，实战中也可用于写二进制漏洞利用脚本。</li>
+</ul>
+<h4 id="流量与杂项" class="toc-header"><a class="toc-anchor" href="#流量与杂项">¶</a> 📡 流量与杂项</h4>
+<ul>
+<li><strong>Wireshark:</strong> <a href="https://www.wireshark.org/" class="is-external-link">官网</a> - 流量分析。实战中用于分析异常流量或调试 C2 协议。</li>
+<li><strong>CyberChef:</strong> <a href="https://gchq.github.io/CyberChef/" class="is-external-link">官网</a> - 瑞士军刀般的编解码工具，处理 Base64、Hex 等数据极其方便。</li>
+</ul>
+<hr>
+<h3 id="食用指南" class="toc-header"><a class="toc-anchor" href="#食用指南">¶</a> 💡 食用指南</h3>
+<ol>
+<li><strong>按需下载：</strong> 不要试图下载所有工具。根据你当前的任务（是打 Web、是做内网渗透、还是写 Loader）来选择工具。</li>
+<li><strong>工具箱化：</strong> 建议在虚拟机中维护一个自己的 <code>Tools</code> 目录，将常用工具分类存放（如 <code>Scan</code>, <code>Exploit</code>, <code>C2</code>, <code>Tunnel</code>）。</li>
+<li><strong>保持更新：</strong> 攻防技术迭代极快，定期去 GitHub 检查工具的更新，关注新的 Issue 和功能。</li>
+</ol>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>

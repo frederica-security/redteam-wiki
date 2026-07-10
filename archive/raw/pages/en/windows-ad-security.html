@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta charset="UTF-8"><meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1, maximum-scale=5"><meta name="theme-color" content="#1976d2"><meta name="msapplication-TileColor" content="#1976d2"><meta name="msapplication-TileImage" content="/_assets/favicons/mstile-150x150.png"><title>Windows AD - 域攻防的那些事 | Redteam Wiki</title><meta name="description" content=""><meta property="og:title" content="Windows AD - 域攻防的那些事"><meta property="og:type" content="website"><meta property="og:description" content=""><meta property="og:image"><meta property="og:url" content="https://redteam-wiki.org/en/windows-ad-security"><meta property="og:site_name" content="Redteam Wiki"><link rel="apple-touch-icon" sizes="180x180" href="/_assets/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="/_assets/favicons/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="32x32" href="/_assets/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/_assets/favicons/favicon-16x16.png"><link rel="mask-icon" href="/_assets/favicons/safari-pinned-tab.svg" color="#1976d2"><link rel="manifest" href="/_assets/manifest.json"><script>var siteConfig = {"title":"Redteam Wiki","theme":"default","darkMode":false,"tocPosition":"left","lang":"en","rtl":false,"company":"Redteam Wiki","contentLicense":"","footerOverride":"","logoUrl":"https://static.requarks.io/logo/wikijs-butterfly.svg"}
+var siteLangs = []
+</script><link type="text/css" rel="stylesheet" href="/_assets/css/app.2144b7acef37b4a5cc2e.css"><script type="text/javascript" src="/_assets/js/runtime.js?1755069093"></script><script type="text/javascript" src="/_assets/js/app.js?1755069093"></script></head><body><div id="root"><page locale="en" path="windows-ad-security" title="Windows AD - 域攻防的那些事" description="" :tags="[]" created-at="2026-03-10T18:28:29.693Z" updated-at="2026-03-10T18:28:29.693Z" author-name="芙蕾德莉卡" :author-id="1" editor="markdown" :is-published="true" toc="W10=" :page-id="46" sidebar="W3siaSI6InNkaS0xIiwiayI6ImxpbmsiLCJsIjoiSG9tZSIsImMiOiJtZGktaG9tZSIsInkiOiJob21lIiwidCI6Ii8ifSx7ImkiOiJzZGktMiIsImsiOiJkaXZpZGVyIiwibCI6bnVsbCwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTMiLCJrIjoibGluayIsImwiOiLph43opoHpobvnn6UiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vbm90aWZ5In0seyJpIjoic2RpLTQiLCJrIjoibGluayIsImwiOiLpgJ/mn6Xor43lhbgiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vZGljdGlvbmFyeSJ9LHsiaSI6InNkaS01IiwiayI6ImxpbmsiLCJsIjoi5bel5YW35YeG5aSHIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3Rvb2xzLWxpc3QifSx7ImkiOiJzZGktNiIsImsiOiJsaW5rIiwibCI6IuW/q+mAn+W8gOWniyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9xdWlja3N0YXJ0In0seyJpIjoic2RpLTciLCJrIjoibGluayIsImwiOiLkv6Hmga/mlLbpm4bvvIzkuobop6PkvaDnmoTnm67moIciLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW5mby1jb2xsZWN0In0seyJpIjoic2RpLTgiLCJrIjoibGluayIsImwiOiLotYTkuqfmtYvnu5ggLSDnn6XpgZPkvaDlnKjov5vmlLvku4DkuYgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZmluZGluZy1hc3NldHMifSx7ImkiOiJzZGktOSIsImsiOiJsaW5rIiwibCI6IuS6uuWRmOa1i+e7mCAtIOS9oOWFu+mxvOeahOaxoOWhmCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZW9wbGUtY29sbGVjdCJ9LHsiaSI6InNkaS0xMCIsImsiOiJsaW5rIiwibCI6IuacqOmprO+8jOS4gOWIh+ihjOWKqOeahOWfuuefsyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi90cm9qYW4tc3RhcnRlciJ9LHsiaSI6InNkaS0xMSIsImsiOiJsaW5rIiwibCI6InNoZWxsY29kZSAtIOacqOmprOeahOW/g+iEjyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9zaGVsbGNvZGUtc3RhcnRlciJ9LHsiaSI6InNkaS0xMiIsImsiOiJsaW5rIiwibCI6IuS9oOeahOesrOS4gOasoei/nOeoi+aOp+WItiAtIENvYmFsdFN0cmlrZTEwMSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcy0xMDEifSx7ImkiOiJzZGktMTMiLCJrIjoibGluayIsImwiOiLpnZnmgIHlr7nmipcgLSDku47nibnlvoHnoIHliLDogZrnsbvnibnlvoEiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc3RhdGljLWFuYWx5emUifSx7ImkiOiJzZGktMTQiLCJrIjoibGluayIsImwiOiLliqjmgIHlr7nmipcgLSDooYzkuLrliIbmnpDkvZXku6Xlj6/og70iLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vZHluYW1pYy1jb21wZXRpdGlvbiJ9LHsiaSI6InNkaS0xNSIsImsiOiJsaW5rIiwibCI6IuiHtOebsuS4juWkseiDvSAtIOeYq+eXquWuiOWNq+iAhSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9ibGluZGluZy1lZHIifSx7ImkiOiJzZGktMTYiLCJrIjoibGluayIsImwiOiLlr7nmipfomZrmi5/ljJYgLSDnibnmropcIuWbveaDhVwi5LiL55qE57uV6L+HIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2FudGktdm0tY24tc3BlY2lmaWMifSx7ImkiOiJzZGktMTciLCJrIjoibGluayIsImwiOiLmlq3lvIDov5vnqIvpk74gLSDorqlTaGF0dGVyIEF0dGFja+WGjeasoeS8n+WkpyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9icmVhay1jaGFpbiJ9LHsiaSI6InNkaS0xOCIsImsiOiJsaW5rIiwibCI6IueJqeeQhuivu+WGmeWIqeeUqOe7lei/h+aKgOacryAtIG1tcGZu6K+m6KejIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BoeXNpY2FsLW1lbW9yeS1ydy1tbXBmbiJ9LHsiaSI6InNkaS0xOSIsImsiOiJsaW5rIiwibCI6IueXlei/ueeahOaKuemZpCAtIOa4heeQhueOsOWcuiIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9sb2ctY2xlYXJpbmcifSx7ImkiOiJzZGktMjAiLCJrIjoibGluayIsImwiOiLpkpPpsbzvvIzkvaDnmoTnrKzkuIDlj7DmiJjliKnlk4EiLCJjIjoibWRpLWNoZXZyb24tcmlnaHQiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctdHV0b3JpYWwifSx7ImkiOiJzZGktMjEiLCJrIjoibGluayIsImwiOiLmsqHkurrmmK/ooKLotKfvvJrpkpPpsbzovb3ojbfnmoTpgInmi6kiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vY2hvb3NlLWZpbGUifSx7ImkiOiJzZGktMjIiLCJrIjoibGluayIsImwiOiLpkpPpsbzlr7zorrrvvJrkv6Hku7vnmoTlu7rnq4vlkozor7Hlr7wiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vcGhpc2hpbmctc3RhcnRlciJ9LHsiaSI6InNkaS0yMyIsImsiOiJsaW5rIiwibCI6IklN5pS76Ziy77ya5ouT5bGV5pS75Ye76Z2i5ZKM5oOz6LGh5YqbIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL0lNLXZ1bG4ifSx7ImkiOiJzZGktMjQiLCJrIjoibGluayIsImwiOiLlgqjlpIfmtojogJfmiJggOiDkvaDnmoTlhbvlj7fnrZbnlaUiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vaW0tYWNjb3VudC13YXJtaW5nLXN0cmF0ZWd5In0seyJpIjoic2RpLTI1IiwiayI6ImxpbmsiLCJsIjoi5Lqr55So5ZKM57u05oyB5L2g55qE5oiY5Yip5ZOBIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3BlcnNpc3RlbmNlLWFuZC1jcmVkZW50aWFsLWhhcnZlc3RpbmcifSx7ImkiOiJzZGktMjYiLCJrIjoibGluayIsImwiOiJCeXBhc3NVQUMgLSDmi7/lm57ljp/mnKznmoTmnYPpmZAiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vdWFjLWJ5cGFzcyJ9LHsiaSI6InNkaS0yNyIsImsiOiJsaW5rIiwibCI6Iuadg+mZkOaPkOWNhyAtIOS7juWwj+WFteWIsOWls+eOiyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wcml2aWxlZ2UtZXNjYWxhdGlvbiJ9LHsiaSI6InNkaS0yOCIsImsiOiJsaW5rIiwibCI6IuaMgeS5heWMliAtIOeos+WbuuS9oOeahOaImOWIqeWTgSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9wZXJzaXN0ZW5jZSJ9LHsiaSI6InNkaS0yOSIsImsiOiJsaW5rIiwibCI6IuWHreivgeiOt+WPliAtIOS9oOaJi+S4reeahOmSpeWMmSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jcmVkZW50aWFsLWhhcnZlc3RpbmctdGhlLWtleXMtaW4teW91ci1oYW5kIn0seyJpIjoic2RpLTMwIiwiayI6ImxpbmsiLCJsIjoi5ZG95Luk5LiO5o6n5Yi2IiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2MyLWluZnJhc3RydWN0dXJlLXN0ZWFsdGgifSx7ImkiOiJzZGktMzEiLCJrIjoibGluayIsImwiOiJDMui9veiNt+S4jumAmuS/oeaKgOacryIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9jMi1wYXlsb2FkLWFuZC1zdGVhbHRoLWNvbW1zIn0seyJpIjoic2RpLTMyIiwiayI6ImxpbmsiLCJsIjoi6Zqn6YGT5LiO56m/6YCP5oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTMzIiwiayI6ImxpbmsiLCJsIjoiV2Vi5riX6YCP77yM5LuO5q2j6Z2i5Yib6YCg56qB56C05Y+jIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dlYi1zdGFydGVyIn0seyJpIjoic2RpLTM0IiwiayI6ImxpbmsiLCJsIjoi5Lyg57uf5ryP5rSeIC0g5Y+k6ICB5L2G5pyJ5pWIIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Jhc2ljLXdlYi12dWxuIn0seyJpIjoic2RpLTM1IiwiayI6ImxpbmsiLCJsIjoi5Y+N5bqP5YiX5YyWIC0g546w5Luj6L+b5pS75oqA5pyvIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL2Rlc2VyaWFsaXplLWJhc2ljIn0seyJpIjoic2RpLTM2IiwiayI6ImxpbmsiLCJsIjoiTmRheeWIqeeUqCAtIOahhuaetu+8jOe7hOS7tu+8jOWSjOW6lOeUqCIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy1uZGF5In0seyJpIjoic2RpLTM3IiwiayI6ImxpbmsiLCJsIjoiMGRheea8j+a0niAtIOWNsemZqeadpea6kOS6juacquefpSIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9iYXNpYy0wZGF5In0seyJpIjoic2RpLTM4IiwiayI6ImxpbmsiLCJsIjoi5L6b5bqU6ZO+5pS75Ye7IC0g5ZaE5pS76ICF5Yqo5LqO5Lmd5aSp5LmL5LiKIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3N1cHBseS1jaGFpbi1hdHRhY2stYmFzaWMifSx7ImkiOiJzZGktMzkiLCJrIjoibGluayIsImwiOiLmqKrlkJHnp7vliqgg77yM5oiY5p6c55qE5oyH5pWw5omp5aKeIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6InBhZ2UiLCJ0IjoiL2VuL2xhdGVyYWwtbW92ZW1lbnQifSx7ImkiOiJzZGktNDAiLCJrIjoibGluayIsImwiOiLmiavmj4/lkozlr4bnoIHllrfmtJIgLSDku47mlrDmiYvnlKjliLDpgIDlvbkiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vc2Nhbm5pbmcifSx7ImkiOiJzZGktNDEiLCJrIjoibGluayIsImwiOiJXaW5kb3dzIEFEIC0g5Z+f5pS76Ziy55qE6YKj5Lqb5LqLIiwiYyI6Im1kaS1maWxlLWRvY3VtZW50LW11bHRpcGxlIiwieSI6InBhZ2UiLCJ0IjoiL2VuL3dpbmRvd3MtYWQtc2VjdXJpdHkifSx7ImkiOiJzZGktNDIiLCJrIjoiaGVhZGVyIiwibCI6IuWgoeWekuacuuWSjOe9kee7nOiuvuWkhyIsImMiOm51bGwsInkiOm51bGwsInQiOm51bGx9LHsiaSI6InNkaS00MyIsImsiOiJoZWFkZXIiLCJsIjoi5LqR546v5aKD5riX6YCPIC0g5paw55qE6L6555WM5ZKM5oyR5oiYIiwiYyI6bnVsbCwieSI6bnVsbCwidCI6bnVsbH0seyJpIjoic2RpLTQ0IiwiayI6ImxpbmsiLCJsIjoi6ZmE5b2VIiwiYyI6Im1kaS1jaGV2cm9uLXJpZ2h0IiwieSI6ImhvbWUiLCJ0IjoiIn0seyJpIjoic2RpLTQ1IiwiayI6ImxpbmsiLCJsIjoiV2luZG93c+acrOWcsOaPkOadg+WOn+eQhuivpuinoyIsImMiOiJtZGktZmlsZS1kb2N1bWVudC1tdWx0aXBsZSIsInkiOiJwYWdlIiwidCI6Ii9lbi9scGUtZXhhbXBsZSJ9LHsiaSI6InNkaS00NiIsImsiOiJsaW5rIiwibCI6IueMtOWtkOaJk+WtlyAtIOa1heiwiHdpbmRvd3PlhoXmoLjmvI/mtJ7mjJbmjpgiLCJjIjoibWRpLWZpbGUtZG9jdW1lbnQtbXVsdGlwbGUiLCJ5IjoicGFnZSIsInQiOiIvZW4vd2luZG93cy1rZXJuZWwtdnVsbiJ9LHsiaSI6InNkaS00NyIsImsiOiJsaW5rIiwibCI6IuaPkOmXrueahOaZuuaFpyIsImMiOiJtZGktY2hldnJvbi1yaWdodCIsInkiOiJwYWdlIiwidCI6Ii9lbi9hc2stcXVlc3Rpb24ifV0=" nav-mode="STATIC" comments-enabled effective-permissions="eyJjb21tZW50cyI6eyJyZWFkIjp0cnVlLCJ3cml0ZSI6ZmFsc2UsIm1hbmFnZSI6ZmFsc2V9LCJoaXN0b3J5Ijp7InJlYWQiOmZhbHNlfSwic291cmNlIjp7InJlYWQiOmZhbHNlfSwicGFnZXMiOnsicmVhZCI6dHJ1ZSwid3JpdGUiOmZhbHNlLCJtYW5hZ2UiOmZhbHNlLCJkZWxldGUiOmZhbHNlLCJzY3JpcHQiOmZhbHNlLCJzdHlsZSI6ZmFsc2V9LCJzeXN0ZW0iOnsibWFuYWdlIjpmYWxzZX19" edit-shortcuts="eyJlZGl0RmFiIjp0cnVlLCJlZGl0TWVudUJhciI6ZmFsc2UsImVkaXRNZW51QnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsQnRuIjp0cnVlLCJlZGl0TWVudUV4dGVybmFsTmFtZSI6IkdpdEh1YiIsImVkaXRNZW51RXh0ZXJuYWxJY29uIjoibWRpLWdpdGh1YiIsImVkaXRNZW51RXh0ZXJuYWxVcmwiOiJodHRwczovL2dpdGh1Yi5jb20vb3JnL3JlcG8vYmxvYi9tYWluL3tmaWxlbmFtZX0ifQ==" filename="windows-ad-security.md"><template slot="contents"><div><h3 id="part-1域基础与-ntlm-认证" class="toc-header"><a class="toc-anchor" href="#part-1域基础与-ntlm-认证">¶</a> Part 1：域基础与 NTLM 认证</h3>
+<h4 id="h-1-章节说明" class="toc-header"><a class="toc-anchor" href="#h-1-章节说明">¶</a> 1. 章节说明</h4>
+<p>由于域渗透是非常复杂，和实战高度相关的一件事，因此本章无法通过枚举案例的方式进行介绍，只能先尽可能的介绍所有涉及到的基础技术，再补充具体案例。</p>
+<h4 id="h-2-工作组与域环境基础" class="toc-header"><a class="toc-anchor" href="#h-2-工作组与域环境基础">¶</a> 2. 工作组与域环境基础</h4>
+<ul>
+<li>
+<p><strong>工作组 (WorkGroup)</strong>：工作组中每台计算机的地位平等 。每台计算机拥有独立的“本机安全账户数据库”（SAM 数据库） 。例如，用户 Bob 需要登录 200 台计算机，就必须在 200 台计算机的 SAM 数据库中分别创建账号，管理成本极高 。</p>
+</li>
+<li>
+<p><strong>AD DS 域 (Active Directory Domain Service)</strong>：</p>
+</li>
+<li>
+<p>域内所有计算机共享一个集中式的活动目录（AD）数据库 。该数据库呈现类似文件目录的树状结构，用于管理和组织用户、计算机、组等逻辑容器 。</p>
+</li>
+<li>
+<p>查询协议主要使用基于 X.500 标准的 LDAP（轻量级目录访问协议） 。</p>
+</li>
+<li>
+<p>活动目录存储在“域控制器 (Domain Controller, DC)”中 。</p>
+</li>
+<li>
+<p>在域环境中，每台加入域的计算机不仅有用户账号（如 <code>AD1\xxx</code>），也会在 AD 中拥有独立的计算机账号（如 <code>AD1\xxx-PC0$</code>） 。</p>
+</li>
+</ul>
+<h4 id="h-3-组织单位-ou-组策略-gpo-与-组" class="toc-header"><a class="toc-anchor" href="#h-3-组织单位-ou-组策略-gpo-与-组">¶</a> 3. 组织单位 (OU)、组策略 (GPO) 与 组</h4>
+<ul>
+<li>
+<p><strong>OU (Organization Unit)</strong>：域中的容器对象，用于合并用户、计算机等实体 。</p>
+</li>
+<li>
+<p><strong>GPO (Group Policy Object)</strong>：可以链接到指定的 OU 上，从而统一管理该 OU 内的对象 。</p>
+</li>
+<li>
+<p><strong>OU 与组的区别</strong>：组（Group）是权限的集合，用于管理对象；而 OU 是被管理对象的集合 。例如，赋予运维高权限应使用“组”，而强制要求开发和运维修改弱密码则应将他们放入同一个“OU”并下发 GPO 。</p>
+</li>
+</ul>
+<h4 id="h-4-服务-服务账号与-spn" class="toc-header"><a class="toc-anchor" href="#h-4-服务-服务账号与-spn">¶</a> 4. 服务、服务账号与 SPN</h4>
+<ul>
+<li>
+<p><strong>服务账号</strong>：IIS、SQLServer 等服务在启动和身份验证时需要使用服务帐户 。可以是本地帐户（如 <code>NT AUTHORITY\LOCAL SERVICE</code>、<code>NETWORK SERVICE</code>、<code>SYSTEM</code>），也可以是域帐户 。</p>
+</li>
+<li>
+<p><strong>SPN (Service Principal Names)</strong>：域内服务实例的唯一标识符 。例如 <code>MSSQL</code> 服务的 SPN 格式可能为 <code>SQLServer/win7.test.com:1443/MSSQL</code> 。</p>
+</li>
+<li>
+<p><strong>内网常见高频服务端口</strong>：</p>
+</li>
+<li>
+<p>135：WMI 自带远程管理服务（支持 MSRPC、DCOM） 。</p>
+</li>
+<li>
+<p>137/139：NBNS / NBSS 服务（NetBIOS） 。</p>
+</li>
+<li>
+<p>445：SMB 协议 。</p>
+</li>
+<li>
+<p>3389：RDP 远程桌面 。</p>
+</li>
+<li>
+<p>5985/5986：WinRM / Powershell Remoting 。</p>
+</li>
+</ul>
+<h4 id="h-5-windows-凭据存储与本地认证" class="toc-header"><a class="toc-anchor" href="#h-5-windows-凭据存储与本地认证">¶</a> 5. Windows 凭据存储与本地认证</h4>
+<ul>
+<li><strong>凭据存储</strong>：Windows 不存储明文密码，明文密码加密后以 NTLM Hash 形式存储 。本地账户存储在 <code>%SystemRoot%\system32\config\sam</code>，域账户存储在域控的 <code>ntds.dit</code> 数据库中 。</li>
+</ul>
+<p><img src="/winlogon.png" alt="winlogon.png"></p>
+<ul>
+<li>
+<p><strong>本地认证流程</strong>：<code>winlogon.exe</code> 接收输入后，<code>lsass.exe</code> 进程将明文密码加密为 NTLM Hash，并与本地 SAM 库对比 。</p>
+</li>
+<li>
+<p><strong>利用</strong>：攻击者可通过读取 <code>lsass.exe</code> 内存抓取明文密码，或读取 SAM 数据库获取 NTLM Hash，进而用于暴力破解或 PTH（哈希传递攻击） 。</p>
+</li>
+</ul>
+<h4 id="h-6-ntlm-网络认证协议" class="toc-header"><a class="toc-anchor" href="#h-6-ntlm-网络认证协议">¶</a> 6. NTLM 网络认证协议</h4>
+<p>NTLM 是一种基于“质询/响应 (Challenge / Response)”机制的嵌入式协议（如 NTLM over SMB / HTTP / LDAP） 。</p>
+<p><img src="/ntlmchallenge.png" alt="ntlmchallenge.png"></p>
+<ul>
+<li>
+<p><strong>步骤 1-2：协商 (Negotiate)</strong> 。客户端通过 SMB 连接提供支持的协议版本，服务端（Session Setup Response）选择双方均支持的最高版本（如 SMB2） 。客户端发出 Type 1 请求（NTLMSSP_NEGOTIATE） 。</p>
+</li>
+<li>
+<p><strong>步骤 3-4：质询 (Challenge)</strong> 。服务端收到认证请求后，生成并返回一个8 字节（64 位）位的随机数 Challenge（Type 2 消息：NTLMSSP_CHALLENGE） 。</p>
+</li>
+<li>
+<p><strong>步骤 5：认证 (Authenticate)</strong> 。客户端使用认证用户的 NTLM Hash 对收到的 Challenge 进行加密，生成 Response（即 Net-NTLM Hash），发送给服务端（Type 3 消息：NTLMSSP_AUTH） 。Net-NTLMv2 的格式通常为 <code>username::domain:challenge:HMAC-MD5:blob</code> 。</p>
+</li>
+<li>
+<p><strong>步骤 6：服务端验证</strong> 。</p>
+</li>
+<li>
+<p><strong>工作组环境</strong>：服务端利用本地 SAM 库中的 NTLM Hash 加上已知的 Challenge 在本地计算比对结果 。</p>
+</li>
+<li>
+<p><strong>域环境</strong>：服务端本身没有域用户的 Hash，它会通过 RPC NetLogon 协议将客户端的认证信息转发给 DC (域控制器)，由 DC 完成最终验证并返回 <code>RPC_STATUS_CODE</code> 。</p>
+</li>
+</ul>
+<h4 id="h-7-ntlm-relay-ntlm-中继攻击" class="toc-header"><a class="toc-anchor" href="#h-7-ntlm-relay-ntlm-中继攻击">¶</a> 7. NTLM Relay (NTLM 中继攻击)</h4>
+<p>攻击者处于客户端与服务端之间，通过拦截并转发 NTLM 认证的 Negotiate、Challenge、Authenticate 阶段数据包，在无需解密获取哈希的情况下获取服务端访问权限 。</p>
+<p>实际攻击中的典型演变：</p>
+<p><strong>SMB Reflect Attack</strong>：受害者访问攻击者提供的 UNC 路径（如 <code>\\attacker\123</code>），自动发送凭据。攻击者将凭据反射回受害者的 SMB 服务以实现 RCE。此同机 SMB 到 SMB 的中继已被 MS08-068 补丁修复 。</p>
+<p><strong>Hot Potato win7</strong>：利用 HTTP 到 SMB 的跨协议中继。劫持 WPAD 使得 Windows Defender 更新流量指向本地恶意 Web 服务，Web 服务要求 401 NTLM 认证，随后将认证信息中继到本地 SMB 获得 <code>NT Authority/System</code> 权限。此漏洞被 MS16-075 修复 。</p>
+<h3 id="part-2kerberos-认证体系与相关攻击" class="toc-header"><a class="toc-anchor" href="#part-2kerberos-认证体系与相关攻击">¶</a> Part 2：Kerberos 认证体系与相关攻击</h3>
+<h4 id="h-1-kerberos-认证体系与基础概念" class="toc-header"><a class="toc-anchor" href="#h-1-kerberos-认证体系与基础概念">¶</a> 1. Kerberos 认证体系与基础概念</h4>
+<p>Kerberos 是一种广泛应用于域环境下的网络认证协议，主要解决域用户访问域内服务时的身份验证问题（即“Who am I”）。</p>
+<p><img src="/ker.png" alt="ker.png"></p>
+<p><strong>核心名词解释：</strong></p>
+<p><strong>KDC (Key Distribution Center, 密钥分发中心)</strong>：默认安装在域控中，并会自动创建 <code>KRBTGT</code> 账号。Kerberos 服务默认监听在 UDP/88 和 TCP/88 端口 。</p>
+<ul>
+<li>KDC 分为两个子服务：</li>
+</ul>
+<p><strong>AS (Authentication Service)</strong>：身份验证服务 。</p>
+<p><strong>TGS (Ticket-granting Service)</strong>：票据授予服务 。</p>
+<p><strong>TGT (Ticket-granting Ticket)</strong>：由 AS 签发，用于向 TGS 交换 ST 服务票据，可理解为用户的“临时身份证” 。</p>
+<p><strong>ST (Service Ticket)</strong>：由 TGS 签发，用于访问指定服务，可理解为“临时门票”。在部分文献中也被称为 TGS 票据 。</p>
+<p><strong>PAC (Privilege Account Certificate)</strong>：微软的拓展模块，包含在 Kerberos 票据中的授权数据字段，记录了用户的 SID、GID 等身份权限信息 。</p>
+<h4 id="h-2-kerberos-认证详细流程" class="toc-header"><a class="toc-anchor" href="#h-2-kerberos-认证详细流程">¶</a> 2. Kerberos 认证详细流程</h4>
+<p>Kerberos 认证通常包含以下核心阶段 ：</p>
+<p><strong>第一阶段：AS 认证 (获取 TGT)</strong></p>
+<p><strong>AS_REQ</strong>：当域用户试图访问某服务时，客户端向 AS 发送认证请求。请求内容包含：明文用户名、SPN（指定为 krbtgt），以及由<strong>用户 NTLM Hash 加密的时间戳</strong>（在默认开启预认证的情况下）。</p>
+<ul>
+<li><strong>AS_REP</strong>：AS 收到请求后，获取对应用户的 NTLM Hash 并解密时间戳。若解密成功且时间戳未过期，则预认证通过。随后，AS 返回两部分内容给客户端：</li>
+</ul>
+<ol>
+<li>
+<p><strong>TGT</strong>：由 <strong>krbtgt 账号的 NTLM Hash</strong> 加密，包含 TGS Session Key 和包含用户权限信息的 PAC 。客户端无法解密此部分 。</p>
+</li>
+<li>
+<p>由 <strong>用户 NTLM Hash</strong> 加密的 <code>TGS Session Key</code>（用于下一阶段与 TGS 通信）。</p>
+</li>
+</ol>
+<p><strong>第二阶段：TGS 认证 (获取 ST)</strong></p>
+<ul>
+<li>
+<p><strong>TGS_REQ</strong>：客户端利用自己 Hash 解密获得 TGS Session Key 后，向 TGS 发起请求。请求包含：目标服务的 SPN、由 krbtgt Hash 加密的 TGT，以及用 <strong>TGS Session Key 加密的时间戳</strong> 。</p>
+</li>
+<li>
+<p><strong>TGS_REP</strong>：TGS 接收后，用 krbtgt Hash 解密 TGT 获取 TGS Session Key，再验证时间戳。验证有效后，TGS 返回两部分内容：</p>
+</li>
+</ul>
+<ol>
+<li>
+<p><strong>ST</strong>：由<strong>目标服务账号 (Service owner) 的 NTLM Hash</strong> 加密，包含 Service Session Key 和 PAC 。客户端无法解密此部分 。</p>
+</li>
+<li>
+<p>由 <strong>TGS Session Key</strong> 加密的 <code>Service Session Key</code>（用于下一阶段与 Server 通信）。</p>
+</li>
+</ol>
+<p><strong>第三阶段：AP 认证 (服务访问)</strong></p>
+<p><strong>AP_REQ</strong>：客户端向目标 Server 发送请求，出示 ST，以及用 <strong>Service Session Key 加密的时间戳</strong> 。</p>
+<ul>
+<li>Server 用自身的 NTLM Hash 解密 ST 获得 Service Session Key 和 PAC，再解密验证时间戳 。</li>
+</ul>
+<p><strong>KERB_VERIFY_PAC</strong>（可选）：在开启 PAC 验证的情况下，Server 会将 PAC 签名（krbtgt Hash 签名）通过 Netlogon RPC 协议发送给 DC 验证合法性，DC 返回验证结果 (RPC_STATUS_CODE)。大多数高权限服务不会向 DC 验证 PAC 。</p>
+<p><strong>AP_REP</strong>：Server 读取 PAC 中的身份信息判断访问权限，并向客户端返回结果 。</p>
+<h4 id="h-3-kerberos-相关攻击手法" class="toc-header"><a class="toc-anchor" href="#h-3-kerberos-相关攻击手法">¶</a> 3. Kerberos 相关攻击手法</h4>
+<p>基于 Kerberos 协议的交互机制，红队常用的攻击手法包括：</p>
+<p><strong>Kerbrute (用户名枚举与密码喷洒)</strong></p>
+<ul>
+<li><strong>原理</strong>：利用 <code>AS_REQ</code> 请求包中的明文用户名。若 AS 发现请求的用户名不存在，返回包会有差异，借此可无账户枚举域用户名。此外，可结合字典进行密码验证。</li>
+<li><strong>缺点</strong>：会产生大量 <code>4625 - An account failed to log on</code> (登录失败) 报错日志。</li>
+</ul>
+<p><strong>ASREP Roast</strong></p>
+<ul>
+<li><strong>原理</strong>：若域用户被设置为“不要求 Kerberos 预身份验证 (Do not require Kerberos preauthentication)”，攻击者可以直接伪造该用户发起 <code>AS_REQ</code> 请求。<code>AS_REP</code> 会直接返回由该用户 NTLM Hash 加密的字段。</li>
+<li><strong>利用</strong>：攻击者提取加密数据后，可进行离线暴力破解获取明文密码。</li>
+</ul>
+<p><strong>PTH (Pass The Hash, 哈希传递)</strong></p>
+<ul>
+<li><strong>原理</strong>：认证的本质依赖于 NTLM Hash。攻击者在获取用户 NTLM Hash 后，无需破解出明文即可伪造身份进行横向移动。</li>
+<li><strong>限制</strong>：受 UAC（用户账户控制）和 KB2871997 补丁限制，通常只有本地 Administrator (SID 500) 或加入本地管理员组的域用户才能通过 PTH 实现远程代码执行 (RCE)，普通本地账户无法用于 PSEXEC 或访问 C$。</li>
+</ul>
+<p><strong>PTT (Pass The Ticket, 票据传递)</strong></p>
+<p><img src="/ptt.png" alt="ptt.png"></p>
+<ul>
+<li><strong>原理</strong>：TGT 代表了用户的临时身份凭证。攻击者可以利用工具（如 mimikatz）从内存中直接 Dump 出 TGT 和 TGS Session Key，从而以该用户身份在域内活动。</li>
+</ul>
+<p><strong>Golden Ticket (黄金票据)</strong></p>
+<ul>
+<li><strong>原理</strong>：TGT 是由 <code>krbtgt</code> 账号的 NTLM Hash 加密的。</li>
+<li><strong>利用</strong>：攻击者在打下域控获取 <code>krbtgt</code> Hash 后，可以取代 AS 服务自行签发 TGT，伪造任意域用户身份访问域内任意服务，常作为持久化后门。</li>
+</ul>
+<p><strong>Silver Ticket (白银票据)</strong></p>
+<ul>
+<li><strong>原理</strong>：ST (服务票据) 是由目标服务账号的 NTLM Hash 加密的。</li>
+<li><strong>利用</strong>：攻击者获取某服务账号的 NTLM Hash 后，可取代 TGS 自行签发访问该特定服务的 ST。虽然攻击者没有 krbtgt Hash 导致无法在 ST 中伪造合法的 PAC 签名，但由于大多数高权限服务不会主动向 DC 验证 PAC，白银票据仍然有效。</li>
+</ul>
+<p><strong>Kerberoasting</strong></p>
+<ul>
+<li><strong>原理</strong>：任意域用户均可查询域内 SPN 并向服务发起 TGS 请求。<code>TGS_REP</code> 会返回由服务账号 NTLM Hash 加密的 ST。</li>
+<li><strong>利用</strong>：如果该服务注册在普通的域用户账号下（注意：机器账号的 NTLM Hash 是随机生成且无法爆破的），攻击者导出 ST 票据后，可在本地离线暴力破解出该高权限域用户的明文密码。</li>
+</ul>
+<h3 id="part-3kerberos-委派与提权" class="toc-header"><a class="toc-anchor" href="#part-3kerberos-委派与提权">¶</a> Part 3：Kerberos 委派与提权</h3>
+<h4 id="h-1-kerberos-委派机制-delegation" class="toc-header"><a class="toc-anchor" href="#h-1-kerberos-委派机制-delegation">¶</a> 1. Kerberos 委派机制 (Delegation)</h4>
+<p>委派是指将域内用户的权限委派给服务账号，使得服务账号能以该用户权限开展域内活动 。Kerberos 委派主要分为三种类型：无约束委派、约束委派和基于资源的约束委派 。</p>
+<p><strong>无约束委派 (Unconstrained Delegation)</strong></p>
+<p><img src="/undele.png" alt="undele.png"></p>
+<ul>
+<li>
+<p><strong>原理</strong>：当域用户访问配置了无约束委派的服务时，用户会在访问该服务的 ST（服务票据）中包含可转发的 TGT 。该服务会缓存用户的 TGT，并能以该用户的身份申请新的 ST 去访问其他服务 。例如，用户访问服务 A 并主动发送可转发的 TGT，服务 A 将该 TGT 转发给 KDC 换取访问服务 B 的 ST，随后以用户身份访问服务 B 。</p>
+</li>
+<li>
+<p><strong>配置与利用</strong>：只有域管理员（Domain Admins）能够配置账号的无约束委派 。当攻击者在域内拿下配置了无约束委派的主机后，可以导出已缓存的票据 。如果存在其他用户的 TGT，即可通过 PTT (Pass The Ticket) 获取该用户权限 。攻击者也可以诱导其他域用户（如利用 PrintSpooler 漏洞）访问当前主机以获取其 TGT 。</p>
+</li>
+<li>
+<p><strong>约束委派 (Constrained Delegation)</strong><br>
+由于非约束委派存在安全隐患，微软在 Windows Server 2003 中引入了约束委派，并对 Kerberos 协议进行了拓展，引入了 S4U (Service for User) 协议，包含两个子协议 ：</p>
+</li>
+</ul>
+<p><img src="/s4u2.png" alt="s4u2.png"></p>
+<ul>
+<li>
+<p><strong>S4U2Self (Service for User to Self)</strong>：允许服务向 KDC 申请一张以任意用户身份访问自身服务的 ST 票据 。服务向 KDC 提供域用户的 name/realm，即可获得包含该用户认证信息的 ST 票据 。此协议常用于协议转换（如 HTTP NTLM 认证转换为 Kerberos 认证） 。如果服务账号设置了 <code>TrustedToAuthForDelegation</code>，通过 S4U2Self 签发的 ST 票据则是可转发的 (forwardable) 。</p>
+</li>
+<li>
+<p><strong>S4U2Proxy (Service for User to Proxy)</strong>：服务可使用用户访问自身服务的可转发 ST 票据，向 KDC 申请访问其他目标服务的 ST 票据 。目标服务受到 <code>msDS-AllowedToDelegateTo</code> 属性的严格限制 。</p>
+</li>
+<li>
+<p><strong>配置与利用</strong>：通常只有拥有 <code>SeEnableDelegation</code> 权限（如域管）的账户才能配置 <code>msDS-AllowedToDelegateTo</code> 属性 。当攻击者拿下配置了约束委派的服务账号后，可模拟域管身份通过 S4U2Self 发起对自身服务的请求，获得可转发的 ST，再利用 S4U2Proxy 申请访问受约束目标服务的票据，从而以域管身份访问该目标服务 。</p>
+</li>
+</ul>
+<p><strong>基于资源的约束委派 (Resource-based Constrained Delegation, RBCD)</strong></p>
+<p><img src="/resourcebase.png" alt="resourcebase.png"></p>
+<ul>
+<li>
+<p><strong>原理</strong>：传统的约束委派是正向的（服务 A 属性指向服务 B 的 SPN），而 RBCD 是反向的，即在目标服务账号 B 的 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 属性中设置允许服务 A 的 SID 代表用户访问自身 。</p>
+</li>
+<li>
+<p><strong>特性</strong>：在 RBCD 中，无论 S4U2Self 返回的 ST 票据是否可转发（即不需要 <code>TrustedToAuthForDelegation</code> 权限），S4U2Proxy 请求都将成功（敏感/受保护用户除外） 。</p>
+</li>
+<li>
+<p><strong>配置与利用</strong>：除了域管理员外，将机器加入域的账户 (<code>mS-DS-CreatorSID</code>)、机器账户本身 (<code>NT AUTHORITY\SELF</code>)，或对目标账户拥有 <code>GenericAll</code>、<code>GenericWrite</code>、<code>WriteProperty</code>、<code>WriteDacl</code> 权限的账户均可修改此属性 。</p>
+</li>
+<li>
+<p><strong>攻击场景 (Windows Server 2012+ DC)</strong>：当攻击者有权限修改目标机器账号属性时，可将 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 指向攻击者自己创建的服务账号（域用户可创建机器账号），随后通过 RBCD 方式以域管身份访问目标服务。在实战中，能修改该属性往往等同于实现了 RCE 。</p>
+</li>
+</ul>
+<h4 id="h-2-shadow-credentials-影子凭据" class="toc-header"><a class="toc-anchor" href="#h-2-shadow-credentials-影子凭据">¶</a> 2. Shadow Credentials (影子凭据)</h4>
+<p>这是在 Windows Server 2016 及更高版本 DC 中另一种利用“修改属性实现 RCE”的高级手法 。</p>
+<ul>
+<li>
+<p><strong>背景</strong>：Windows Server 2016 引入了 PKINIT（Public Key Cryptography for Initial Authentication），允许在 Kerberos AS_REQ 预认证中使用非对称加密（证书信任或密钥信任），主要用于指纹或人脸解锁等无密码场景 。</p>
+</li>
+<li>
+<p><strong>原理</strong>：攻击者若有权限修改目标账号的属性，即可向目标账号的 <code>msDS-KeyCredentialLink</code> 属性中写入自己生成的公钥 。随后，攻击者使用对应的私钥成功进行 PKINIT 认证，获取目标账号的 TGT 。</p>
+</li>
+<li>
+<p><strong>延伸利用 (Kerberos U2U)</strong>：攻击者在获取 TGT 后，还可使用 PKINIT 进行一次 Kerberos U2U（User to User）认证，获取一张特殊的访问自身的 ST 票据 。该票据允许用户自行解密，从而直接提取 PAC 中包含的目标用户 NTLM Hash 。此技术常被用于 ACL Abuse 导致的域内横向移动 。相关自动化利用工具包括 Whisker 。</p>
+</li>
+</ul>
+<h4 id="h-3-烂番茄与本地特权提升-potato-家族" class="toc-header"><a class="toc-anchor" href="#h-3-烂番茄与本地特权提升-potato-家族">¶</a> 3. 烂番茄与本地特权提升 (Potato 家族)</h4>
+<p>在域环境中，低权限服务账号（如 <code>NT AUTHORITY\Network Service</code>、<code>IIS AppPool</code>）不仅具备低本地权限，在网络层面也是以机器账户身份出网的 。</p>
+<ul>
+<li>
+<p><strong>提权原理</strong>：Windows 的 token 是描述安全上下文的对象 。本地服务账号默认拥有 <code>SeImpersonatePrivilege</code> 特权，允许调用 <code>CreateProcessWithTokenW</code> 等 API 以特定 token 权限启动新进程 。这并非漏洞，而是微软为了让高权限服务端模拟低权限客户端执行操作所设计的系统特性 (Feature) 。</p>
+</li>
+<li>
+<p><strong>Potato 攻击机制</strong>：核心思路是通过各种特性或系统机制，诱导高权限系统服务（SYSTEM）向攻击者监听的端口发起网络请求，进而窃取高权限 token 。</p>
+</li>
+<li>
+<p><strong>典型案例 (The Printer Bug)</strong>：</p>
+</li>
+<li>
+<p>打印机服务 (Printer Spooler Service) 在系统中默认开启 。该服务公开了 API 接口 <code>RpcRemoteFindFirstPrinterChangeNotificationEx</code>，其参数 <code>pszLocalMachine</code> 允许传递 UNC 路径 。</p>
+</li>
+<li>
+<p>攻击者可利用系统路径检查的逻辑缺陷，向该参数传递类似 <code>\\127.0.0.1/pipe/foo</code> 的恶意命名管道 (named pipe) 地址 。</p>
+</li>
+<li>
+<p>这将强制受害者机器以 SYSTEM 权限向攻击者可控的管道发起 SMB 连接 。攻击者借此窃取 SYSTEM 权限的 token 完成本地提权 。</p>
+</li>
+<li>
+<p>此外，攻击者也可利用 SYSTEM 权限出网请求默认使用机器账号身份的特性，结合 NTLM Relay 技术攻击 Exchange 等内网核心设施 。</p>
+</li>
+</ul>
+</div></template><template slot="comments"><div><comments></comments></div></template></page></div></body></html>
