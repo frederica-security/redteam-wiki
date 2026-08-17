@@ -31,3 +31,87 @@ author: "bunny"
 ### ScriptKid的自我修养 {#scriptkid的自我修养}
 
 很显然，光是了解漏洞从何而来，而不知如何利用，是不够的。<br> 由于本wiki仅分享知识的基本宗旨，本页面不会提供可在真实场景直接使用的代码。但是，这不妨碍引用一些在互联网上知名的公开站点的资料。其中有些资料甚至被集成在Kali Linux之类的渗透发行版之中。<br> 最知名的站点当属github了。有时候找到某个系统疑似是旧版，于是使用Google搜索XX系统XX版本漏洞，或者搜索CVE编号，就能找到热心网友发布在github上的exp。<br> 其次是exploit-db，它同时也作为searchsploit工具被集成在Kali Linux中。可以方便地搜索漏洞信息。<br> 然后是各种集成工具，例如MetasploitFramework（MSF），其内置了大量exp。github也能找到许多针对特定场景的利用工具，实际上也是exp集合，例如针对部分常见OA系统等专门渗透场景的工具。
+
+
+## 如何编写批量web漏洞POC模板 {#如何编写批量web漏洞POC模板}
+
+于上述章节中我们了解了什么是Nday，由此可见Nday因其时效性与危害性，使其在实际攻防与安全运营工作中通常作为作为重点排查项，近几年由于AI挖洞产出的效率直线上涨，监管单位组织的相关战役如“一高一弱”等频率也越来越高，那这就间接督促相关安全（运维/运营/辖区监管/企业安全部）从业者拿到1day或Nday的情报（如请求包、源码中的漏洞点位）后，通常需要第一时间自己挖掘对应漏洞并编写批量扫描POC，对工作范围内资产快速排查隐患。
+
+早些年时候写poc大部分都是用py或者go，通常根据自己习惯提前写好一个相对通用的请求模板，然后再根据漏洞请求逐一修改模板，后续由于出现了像 `Nuclei` 这种快速标准化漏洞验证工具，此类工具仅需要提供流式的请求与条件匹配即可，此时编写web漏洞模板不需要再考虑代码的实现部分。由于每个漏洞模板都是yaml文件，因此也就间接使得漏洞管理更标准化，那后续出现的像 [`Faraday`](https://github.com/infobyte/faraday) 等漏洞资产管理平台通常都内部集成或支持外接 `nuclei`。
+
+*注1：极个别情况下还是需要编写使用脚本，如vite的cve其中一个lfi变种需要用不被url编码情况下的 `../../` 就需要用到py的 `io.socket` 来发包，因为nuclei会自动编码掉。*
+
+*注2：faraday平台集成的nuclei版本较老，在很长一段时间只支持老版本nuclei语法，编写时候需要注意*
+
+### 挑选合适的扫描工具 {#挑选合适的扫描工具}
+
+在编写扫描批量POC模板前要先选择一款适合自己的扫描工具，这里简单列举了几款常用工具：
+
+1.[Nuclei](https://github.com/projectdiscovery/nuclei)
+
+模板采用 `YAML` 格式，`Nuclei` 自始至终都是占比最高的一款漏洞模板扫描工具，由 [projectdiscovery](https://projectdiscovery.io/) 开发维护，不论是模板兼容性还是提供的函数都相对丰富，如今顺应时代提供了[web与ai协助编写模板](https://cloud.projectdiscovery.io/)，大幅提升了产出效率，**要注意**由于其使用 `httpx` 做资产存活检测，在导入扫描资产时个人建议提供写明 `http/https`协议头（如：`https://localhost.com`），尽量避免直接使用 `localhost.com:8443` 省去其识别协议的时间。
+
+2.[XPOC](https://github.com/chaitin/xpoc)
+
+模板采用 `YAML` 格式，由长亭的 `CT stack` 团队开发维护，是从xray项目拆出来的，可惜的是 `XPOC` 已经很久没有更新了，且 `0.1.0` 在实际体验中存在一定问题（个人还是推荐 `0.0.8` 版本），还会再某些特定包含特殊转义符号的body时导致模板格式问题，但由于该工具较早的提供了[web端模板编辑器](https://poc.xray.cool/) 一定程度上提升了POC模板的编写效率，以及也提供了相对规整的 [模板函数](https://docs.xray.cool/plugins/yaml/YAMLTypeFunc) and老版本的XPOC扫描存活资产效率较高，再一个支持html的报告导出，所以这里还是推荐编写简易模板时学习使用。
+
+### 编写自己的第一个POC扫描模板 {#编写自己的第一个POC扫描模板}
+
+此前我们在编写复杂模板时需要翻阅[nuclei模板文档](https://docs.projectdiscovery.io/templates/introduction)，但如今Nuclei项目方接入了ai辅助，使得当前模板编写变得非常容易，仅需要登录 [`https://cloud.projectdiscovery.io/`](https://cloud.projectdiscovery.io/) ，把自己每一步的请求包与要匹配的特征字段告知ai，接下来仅需微调即可，比如下面这个是我构建的一个LFI请求包。
+
+```http
+POST /test-api/file/queryfile?filename=etc/password HTTP/1.1
+Host: localhost:8000
+User-Agent: curl/8.19.0
+Accept: */*
+Content-Type: application/json
+Content-Length: 32
+Connection: keep-alive
+
+{"dirname":"../../../../../../"}
+```
+
+在web端和ai对话如下
+
+```
+帮我编写模板，我的请求时POST /test-api/file/queryfile?filename=etc/password HTTP/1.1 Host: localhost:8000 User-Agent: curl/8.19.0 Accept: */* Content-Type: application/json Content-Length: 32 Connection: keep-alive {"dirname":"../../../../../../"}，预期符合漏洞匹配的返回为passwd内容
+```
+
+其返回模板如下
+
+```yaml
+id: directory-traversal-queryfile
+
+info:
+  name: Directory Traversal via Query File
+  author: ProjectDiscoveryAI
+  severity: high
+  description: |
+    This template checks for a directory traversal vulnerability in the `/test-api/file/queryfile` endpoint, where a crafted `dirname` parameter can lead to leakage of sensitive files such as `/etc/passwd`.
+  tags: directory-traversal
+
+http:
+  - raw:
+      - |
+        POST /test-api/file/queryfile?filename=etc/passwd HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: curl/8.19.0
+        Accept: */*
+        Content-Type: application/json
+        Content-Length: 32
+        Connection: keep-alive
+
+        {"dirname":"../../../../../../"}
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "root:x:0:0:" # Typical content in /etc/passwd for root user
+          - "/bin/bash" # Typical shell entry in /etc/passwd files
+      - type: status
+        status:
+          - 200
+```
+
+相信大部分其实没有文档也能看懂，当然还是建议自己多动手改改，因为ai也有概率抽风。
