@@ -115,3 +115,158 @@ http:
 ```
 
 相信大部分其实没有文档也能看懂，当然还是建议自己多动手改改，因为ai也有概率抽风。
+
+## 如何正确认识1day风险 {#如何正确认识1day风险}
+
+我们在之前了解到了Nday与1day，也了解了两者的风险差异是时效拉开的，在通常企业场景下我们需要接到一个较新的漏洞情报时，情报中只会对漏洞简单介绍几句成因与建议更新到某版本，后续it团队排查下企业内对应资产是否在对应漏洞版本范围内，有就升级无则忽略。
+
+但对于一些安全从业者而言，通常会在风险披露之后，攻击者大规模利用之前，需要复现出完整的漏洞链条，并评估漏洞在实际情况下被利用会造成最严重的影响范围。
+
+*极个别官方停止维护的项目在被披露漏洞后需要相关安全或开发团队自己复现并patch*
+
+### CVE-2026-59774
+
+这里以 `gitea` 的 [`CVE-2026-59774`](https://thehackernews.com/2026/08/critical-gitea-flaw-let-unauthenticated.html) 为例，该漏洞于 [2026年8月5日被披露](https://github.com/go-gitea/gitea/security/advisories/GHSA-6v53-hr58-556r)，在漏洞公告中有阐述该漏洞性质:
+
+
+>未经身份验证的远程攻击者可以
+向任何合适的公共仓库发送 `POST /{owner}/{repo}/markup` 请求，其中包含 `#+INCLUDE` 指令的Org 模式标记
+，从而读取任意服务器文件。通过从 app.ini 中提取 INTERNAL_TOKEN
+，攻击者可以利用内部日志记录器注入 Git 钩子，并
+在匿名克隆期间以 Gitea 操作系统用户的身份执行命令。
+>
+>Gitea 注册时`POST /{username}/{reponame}/markup`可以选择登录、
+分配仓库以及进行仓库单元读取器检查。匿名用户
+可以通过此检查访问具有普通可读代码单元的公共仓库。
+处理程序会将提供的Mode、Text和FilePath传递给 Gitea 的
+通用标记渲染器。选择Mode: file和.org文件名会选择
+Org 模式渲染器。
+>
+>`Gitea 1.27.0go-org` 使用`gitea` 进行初始化org.New()，但不会替换其
+默认ReadFile回调函数。在go-org1.9.1 版本中，该回调函数已更新`ioutil.ReadFile`；
+`#+INCLUDE` 它接受绝对路径并将其直接传递给该回调函数。
+
+从描述中可以看出是一个lfi导致的rce，并且漏洞详情中对于lfi部分已经写得极为详细，但在漏洞披露半天之后也没有poc被公开，那这就是一个比较典的1day，这里lfi的实现非常简单，
+
+根据介绍找到了漏洞发生点 https://github.com/niklasfasching/go-org/blob/v1.9.1/org/keyword.go#L158
+
+```go
+func (d *Document) parseInclude(k Keyword) (int, Node) {
+	resolve := func() Node {
+		d.Log.Printf("Bad include %#v", k)
+		return k
+	}
+	if m := includeFileRegexp.FindStringSubmatch(k.Value); m != nil {
+		path, kind, lang := m[1], m[2], m[3]
+		if !filepath.IsAbs(path) {
+			path = filepath.Join(filepath.Dir(d.Path), path)
+		}
+		resolve = func() Node {
+			bs, err := d.ReadFile(path)
+			if err != nil {
+				d.Log.Printf("Bad include %#v: %s", k, err)
+				return k
+			}
+			return Block{strings.ToUpper(kind), []string{lang}, d.parseRawInline(string(bs)), nil}
+		}
+	}
+	return 1, Include{k, resolve}
+}
+```
+
+在请求进入 `parseInclude` 之后还需要构造一个满足正则的请求即可走至 `d.ReadFile(path)`，正则如下
+
+```go
+var includeFileRegexp = regexp.MustCompile(`(?i)^"([^"]+)" (src|example|export) (\w+)$`)
+```
+
+所以poc部分的请求如下即可实现lfi。
+
+```
+"Text": "#+INCLUDE: \"/etc/passwd\" src 123\n",
+```
+
+目前找到了lfi的根因，那我们还记得这是一个rce漏洞，还需要找到rce是如何触发的。我们再次回顾漏洞介绍中对RCE部分的描述。 
+
+```
+通过从 app.ini 中提取 INTERNAL_TOKEN，攻击者可以利用内部日志记录器注入 Git 钩子，并
+在匿名克隆期间以 Gitea 操作系统用户的身份执行命令。
+```
+
+显然可以通过读取app.ini中的 `INTERNAL_TOKEN` 后，找到**某种写执行+匿名clone**来构成整个rce。我们的线索就是这些，我们需要自己去找 `INTERNAL_TOKEN` 能够调用的接口都有哪些。
+
+通过关键字我们可以看到 https://github.com/go-gitea/gitea/blob/main/routers/private/internal.go#L24
+
+其中的 `authInternal` 函数校验了 `Header` 中的 `INTERNAL_TOKEN` 字段。
+
+```go
+func authInternal(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		if setting.InternalToken == "" {
+			log.Warn(`The INTERNAL_TOKEN setting is missing from the configuration file: %q, internal API can't work.`, setting.CustomConf)
+			http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+			return
+		}
+```
+
+以及我们在该 `internal.go` 后半段 https://github.com/go-gitea/gitea/blob/main/routers/private/internal.go#L67C1-L67C10 部分会发现有大量的鉴权后路由。
+
+```go
+...
+	r.Get("/dummy", misc.DummyOK)
+	r.Post("/ssh/authorized_keys", AuthorizedPublicKeyByContent)
+	r.Post("/ssh/{id}/update/{repoid}", UpdatePublicKeyInRepo)
+	r.Post("/ssh/log", bind(private.SSHLogOption{}), SSHLog)
+	r.Post("/hook/pre-receive/{owner}/{repo}", RepoAssignment, bind(private.HookOptions{}), HookPreReceive)
+	r.Post("/hook/post-receive/{owner}/{repo}", context.OverrideContext(), bind(private.HookOptions{}), HookPostReceive)
+	r.Post("/hook/proc-receive/{owner}/{repo}", context.OverrideContext(), RepoAssignment, bind(private.HookOptions{}), HookProcReceive)
+	r.Post("/hook/set-default-branch/{owner}/{repo}/{branch}", RepoAssignment, SetDefaultBranch)
+...
+```
+
+在翻阅每个接口与其调用的函数后，我们会找到引用了 `AddLogger` 函数的 `/manager/add-logger` 接口 https://github.com/go-gitea/gitea/blob/main/routers/private/manager.go#L104 ，该接口在 `writerType` 为 `file` 的情况下，定义 `Filename` 参数即为目标写入文件路径，**最终如果目标文件名已经存在则追加写入，如果不存在则创建文件写入**，这里后续写入链条就不标出了。
+
+```go
+func AddLogger(ctx *context.PrivateContext) {
+	opts := web.GetForm[*private.LoggerOptions](ctx)
+
+	if len(opts.Logger) == 0 {
+		opts.Logger = log.DEFAULT
+	}
+
+	writerMode := log.WriterMode{}
+	writerType := opts.Mode
+...
+	case "console":
+		writerOption := log.WriterConsoleOption{}
+		writerOption.Stderr, _ = opts.Config["stderr"].(bool)
+		writerMode.WriterOption = writerOption
+	case "file":
+		writerOption := log.WriterFileOption{}
+		fileName, _ := opts.Config["filename"].(string)
+		writerOption.FileName = setting.LogPrepareFilenameForWriter(fileName, opts.Writer+".log")
+		writerOption.LogRotate, _ = opts.Config["rotate"].(bool)
+		maxSizeShift, _ := opts.Config["maxsize"].(int)
+		if maxSizeShift == 0 {
+			maxSizeShift = 28
+		}
+...
+	writer, err := log.NewEventWriter(opts.Writer, writerType, writerMode)
+...
+	log.GetManager().GetLogger(opts.Logger).AddWriters(writer)
+....
+```
+
+那现在我们拿到了一个任意写入的原语，接下来问题就是 *再哪里写入什么能够让匿名clone可以触发rce* 这里就需要开动脑筋了，匿名clone会经过什么或者触发什么。
+
+这里可以参考文档:
+
+>https://git-scm.com/docs/http-protocol#_smart_service_git_upload_pack
+
+这里匿名clone时候会触发服务端侧的 `git-upload-pack` ，找到触发时候会对其造成影响的配置，这里我找到了 `~/.gitconfig` 字段的 [`uploadpack.packObjectsHook`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-uploadpackpackObjectsHook) 可以被利用 ，由于`git-upload-pack`进程需要运行 `git pack-objects` 给客户端动态打包，此时 `uploadpack.packObjectsHook` 如果被定义则会作为shell命令直接执行。
+
+那最终我们只需要利用 `AddLogger` 对 `~/.gitconfig` 写入 `uploadpack.packObjectsHook` 字段与命令即可实现匿名Clone的rce。
+
+以上整个流程就是一个比较简单的1day由lfi提升至rce的挖掘流程，可以想象如果一个企业的安全团队如果只觉得这是个lfi漏洞，忽略了其rce属性，导致在风险优先级上没有将其重视起来，最终会带来不小损失。
+
+那在此类漏洞挖掘过程中，我们也要多翻文档和相关介绍，更全面的了解一个漏洞所属的组件和环境才能更准确的评估出其真正的攻击面。
